@@ -35,7 +35,7 @@ Se modela el dominio de HuellaVet (Propietario, Mascota, Veterinario, Cita, Cons
 ### 3.1 Tabla guía
 
 |  |  |
-|----|----|
+|------------------------------------|------------------------------------|
 | **ID** | **Resultado esperado (descompone OBJ-SNN)** |
 | R-S04-01 | Problema, actores y requisitos del dominio identificados y documentados. |
 | R-S04-02 | Modelo de dominio definido (entidades, relaciones, agregados) y diagramado. |
@@ -47,13 +47,17 @@ Se modela el dominio de HuellaVet (Propietario, Mascota, Veterinario, Cita, Cons
 ### 3.2 Tabla proyecto
 
 | ID | Resultado esperado (descompone OBJ-S04) |
-|----|----|
+|------------------------------------|------------------------------------|
 | R-S04-01 | Problema, actores (Propietario, Mascota, Veterinario, Recepción, Farmacia, Auditor Clínico) y requisitos del dominio de HuellaVet identificados y documentados. |
 | R-S04-02 | Modelo de dominio definido (entidades: Propietario, Mascota, Veterinario, Cita, Consulta, Vacuna, LoteVacuna, AplicacionVacuna, Receta, Pago; relaciones y agregados) y diagramado. |
 | R-S04-03 | Arquitectura por capas definida (presentation, application, domain, infrastructure), incluyendo el RBAC transversal de 5 roles. |
 | R-S04-04 | Contratos (DTO/API) iniciales definidos y documentados para citas, consultas, vacunaciones e historia clínica. |
 | R-S04-05 | Base del backend NestJS creada: config, common, database, logging, health, Swagger. |
 | R-S04-06 | SDD (docs/sdd.md) y Kanban (docs/kanban.md) del proyecto HuellaVet actualizados. |
+
+### 3.3 Diagrama del modelo de dominio
+
+![](evidencias/evi-s04-02.png)
 
 ## 4. SPEC semanal — SPEC-S04 y requisitos (Momento 2 · Especificación SDD)
 
@@ -62,7 +66,7 @@ Se modela el dominio de HuellaVet (Propietario, Mascota, Veterinario, Cita, Cons
 **Requisitos derivados:**
 
 | ID | Requisito |
-|----|----|
+|------------------------------------|------------------------------------|
 | REQ-S04-01 | Problema, actores y requisitos del dominio HuellaVet documentados (docs/sdd.md). |
 | REQ-S04-02 | Modelo de dominio con entidades y relaciones de HuellaVet definido y diagramado. |
 | REQ-S04-03 | Arquitectura por capas definida y explicada (presentation/application/domain/infrastructure), con el RBAC de 5 roles ubicado en la capa correspondiente. |
@@ -73,7 +77,7 @@ Se modela el dominio de HuellaVet (Propietario, Mascota, Veterinario, Cita, Cons
 ## 5. Criterios de aceptación y evidencia esperada (Momento 2 · Especificación SDD)
 
 | ID | Criterio de aceptación | Evidencia |
-|----|----|----|
+|------------------------|------------------------|------------------------|
 | AC-S04-01 | Documento con problema, actores y requisitos del dominio HuellaVet. | EVI-S04-01 (docs/sdd.md) |
 | AC-S04-02 | Diagrama del modelo de dominio (10 entidades, relaciones, agregado). | EVI-S04-02 (diagrama) |
 | AC-S04-03 | Diagrama de arquitectura por capas con responsabilidades. | EVI-S04-03 (diagrama) |

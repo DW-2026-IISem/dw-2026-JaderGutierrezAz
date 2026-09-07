@@ -3,7 +3,7 @@
 ## 7. Issues de la semana — Momento 3 · Organización Kanban
 
 | Issue | Descripción | REQ | DoR (entrada) | DoD (salida) |
-|---------------|---------------|---------------|---------------|---------------|
+|----|----|----|----|----|
 | #01 | Documentar problema, actores (Propietario, Mascota, Veterinario, Recepción, Farmacia, Auditor Clínico) y requisitos del dominio HuellaVet | REQ-S04-01 | Proyecto asignado (S01) | docs/sdd.md con dominio |
 | #02 | Modelar dominio: 10 entidades (Propietario, Mascota, Veterinario, Cita, Consulta, Vacuna, LoteVacuna, AplicacionVacuna, Receta, Pago), relaciones y agregado | REQ-S04-02 | Requisitos definidos (#01) | Diagrama de dominio |
 | #03 | Definir arquitectura por capas (incluye ubicación del RBAC de 5 roles) | REQ-S04-03 | Modelo de dominio (#02) | Diagrama de arquitectura |
@@ -18,7 +18,7 @@
 **Bloqueos / riesgos principales y plan alterno:**
 
 | Bloqueo / riesgo | Plan alterno |
-|------------------------------------|------------------------------------|
+|----|----|
 | No se comprende bien el dominio clínico veterinario (historia cronológica, inalterabilidad de datos sensibles, RBAC de 5 roles) | Releer la narrativa del proyecto y resolver dudas con el docente/IA al inicio |
 | Base de código previa inexistente | Definir primero arquitectura y contratos antes de implementar |
 | NestJS no arranca por configuraciones | Verificar Node/npm, dependencias y documentar en bitácora (docs/proceso.md) |
@@ -29,7 +29,7 @@
 **Política del tablero:** WIP = 1 por estudiante: solo una Issue en «En desarrollo». «Bloqueado» es un indicador visible sobre una tarjeta, no una columna.
 
 | Columna | Significado | Política de entrada / salida |
-|------------------------|------------------------|------------------------|
+|----|----|----|
 | Por especificar | Necesidad vinculada a un resultado de aprendizaje | Sale al completar la especificación SDD |
 | Especificada | OBJ/SPEC/REQ/AC y fuentes definidos | Sale con aprobación docente (DoR) para iniciar |
 | En desarrollo | Unidad de trabajo dentro del WIP acordado | Sale con cambio versionado, prueba y evidencia |
@@ -40,7 +40,7 @@
 **Estado inicial del tablero (antes de clase):**
 
 | Issue | Columna inicial | Responsable | Bloqueado | Motivo / acción |
-|---------------|---------------|---------------|---------------|---------------|
+|----|----|----|----|----|
 | #01 | Especificada | estudiante-proyecto12 (JaderGutierrezAz) | No | Proyecto asignado (S01) |
 | #02 | Especificada | estudiante-proyecto12 (JaderGutierrezAz) | No | Depende de #01 |
 | #03 | Por especificar | estudiante-proyecto12 (JaderGutierrezAz) | No | Depende de #02 |
