@@ -239,3 +239,15 @@ mkdir -p src/config/database cat > src/config/database/database.module.ts <<'EOF
 ```
 
 ![](images/clipboard-4223250107.png)
+
+#### 5.5 — database.providers.ts
+
+Placeholder de providers de config/database.
+
+**Archivo:** `src/config/database/database.providers.ts`
+
+``` bash
+mkdir -p src/config/database cat > src/config/database/database.providers.ts <<'EOF_BACKEND_IA' export const DATABASE_PROVIDERS = []; EOF_BACKEND_IA
+```
+
+![](images/clipboard-4194213755.png)
