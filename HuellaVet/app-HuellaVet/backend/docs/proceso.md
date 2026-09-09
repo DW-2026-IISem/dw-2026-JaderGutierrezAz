@@ -16,3 +16,14 @@ chmod -R 777 /lab-lab-academia/proyects/dw/HuellaVet/app-HuellaVet
 ![](images/clipboard-4040100345.png)
 
 ![](images/clipboard-945224081.png)
+
+#### 1.2 — Instalar Nest CLI (si no existe)
+
+``` bash
+npm install -g @nestjs/cli
+nest --version
+```
+
+![](images/clipboard-1306085809.png)
+
+![](images/clipboard-3621085646.png)
