@@ -151,3 +151,13 @@ cp .env.example .env # Laboratorio: DB_DIALECT + un bloque por motor (MYSQL/POST
 ```
 
 ![](images/clipboard-3894022703.png)
+
+#### 4.2 — Interface de entorno
+
+**Archivo:** `src/config/environment/env.interface.ts`
+
+``` bash
+mkdir -p src/config/environment cat > src/config/environment/env.interface.ts <<'EOF_BACKEND_IA' export enum Environment {   Development = 'development',   Production = 'production',   Test = 'test', }  export enum DatabaseDialect {   MySQL = 'mysql',   Postgres = 'postgres',   MSSQL = 'mssql',   Oracle = 'oracle', }  export interface AppConfig {   port: number;   nodeEnv: Environment; }  export interface DatabaseConfig {   dialect: DatabaseDialect;   host: string;   port: number;   username: string;   password: string;   database: string;   connectString?: string; }  export interface JwtConfig {   secret: string;   expiresIn: string;   refreshSecret: string;   refreshExpiresIn: string; }  export interface EnvironmentConfig {   app: AppConfig;   database: DatabaseConfig;   jwt: JwtConfig; } EOF_BACKEND_IA
+```
+
+![](images/clipboard-170166752.png)
