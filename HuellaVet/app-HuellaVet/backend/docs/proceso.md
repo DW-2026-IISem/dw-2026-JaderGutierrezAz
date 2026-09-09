@@ -2,7 +2,7 @@
 
 ## FASE 1 **— `00_BASE_INIT_NESTJS`**
 
-### Inicialización del proyecto 
+### Inicialización del proyecto
 
 #### 1.1 — Crear carpetas padre y permisos
 
@@ -27,3 +27,24 @@ nest --version
 ![](images/clipboard-1306085809.png)
 
 ![](images/clipboard-3621085646.png)
+
+#### 1.3 — Crear proyecto NestJS
+
+``` bash
+cd /home/portatiljq/apps/dlloweb/nestjs/express_sequelize 
+nest new backend_ia 
+cd backend_ia
+```
+
+![](images/clipboard-4160929030.png)
+
+#### 1.4 — Crear `.env` mínimo (puerto)
+
+``` bash
+cat > .env <<'EOF' 
+PORT=3000
+NODE_ENV=development 
+EOF
+```
+
+![](images/clipboard-18613812.png)
