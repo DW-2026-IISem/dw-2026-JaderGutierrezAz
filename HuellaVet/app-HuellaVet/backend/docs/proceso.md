@@ -74,3 +74,11 @@ npm install @nestjs/config @nestjs/swagger @nestjs/jwt @nestjs/passport @nestjs/
 ```
 
 ![](images/clipboard-3079528696.png)
+
+#### 2.2 — Dependencias de desarrollo
+
+``` bash
+npm install -D @types/bcrypt @types/passport-jwt sequelize-cli
+```
+
+![](images/clipboard-2519089545.png)
