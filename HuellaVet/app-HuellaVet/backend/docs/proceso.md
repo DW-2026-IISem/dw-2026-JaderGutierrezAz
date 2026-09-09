@@ -108,3 +108,15 @@ npm run start:dev # Ctrl+C cuando veas el log de arranque curl -s http://localho
 ```
 
 ![](images/clipboard-1171960146.png)
+
+## FASE 3 — `02_BASE_ESTRUCTURA_CA`
+
+#### 3.1 — Crear árbol base de carpetas
+
+Aún no hay código de dominio. Solo directorios y módulos vacíos de features para anclar imports futuros.
+
+``` bash
+mkdir -p src/config/{app,database,environment,jwt,logger,swagger} mkdir -p src/common/{constants,decorators,enums,exceptions,filters,guards,interceptors,interfaces,pipes,types,utils,validators} mkdir -p src/infrastructure/database/{sequelize,migrations,seeders} mkdir -p src/infrastructure/{logging,security/hashing,security/tokens} mkdir -p src/features/business/{clients,product-types,products,sales}/{application/{dto,mappers,use-cases},domain/{entities,enums,exceptions,interfaces,services,validators},infrastructure/persistence/{models,repositories,migrations,seeders},presentation/http/{controllers,decorators,serializers,swagger},tests} mkdir -p src/features/auth/{users,roles,role-users,resources,resource-roles,refresh-tokens}/{application/{dto,mappers,use-cases},domain/{entities,enums,exceptions,interfaces,services,validators},infrastructure/persistence/{models,repositories,migrations,seeders},presentation/http/{controllers,decorators,serializers,swagger},tests} mkdir -p src/features/auth/authentication/{application/{dto,mappers,use-cases},domain/{entities,enums,exceptions,interfaces,services,validators},infrastructure/{jwt,password},presentation/http/{controllers,decorators,serializers,swagger},tests} mkdir -p src/features/auth/infrastructure/database cat > src/features/business/business.module.ts <<'EOF_BACKEND_IA' import { Module } from '@nestjs/common';  @Module({   imports: [],   exports: [], }) export class BusinessModule {} EOF_BACKEND_IA cat > src/features/auth/auth.module.ts <<'EOF_BACKEND_IA' import { Module } from '@nestjs/common';  @Module({   imports: [],   exports: [], }) export class AuthModule {} EOF_BACKEND_IA
+```
+
+![](images/clipboard-190142239.png)
