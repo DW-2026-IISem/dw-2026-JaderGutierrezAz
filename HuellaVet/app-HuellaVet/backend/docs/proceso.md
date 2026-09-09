@@ -209,3 +209,13 @@ mkdir -p src/common/constants cat > src/common/constants/database.constants.ts <
 ```
 
 ![](images/clipboard-207479363.png)
+
+#### 5.2 — Tipos auxiliares de database config
+
+**Archivo:** `src/config/database/database.types.ts`
+
+``` bash
+mkdir -p src/config/database cat > src/config/database/database.types.ts <<'EOF_BACKEND_IA' import { Options as SequelizeOptions } from 'sequelize';  export type DialectOptions =   | { dialect: 'mysql'; options?: SequelizeOptions }   | { dialect: 'postgres'; options?: SequelizeOptions }   | { dialect: 'mssql'; options?: SequelizeOptions }   | { dialect: 'oracle'; options?: SequelizeOptions }; EOF_BACKEND_IA
+```
+
+![](images/clipboard-3074058362.png)
