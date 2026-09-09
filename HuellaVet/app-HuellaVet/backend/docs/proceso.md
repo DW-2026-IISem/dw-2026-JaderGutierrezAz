@@ -195,3 +195,17 @@ mkdir -p src/config/environment cat > src/config/environment/env.config.ts <<'EO
 ```
 
 ![](images/clipboard-206634288.png)
+
+## FASE 5 — `04_BASE_DATABASE_SEQUELIZE`
+
+### Base de datos multi-dialecto (Sequelize)
+
+#### 5.1 — Constante SEQUELIZE_TOKEN
+
+**Archivo:** `src/common/constants/database.constants.ts`
+
+``` bash
+mkdir -p src/common/constants cat > src/common/constants/database.constants.ts <<'EOF_BACKEND_IA' export const SEQUELIZE_TOKEN = 'SEQUELIZE'; EOF_BACKEND_IA
+```
+
+![](images/clipboard-207479363.png)
