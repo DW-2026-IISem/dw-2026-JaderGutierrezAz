@@ -219,3 +219,23 @@ mkdir -p src/config/database cat > src/config/database/database.types.ts <<'EOF_
 ```
 
 ![](images/clipboard-3074058362.png)
+
+#### 5.3 — database.config.ts
+
+**Archivo:** `src/config/database/database.config.ts`
+
+``` bash
+mkdir -p src/config/database cat > src/config/database/database.config.ts <<'EOF' import { registerAs } from '@nestjs/config'; import { resolveDialectCredentials } from '../environment/db-env'; import { DatabaseDialect } from '../environment/env.interface';  export const DATABASE_CONFIG_NAME = 'database';  const dialectModuleMap: Record<DatabaseDialect, string> = {   [DatabaseDialect.MySQL]: 'mysql2',   [DatabaseDialect.Postgres]: 'pg',   [DatabaseDialect.MSSQL]: 'tedious',   [DatabaseDialect.Oracle]: 'oracledb', };  export const databaseConfig = registerAs(DATABASE_CONFIG_NAME, () => {   const dialect =     (process.env.DB_DIALECT as DatabaseDialect) || DatabaseDialect.MySQL;   const credentials = resolveDialectCredentials({     DB_DIALECT: dialect,     ...process.env,   });    return {     ...credentials,     dialectModulePath: dialectModuleMap[dialect],     autoLoadModels: true,     synchronize: process.env.NODE_ENV !== 'production',     logging: process.env.NODE_ENV === 'development' ? console.log : false,   }; }); EOF
+```
+
+![](images/clipboard-407046256.png)
+
+#### 5.4 — database.module.ts / providers
+
+**Archivo:** `src/config/database/database.module.ts`
+
+``` bash
+mkdir -p src/config/database cat > src/config/database/database.module.ts <<'EOF' import { Module } from '@nestjs/common'; import { ConfigModule } from '@nestjs/config'; import { databaseConfig } from './database.config';  @Module({   imports: [ConfigModule.forFeature(databaseConfig)],   exports: [ConfigModule], }) export class DatabaseConfigModule {} EOF
+```
+
+![](images/clipboard-4223250107.png)
