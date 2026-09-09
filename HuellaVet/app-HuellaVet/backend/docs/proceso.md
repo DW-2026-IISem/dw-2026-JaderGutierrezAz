@@ -90,3 +90,11 @@ mkdir -p scripts cat > scripts/free-port.js <<'EOF_BACKEND_IA' /**  * Libera el 
 ```
 
 ![](images/clipboard-4184055446.png)
+
+#### 2.4 — Actualizar scripts npm en package.json
+
+``` bash
+node <<'EOF_BACKEND_IA' const fs = require('fs'); const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8')); pkg.scripts = {   ...pkg.scripts,   'free:port': 'node scripts/free-port.js',   'start:dev': 'npm run free:port && nest start --watch',   'start:debug': 'npm run free:port && nest start --debug --watch', }; fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n'); console.log('✅ package.json scripts actualizados'); EOF_BACKEND_IA
+```
+
+![](images/clipboard-3443563327.png)
