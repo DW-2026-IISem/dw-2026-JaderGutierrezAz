@@ -373,3 +373,15 @@ mkdir -p src/config/jwt cat > src/config/jwt/jwt.config.ts <<'EOF_BACKEND_IA' im
 ```
 
 ![](images/clipboard-2722028345.png)
+
+#### 6.7 — config/swagger/swagger.constants.ts
+
+Archivo del feature en Clean Architecture.
+
+**Archivo:** `src/config/swagger/swagger.constants.ts`
+
+``` bash
+mkdir -p src/config/swagger cat > src/config/swagger/swagger.constants.ts <<'EOF_BACKEND_IA' export const SWAGGER_TITLE = 'Backend NestJS + Sequelize API'; export const SWAGGER_DESCRIPTION =   'API profesional con Clean Architecture / DDD, JWT y RBAC'; export const SWAGGER_VERSION = '1.0'; export const SWAGGER_PATH = 'api/docs'; EOF_BACKEND_IA
+```
+
+![](images/clipboard-4089332649.png)
