@@ -697,3 +697,15 @@ mkdir -p src/common/types cat > src/common/types/optional.type.ts <<'EOF_BACKEND
 ```
 
 ![](images/clipboard-2413855908.png)
+
+#### 6.34 — common/utils/pagination.util.ts
+
+Archivo del feature en Clean Architecture.
+
+**Archivo:** `src/common/utils/pagination.util.ts`
+
+``` bash
+mkdir -p src/common/utils cat > src/common/utils/pagination.util.ts <<'EOF_BACKEND_IA' import {   DEFAULT_LIMIT,   DEFAULT_PAGE,   MAX_LIMIT, } from '../constants/pagination.constants'; import { PaginatedResult } from '../interfaces/pagination.interface';  export function normalizePagination(page?: number, limit?: number) {   const safePage = !page || page < 1 ? DEFAULT_PAGE : page;   const safeLimit = !limit || limit < 1 ? DEFAULT_LIMIT : Math.min(limit, MAX_LIMIT);   const offset = (safePage - 1) * safeLimit;   return { page: safePage, limit: safeLimit, offset }; }  export function buildPaginatedResult<T>(   items: T[],   total: number,   page: number,   limit: number, ): PaginatedResult<T> {   return {     items,     meta: {       page,       limit,       total,       totalPages: Math.ceil(total / limit) || 0,     },   }; } EOF_BACKEND_IA
+```
+
+![](images/clipboard-470209548.png)
