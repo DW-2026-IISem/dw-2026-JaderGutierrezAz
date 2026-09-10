@@ -721,3 +721,15 @@ mkdir -p src/common/utils cat > src/common/utils/date.util.ts <<'EOF_BACKEND_IA'
 ```
 
 ![](images/clipboard-1316902131.png)
+
+#### 6.36 — common/utils/string.util.ts
+
+Archivo del feature en Clean Architecture.
+
+**Archivo:** `src/common/utils/string.util.ts`
+
+``` bash
+mkdir -p src/common/utils cat > src/common/utils/string.util.ts <<'EOF_BACKEND_IA' export function normalizeEmail(email: string): string {   return email.trim().toLowerCase(); }  export function isBlank(value?: string | null): boolean {   return !value || value.trim().length === 0; } EOF_BACKEND_IA
+```
+
+![](images/clipboard-141664740.png)
