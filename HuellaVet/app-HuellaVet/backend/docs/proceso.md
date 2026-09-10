@@ -817,3 +817,11 @@ mkdir -p src cat > src/app.module.ts <<'EOF_BACKEND_IA' import { Module } from '
 ```
 
 ![](images/clipboard-1677116132.png)
+
+#### 6.44 — Verificar bootstrap transversal
+
+La app debe arrancar, mostrar Swagger en `/api/docs` y conectar a BD. Todavía no hay endpoints de negocio.
+
+![](images/clipboard-49387628.png)
+
+![](images/clipboard-4102991336.png)
