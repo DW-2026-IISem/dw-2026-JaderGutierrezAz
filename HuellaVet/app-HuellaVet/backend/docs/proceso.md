@@ -433,3 +433,15 @@ mkdir -p src/common/enums cat > src/common/enums/sort-order.enum.ts <<'EOF_BACKE
 ```
 
 ![](images/clipboard-1461391270.png)
+
+#### 6.12 — common/constants/app.constants.ts
+
+Archivo del feature en Clean Architecture.
+
+**Archivo:** `src/common/constants/app.constants.ts`
+
+``` bash
+mkdir -p src/common/constants cat > src/common/constants/app.constants.ts <<'EOF_BACKEND_IA' export const APP_NAME = 'backend_ia'; export const GLOBAL_PREFIX = 'api'; EOF_BACKEND_IA
+```
+
+![](images/clipboard-3298607991.png)
