@@ -421,3 +421,15 @@ mkdir -p src/common/enums cat > src/common/enums/http-method.enum.ts <<'EOF_BACK
 ```
 
 ![](images/clipboard-3121376258.png)
+
+#### 6.11 — common/enums/sort-order.enum.ts
+
+Archivo del feature en Clean Architecture.
+
+**Archivo:** `src/common/enums/sort-order.enum.ts`
+
+``` bash
+mkdir -p src/common/enums cat > src/common/enums/sort-order.enum.ts <<'EOF_BACKEND_IA' export enum SortOrder {   ASC = 'ASC',   DESC = 'DESC', } EOF_BACKEND_IA
+```
+
+![](images/clipboard-1461391270.png)
