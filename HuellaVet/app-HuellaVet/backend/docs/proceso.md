@@ -589,3 +589,15 @@ mkdir -p src/common/pipes cat > src/common/pipes/parse-positive-int.pipe.ts <<'E
 ```
 
 ![](images/clipboard-992920475.png)
+
+#### 6.25 — common/decorators/public.decorator.ts
+
+Archivo del feature en Clean Architecture.
+
+**Archivo:** `src/common/decorators/public.decorator.ts`
+
+``` bash
+mkdir -p src/common/decorators cat > src/common/decorators/public.decorator.ts <<'EOF_BACKEND_IA' import { SetMetadata } from '@nestjs/common';  export const IS_PUBLIC_KEY = 'isPublic'; export const Public = () => SetMetadata(IS_PUBLIC_KEY, true); EOF_BACKEND_IA
+```
+
+![](images/clipboard-3917981462.png)
