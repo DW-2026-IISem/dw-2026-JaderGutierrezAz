@@ -673,3 +673,15 @@ mkdir -p src/common/interfaces cat > src/common/interfaces/api-response.interfac
 ```
 
 ![](images/clipboard-1988128611.png)
+
+#### 6.32 — common/types/nullable.type.ts
+
+Archivo del feature en Clean Architecture.
+
+**Archivo:** `src/common/types/nullable.type.ts`
+
+``` bash
+mkdir -p src/common/types cat > src/common/types/nullable.type.ts <<'EOF_BACKEND_IA' export type Nullable<T> = T | null; EOF_BACKEND_IA
+```
+
+![](images/clipboard-1010986980.png)
