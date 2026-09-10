@@ -457,3 +457,15 @@ mkdir -p src/common/constants cat > src/common/constants/pagination.constants.ts
 ```
 
 ![](images/clipboard-3509793939.png)
+
+#### 6.14 — common/exceptions/application.exception.ts
+
+Archivo del feature en Clean Architecture.
+
+**Archivo:** `src/common/exceptions/application.exception.ts`
+
+``` bash
+mkdir -p src/common/exceptions cat > src/common/exceptions/application.exception.ts <<'EOF_BACKEND_IA' export class ApplicationException extends Error {   public readonly timestamp: string;    constructor(     public readonly message: string,     public readonly statusCode: number = 500,   ) {     super(message);     this.timestamp = new Date().toISOString();     Error.captureStackTrace(this, this.constructor);   } } EOF_BACKEND_IA
+```
+
+![](images/clipboard-883203561.png)
