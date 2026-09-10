@@ -291,3 +291,13 @@ mkdir -p src/infrastructure/database/sequelize cat > src/infrastructure/database
 ```
 
 ![](images/clipboard-3529892473.png)
+
+#### 5.10 — Verificar conexión a BD
+
+Crea la BD vacía `tecnogua_ia` en el motor que indica `DB_DIALECT`. Aún no hay tablas de negocio. Si falla el authenticate, corrige el **bloque de ese motor** en `.env` (no el de otro).
+
+``` bash
+# mysql: # mysql -u root -p -e "CREATE DATABASE IF NOT EXISTS tecnogua_ia;" # postgres: # createdb tecnogua_ia # mssql (sqlcmd): # sqlcmd -S localhost -U sa -Q "CREATE DATABASE tecnogua_ia;" # oracle: crea el schema/PDB que apunte DB_ORACLE_CONNECT_STRING npm run start:dev # Busca: ✅ Conexión exitosa a MYSQL (o POSTGRES / MSSQL / ORACLE según DB_DIALECT) # Ctrl+C
+```
+
+![![](images/clipboard-2041521247.png)](images/clipboard-393427436.png)
