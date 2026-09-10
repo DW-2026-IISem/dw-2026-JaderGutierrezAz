@@ -397,3 +397,27 @@ mkdir -p src/config/swagger cat > src/config/swagger/swagger.config.ts <<'EOF_BA
 ```
 
 ![](images/clipboard-90600577.png)
+
+#### 6.9 — common/enums/status.enum.ts
+
+Archivo del feature en Clean Architecture.
+
+**Archivo:** `src/common/enums/status.enum.ts`
+
+``` bash
+mkdir -p src/common/enums cat > src/common/enums/status.enum.ts <<'EOF_BACKEND_IA' export enum Status {   ACTIVE = 'ACTIVE',   INACTIVE = 'INACTIVE', } EOF_BACKEND_IA
+```
+
+![](images/clipboard-2993077373.png)
+
+#### 6.10 — common/enums/http-method.enum.ts
+
+Archivo del feature en Clean Architecture.
+
+**Archivo:** `src/common/enums/http-method.enum.ts`
+
+``` bash
+mkdir -p src/common/enums cat > src/common/enums/http-method.enum.ts <<'EOF_BACKEND_IA' export enum HttpMethod {   GET = 'GET',   POST = 'POST',   PUT = 'PUT',   PATCH = 'PATCH',   DELETE = 'DELETE', } EOF_BACKEND_IA
+```
+
+![](images/clipboard-3121376258.png)
