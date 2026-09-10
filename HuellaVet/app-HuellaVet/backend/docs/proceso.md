@@ -733,3 +733,15 @@ mkdir -p src/common/utils cat > src/common/utils/string.util.ts <<'EOF_BACKEND_I
 ```
 
 ![](images/clipboard-141664740.png)
+
+#### 6.37 — infrastructure/security/hashing/password-hasher.interface.ts
+
+Archivo del feature en Clean Architecture.
+
+**Archivo:** `src/infrastructure/security/hashing/password-hasher.interface.ts`
+
+``` bash
+mkdir -p src/infrastructure/security/hashing cat > src/infrastructure/security/hashing/password-hasher.interface.ts <<'EOF_BACKEND_IA' export const PASSWORD_HASHER = 'PASSWORD_HASHER';  export interface IPasswordHasher {   hash(plain: string): Promise<string>;   compare(plain: string, hashed: string): Promise<boolean>; } EOF_BACKEND_IA
+```
+
+![](images/clipboard-3324128623.png)
