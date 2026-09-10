@@ -325,3 +325,15 @@ mkdir -p src/config/app cat > src/config/app/app.config.ts <<'EOF_BACKEND_IA' im
 ```
 
 ![](images/clipboard-4121500432.png)
+
+#### 6.3 — config/logger/logger.config.ts
+
+Archivo del feature en Clean Architecture.
+
+**Archivo:** `src/config/logger/logger.config.ts`
+
+``` bash
+mkdir -p src/config/logger cat > src/config/logger/logger.config.ts <<'EOF_BACKEND_IA' import { LogLevel } from '@nestjs/common';  export function getLoggerConfig(): { logLevels: LogLevel[] } {   const isDev = process.env.NODE_ENV === 'development';    return {     logLevels: isDev       ? ['log', 'error', 'warn', 'debug', 'verbose', 'fatal']       : ['log', 'error', 'warn'],   }; } EOF_BACKEND_IA
+```
+
+![](images/clipboard-2157690538.png)
