@@ -601,3 +601,15 @@ mkdir -p src/common/decorators cat > src/common/decorators/public.decorator.ts <
 ```
 
 ![](images/clipboard-3917981462.png)
+
+#### 6.26 — common/decorators/roles.decorator.ts
+
+Archivo del feature en Clean Architecture.
+
+**Archivo:** `src/common/decorators/roles.decorator.ts`
+
+``` bash
+mkdir -p src/common/decorators cat > src/common/decorators/roles.decorator.ts <<'EOF_BACKEND_IA' import { SetMetadata } from '@nestjs/common';  export const ROLES_KEY = 'roles'; export const Roles = (...roles: string[]) => SetMetadata(ROLES_KEY, roles); EOF_BACKEND_IA
+```
+
+![](images/clipboard-4022632036.png)
