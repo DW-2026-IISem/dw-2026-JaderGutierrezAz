@@ -349,3 +349,15 @@ mkdir -p src/config/logger cat > src/config/logger/logger.module.ts <<'EOF_BACKE
 ```
 
 ![](images/clipboard-2736815214.png)
+
+#### 6.5 — config/jwt/jwt.constants.ts
+
+Archivo del feature en Clean Architecture.
+
+**Archivo:** `src/config/jwt/jwt.constants.ts`
+
+``` bash
+mkdir -p src/config/jwt cat > src/config/jwt/jwt.constants.ts <<'EOF_BACKEND_IA' export const JWT_CONFIG_NAME = 'jwt';  export const JWT_DEFAULTS = {   EXPIRES_IN: '1d',   REFRESH_EXPIRES_IN: '7d', }; EOF_BACKEND_IA
+```
+
+![](images/clipboard-1313468189.png)
