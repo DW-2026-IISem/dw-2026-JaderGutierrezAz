@@ -301,3 +301,27 @@ Crea la BD vacía `tecnogua_ia` en el motor que indica `DB_DIALECT`. Aún no hay
 ```
 
 ![![](images/clipboard-2041521247.png)](images/clipboard-393427436.png)
+
+#### 6.1 — config/app/app.constants.ts
+
+Archivo del feature en Clean Architecture.
+
+**Archivo:** `src/config/app/app.constants.ts`
+
+``` bash
+mkdir -p src/config/app cat > src/config/app/app.constants.ts <<'EOF_BACKEND_IA' export const APP_CONFIG_NAME = 'app';  export const APP_DEFAULTS = {   PORT: 3002,   NODE_ENV: 'development', }; EOF_BACKEND_IA
+```
+
+![](images/clipboard-3855565143.png)
+
+#### 6.2 — config/app/app.config.ts
+
+Archivo del feature en Clean Architecture.
+
+**Archivo:** `src/config/app/app.config.ts`
+
+``` bash
+mkdir -p src/config/app cat > src/config/app/app.config.ts <<'EOF_BACKEND_IA' import { registerAs } from '@nestjs/config'; import { APP_CONFIG_NAME, APP_DEFAULTS } from './app.constants'; import { Environment } from '../environment/env.interface';  export const appConfig = registerAs(APP_CONFIG_NAME, () => ({   port: parseInt(process.env.PORT || String(APP_DEFAULTS.PORT), 10),   nodeEnv: (process.env.NODE_ENV as Environment) || APP_DEFAULTS.NODE_ENV, })); EOF_BACKEND_IA
+```
+
+![](images/clipboard-4121500432.png)
