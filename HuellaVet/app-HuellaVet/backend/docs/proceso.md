@@ -505,3 +505,15 @@ mkdir -p src/common/exceptions cat > src/common/exceptions/validation.exception.
 ```
 
 ![](images/clipboard-143219728.png)
+
+#### 6.18 — common/filters/global-exception.filter.ts
+
+Archivo del feature en Clean Architecture.
+
+**Archivo:** `src/common/filters/global-exception.filter.ts`
+
+``` bash
+mkdir -p src/common/filters cat > src/common/filters/global-exception.filter.ts <<'EOF_BACKEND_IA' import {   ExceptionFilter,   Catch,   ArgumentsHost,   HttpException,   HttpStatus, } from '@nestjs/common'; import { Request, Response } from 'express'; import { ApplicationException } from '../exceptions/application.exception';  @Catch() export class GlobalExceptionFilter implements ExceptionFilter {   catch(exception: unknown, host: ArgumentsHost): void {     const ctx = host.switchToHttp();     const response = ctx.getResponse<Response>();     const request = ctx.getRequest<Request>();      let status = HttpStatus.INTERNAL_SERVER_ERROR;     let message: string | string[] = 'Error interno del servidor';      if (exception instanceof ApplicationException) {       status = exception.statusCode;       message = exception.message;     } else if (exception instanceof HttpException) {       status = exception.getStatus();       const res = exception.getResponse();       message = typeof res === 'string' ? res : (res as any).message;     }      response.status(status).json({       statusCode: status,       message,       timestamp: new Date().toISOString(),       path: request.url,     });   } } EOF_BACKEND_IA
+```
+
+![](images/clipboard-981397263.png)
