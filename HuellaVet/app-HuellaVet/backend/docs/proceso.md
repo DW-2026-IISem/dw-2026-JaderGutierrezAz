@@ -685,3 +685,15 @@ mkdir -p src/common/types cat > src/common/types/nullable.type.ts <<'EOF_BACKEND
 ```
 
 ![](images/clipboard-1010986980.png)
+
+#### 6.33 — common/types/optional.type.ts
+
+Archivo del feature en Clean Architecture.
+
+**Archivo:** `src/common/types/optional.type.ts`
+
+``` bash
+mkdir -p src/common/types cat > src/common/types/optional.type.ts <<'EOF_BACKEND_IA' export type Optional<T> = T | undefined; EOF_BACKEND_IA
+```
+
+![](images/clipboard-2413855908.png)
