@@ -481,3 +481,15 @@ mkdir -p src/common/exceptions cat > src/common/exceptions/domain.exception.ts <
 ```
 
 ![](images/clipboard-3116961574.png)
+
+#### 6.16 — common/exceptions/entity-not-found.exception.ts
+
+Archivo del feature en Clean Architecture.
+
+**Archivo:** `src/common/exceptions/entity-not-found.exception.ts`
+
+``` bash
+mkdir -p src/common/exceptions cat > src/common/exceptions/entity-not-found.exception.ts <<'EOF_BACKEND_IA' import { ApplicationException } from './application.exception';  export class EntityNotFoundException extends ApplicationException {   constructor(entityName: string, identifier: string | number) {     super(`${entityName} con ID ${identifier} no encontrado`, 404);   } } EOF_BACKEND_IA
+```
+
+![](images/clipboard-2079545953.png)
