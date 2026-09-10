@@ -637,3 +637,27 @@ mkdir -p src/common/decorators cat > src/common/decorators/resource.decorator.ts
 ```
 
 ![](images/clipboard-413612970.png)
+
+#### 6.29 — common/interfaces/authenticated-user.interface.ts
+
+Archivo del feature en Clean Architecture.
+
+**Archivo:** `src/common/interfaces/authenticated-user.interface.ts`
+
+``` bash
+mkdir -p src/common/interfaces cat > src/common/interfaces/authenticated-user.interface.ts <<'EOF_BACKEND_IA' export interface AuthenticatedUser {   id: number;   email: string;   username: string;   roles: string[]; } EOF_BACKEND_IA
+```
+
+![](images/clipboard-3192167626.png)
+
+#### 6.30 — common/interfaces/pagination.interface.ts
+
+Archivo del feature en Clean Architecture.
+
+**Archivo:** `src/common/interfaces/pagination.interface.ts`
+
+``` bash
+mkdir -p src/common/interfaces cat > src/common/interfaces/pagination.interface.ts <<'EOF_BACKEND_IA' export interface PaginationMeta {   page: number;   limit: number;   total: number;   totalPages: number; }  export interface PaginatedResult<T> {   items: T[];   meta: PaginationMeta; } EOF_BACKEND_IA
+```
+
+![](images/clipboard-3401275769.png)
