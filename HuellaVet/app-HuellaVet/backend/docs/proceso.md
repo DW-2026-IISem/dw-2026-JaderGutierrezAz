@@ -2389,3 +2389,7 @@ npm run start:dev
 #### 7.8 features/business/owners/infrastructure/persistence/repositories/owner.repository.ts
 
 ![](images/clipboard-2953943990.png)
+
+#### 7.9 features/business/owners/infrastructure/persistence/migrations/create-owners-table.migration.ts
+
+![](images/clipboard-3260468023.png)
