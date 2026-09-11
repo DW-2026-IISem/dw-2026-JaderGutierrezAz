@@ -2405,3 +2405,7 @@ npm run start:dev
 #### 7.12 features/business/owners/application/dto/owner-response.dto.ts
 
 ![](images/clipboard-29167222.png)
+
+#### 7.13 features/business/owners/application/dto/create-owner.dto.ts
+
+![](images/clipboard-1720681371.png)
