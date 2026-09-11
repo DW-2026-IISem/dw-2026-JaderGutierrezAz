@@ -2369,3 +2369,7 @@ npm run start:dev
 ### 7.3 features/business/owners/domain/exceptions/owner-not-found.exception.ts
 
 ![](images/clipboard-43130686.png)
+
+#### 7.4 features/business/owners/domain/interfaces/owner-repository.interface.ts
+
+![](images/clipboard-2952877727.png)
