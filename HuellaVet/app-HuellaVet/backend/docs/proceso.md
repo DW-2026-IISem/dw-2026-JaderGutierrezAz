@@ -2377,3 +2377,7 @@ npm run start:dev
 #### 7.5 features/business/owners/domain/validators/owner-email.validator.ts
 
 ![](images/clipboard-2202588861.png)
+
+#### 7.6 features/business/owners/domain/validators/owner-phone.validator.ts
+
+![](images/clipboard-3018013471.png)
