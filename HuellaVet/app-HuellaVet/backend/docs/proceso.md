@@ -2401,3 +2401,7 @@ npm run start:dev
 #### 7.11 features/business/owners/application/dto/owner-filter.dto.ts
 
 ![](images/clipboard-3795189235.png)
+
+#### 7.12 features/business/owners/application/dto/owner-response.dto.ts
+
+![](images/clipboard-29167222.png)
