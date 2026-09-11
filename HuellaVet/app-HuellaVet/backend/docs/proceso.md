@@ -2385,3 +2385,7 @@ npm run start:dev
 #### 7.7 features/business/owners/infrastructure/persistence/models/owner.model.ts
 
 ![](images/clipboard-1091365889.png)
+
+#### 7.8 features/business/owners/infrastructure/persistence/repositories/owner.repository.ts
+
+![](images/clipboard-2953943990.png)
