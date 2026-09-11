@@ -2421,3 +2421,7 @@ npm run start:dev
 #### 7.16 features/business/owners/application/use-cases/create-owner.use-case.ts
 
 ![](images/clipboard-2472243934.png)
+
+#### 7.17 features/business/owners/application/use-cases/delete-owner.use-case.ts
+
+![](images/clipboard-1217708417.png)
