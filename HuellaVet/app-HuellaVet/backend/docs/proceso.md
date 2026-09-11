@@ -2373,3 +2373,7 @@ npm run start:dev
 #### 7.4 features/business/owners/domain/interfaces/owner-repository.interface.ts
 
 ![](images/clipboard-2952877727.png)
+
+#### 7.5 features/business/owners/domain/validators/owner-email.validator.ts
+
+![](images/clipboard-2202588861.png)
