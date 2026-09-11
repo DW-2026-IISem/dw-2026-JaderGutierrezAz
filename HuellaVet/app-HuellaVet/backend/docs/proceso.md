@@ -2365,3 +2365,7 @@ npm run start:dev
 #### 7.2 features/business/owners/domain/exceptions/owner-document-already-exists.exception.ts
 
 ![](images/clipboard-3728174161.png)
+
+### 7.3 features/business/owners/domain/exceptions/owner-not-found.exception.ts
+
+![](images/clipboard-43130686.png)
