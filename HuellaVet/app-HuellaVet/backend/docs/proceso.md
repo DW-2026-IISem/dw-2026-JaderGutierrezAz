@@ -2393,3 +2393,7 @@ npm run start:dev
 #### 7.9 features/business/owners/infrastructure/persistence/migrations/create-owners-table.migration.ts
 
 ![](images/clipboard-3260468023.png)
+
+#### 7.10 features/business/owners/infrastructure/persistence/seeders/owners.seeder.ts
+
+![](images/clipboard-505726881.png)
