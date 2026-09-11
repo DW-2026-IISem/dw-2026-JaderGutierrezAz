@@ -2397,3 +2397,7 @@ npm run start:dev
 #### 7.10 features/business/owners/infrastructure/persistence/seeders/owners.seeder.ts
 
 ![](images/clipboard-505726881.png)
+
+#### 7.11 features/business/owners/application/dto/owner-filter.dto.ts
+
+![](images/clipboard-3795189235.png)
