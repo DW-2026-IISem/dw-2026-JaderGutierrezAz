@@ -2381,3 +2381,7 @@ npm run start:dev
 #### 7.6 features/business/owners/domain/validators/owner-phone.validator.ts
 
 ![](images/clipboard-3018013471.png)
+
+#### 7.7 features/business/owners/infrastructure/persistence/models/owner.model.ts
+
+![](images/clipboard-1091365889.png)
