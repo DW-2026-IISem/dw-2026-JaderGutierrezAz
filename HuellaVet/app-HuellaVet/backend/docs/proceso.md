@@ -2417,3 +2417,7 @@ npm run start:dev
 #### 7.15 features/business/owners/application/mappers/owner.mapper.ts
 
 ![](images/clipboard-3827673470.png)
+
+#### 7.16 features/business/owners/application/use-cases/create-owner.use-case.ts
+
+![](images/clipboard-2472243934.png)
