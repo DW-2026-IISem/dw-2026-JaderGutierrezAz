@@ -2605,3 +2605,7 @@ npm run start:dev
 #### 9.7 features/business/veterinarians/infrastructure/persistence/seeders/veterinarians.seeder.ts
 
 ![](images/clipboard-1672337171.png)
+
+#### 9.8 features/business/veterinarians/application/dto/veterinarian-filter.dto.ts
+
+![](images/clipboard-2305272575.png)
