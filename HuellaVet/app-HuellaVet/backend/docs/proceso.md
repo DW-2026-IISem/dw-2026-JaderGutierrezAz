@@ -2976,10 +2976,14 @@ npm run start:dev
 
 ![](images/clipboard-4192117049.png)
 
-#### 12.22 infrastructure/database/sequelize/sequelize.factory.ts
+#### 12.22 infrastructure/database/sequelize/sequelize.factory.ts (Actualización)
 
 ![](images/clipboard-2720998790.png)
 
-#### 12.23 features/business/business.module.ts
+#### 12.23 Actualizar features/business/business.module.ts
 
 ![](images/clipboard-1619546731.png)
+
+#### 12.24 Actualizar infrastructure/database/seeders/database-seeder.service.ts
+
+![](images/clipboard-3466410838.png)
