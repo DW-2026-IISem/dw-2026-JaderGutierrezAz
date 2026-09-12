@@ -2723,3 +2723,7 @@ npm run start:dev
 #### 10.11 features/business/appointments/application/dto/create-appointment.dto.ts
 
 ![](images/clipboard-202759177.png)
+
+#### 10.12 features/business/appointments/application/dto/update-appointment.dto.ts
+
+![](images/clipboard-2323239961.png)
