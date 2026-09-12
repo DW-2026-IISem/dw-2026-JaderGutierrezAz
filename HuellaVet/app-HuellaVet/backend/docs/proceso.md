@@ -2793,3 +2793,7 @@ npm run start:dev
 #### 11.2 features/business/consultations/domain/exceptions/consultation-not-found.exception.ts
 
 ![](images/clipboard-2781246843.png)
+
+#### 11.3 — features/business/consultations/domain/exceptions/consultation-already-exists.exception.ts
+
+![](images/clipboard-298267993.png)
