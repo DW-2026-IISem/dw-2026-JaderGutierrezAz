@@ -2903,3 +2903,7 @@ npm run start:dev
 #### 12.3 — features/business/vaccines/domain/interfaces/vaccine-repository.interface.ts
 
 ![](images/clipboard-1468076734.png)
+
+#### 12.4 — features/business/vaccines/infrastructure/persistence/models/vaccine.model.ts
+
+![](images/clipboard-673038626.png)
