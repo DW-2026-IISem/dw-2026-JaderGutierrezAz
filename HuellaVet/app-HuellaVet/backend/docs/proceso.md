@@ -2735,3 +2735,7 @@ npm run start:dev
 #### 10.14 appointments/application/use-cases/create-appointment.use-case.ts
 
 ![](images/clipboard-1229738660.png)
+
+#### 10.15 appointments/application/use-cases/delete-appointment.use-case.ts
+
+![](images/clipboard-1053523773.png)
