@@ -2441,3 +2441,7 @@ npm run start:dev
 #### 7.21 features/business/owners/presentation/http/serializers/owner.serializer.ts
 
 ![](images/clipboard-4211487053.png)
+
+#### 7.22 features/business/owners/presentation/http/controllers/owners.controller.ts
+
+![](images/clipboard-1424721035.png)
