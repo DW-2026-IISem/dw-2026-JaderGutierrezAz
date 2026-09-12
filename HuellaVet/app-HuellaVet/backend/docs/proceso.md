@@ -2975,3 +2975,7 @@ npm run start:dev
 #### 12.21 features/business/vaccines/vaccines.module.ts
 
 ![](images/clipboard-4192117049.png)
+
+#### 12.22 infrastructure/database/sequelize/sequelize.factory.ts
+
+![](images/clipboard-2720998790.png)

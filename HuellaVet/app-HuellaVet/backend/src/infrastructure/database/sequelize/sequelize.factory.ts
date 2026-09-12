@@ -7,6 +7,7 @@ import { PetModel } from '../../../features/business/pets/infrastructure/persist
 import { VeterinarianModel } from '../../../features/business/veterinarians/infrastructure/persistence/models/veterinarian.model.js';
 import { AppointmentModel } from '../../../features/business/appointments/infrastructure/persistence/models/appointment.model.js';
 import { ConsultationModel } from '../../../features/business/consultations/infrastructure/persistence/models/consultation.model.js';
+import { VaccineModel } from '../../../features/business/vaccines/infrastructure/persistence/models/vaccine.model.js';
 
 export const ALL_MODELS = [
   OwnerModel,
@@ -14,6 +15,7 @@ export const ALL_MODELS = [
   VeterinarianModel,
   AppointmentModel,
   ConsultationModel,
+  VaccineModel,
 ];
 
 export async function createSequelizeInstance(
