@@ -2507,3 +2507,7 @@ npm run start:dev
 #### 8.8 features/business/pets/application/dto/pet-filter.dto.ts
 
 ![](images/clipboard-3682941129.png)
+
+#### 8.9 features/business/pets/application/dto/pet-response.dto.ts
+
+![](images/clipboard-3624364422.png)
