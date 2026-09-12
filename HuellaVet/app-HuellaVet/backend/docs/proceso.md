@@ -2653,3 +2653,7 @@ npm run start:dev
 #### 9.19 features/business/veterinarians/presentation/http/controllers/veterinarians.controller.ts
 
 ![](images/clipboard-3986247298.png)
+
+#### 9.20 features/business/veterinarians/index.ts
+
+![](images/clipboard-164442797.png)
