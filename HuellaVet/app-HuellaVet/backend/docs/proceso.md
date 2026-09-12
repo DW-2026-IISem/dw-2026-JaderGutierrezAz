@@ -2731,3 +2731,7 @@ npm run start:dev
 #### 10.13 features/business/appointments/application/mappers/appointment.mapper.ts
 
 ![](images/clipboard-4176486348.png)
+
+#### 10.14 appointments/application/use-cases/create-appointment.use-case.ts
+
+![](images/clipboard-1229738660.png)
