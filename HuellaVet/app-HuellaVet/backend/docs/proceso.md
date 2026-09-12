@@ -2951,3 +2951,7 @@ npm run start:dev
 #### 12.15 vaccines/application/use-cases/get-vaccine.use-case.ts
 
 ![](images/clipboard-509709962.png)
+
+#### 12.16 vaccines/application/use-cases/list-vaccines.use-case.ts
+
+![](images/clipboard-245336220.png)
