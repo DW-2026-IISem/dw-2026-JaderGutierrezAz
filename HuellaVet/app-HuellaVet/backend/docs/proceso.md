@@ -2885,3 +2885,7 @@ npm run start:dev
 #### 11.25 infrastructure/database/seeders/database-seeder.service.ts
 
 ![](images/clipboard-2374799128.png)
+
+#### 11.26 Verificar la tabla de consultations
+
+![](images/clipboard-4007927364.png)
