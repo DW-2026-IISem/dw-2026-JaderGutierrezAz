@@ -2783,3 +2783,9 @@ npm run start:dev
 #### 10.26 Verificar tabla appointments
 
 ![](images/clipboard-1870539144.png)
+
+## FASE 11 — `CONSULTATIONS`
+
+#### 11.1 features/business/consultations/domain/entities/consultation.entity.ts
+
+![](images/clipboard-2115196595.png)
