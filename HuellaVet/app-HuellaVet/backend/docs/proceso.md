@@ -2453,3 +2453,7 @@ npm run start:dev
 #### 7.24 features/business/owners/owners.module.ts
 
 ![](images/clipboard-4045657800.png)
+
+#### 7.25 Actualizar `sequelize.factory.ts` (registrar `OwnerModel`)
+
+![](images/clipboard-3454277550.png)

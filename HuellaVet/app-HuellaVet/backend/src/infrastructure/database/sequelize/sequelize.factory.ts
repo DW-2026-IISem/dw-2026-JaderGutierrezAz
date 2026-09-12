@@ -1,12 +1,11 @@
-import { createRequire } from 'node:module';
 import { Sequelize } from 'sequelize-typescript';
 import { DatabaseDialect } from '../../../config/environment/env.interface.js';
 import { getSequelizeOptions } from './sequelize.options.js';
 
-const require = createRequire(import.meta.url);
+import { OwnerModel } from '../../../features/business/owners/infrastructure/persistence/models/owner.model.js';
 
 export const ALL_MODELS = [
-  // (aún sin modelos — se agregan por feature)
+  OwnerModel,
 ];
 
 export async function createSequelizeInstance(
