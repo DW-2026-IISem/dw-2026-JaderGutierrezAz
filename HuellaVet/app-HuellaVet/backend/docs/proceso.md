@@ -2645,3 +2645,7 @@ npm run start:dev
 #### 9.17 features/business/veterinarians/application/use-cases/update-veterinarian.use-case.ts
 
 ![](images/clipboard-334372681.png)
+
+#### 9.18 features/business/veterinarians/presentation/http/serializers/veterinarian.serializer.ts
+
+![](images/clipboard-1628028019.png)
