@@ -2437,3 +2437,7 @@ npm run start:dev
 #### 7.20 features/business/owners/application/use-cases/update-owner.use-case.ts
 
 ![](images/clipboard-354761329.png)
+
+#### 7.21 features/business/owners/presentation/http/serializers/owner.serializer.ts
+
+![](images/clipboard-4211487053.png)
