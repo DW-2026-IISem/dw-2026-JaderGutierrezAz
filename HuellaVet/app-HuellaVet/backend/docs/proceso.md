@@ -2567,3 +2567,7 @@ npm run start:dev
 #### 8.23 Registrar PetsModule en business.module.ts
 
 ![](images/clipboard-3785271243.png)
+
+#### 8.24 Ejecutar el seeder de pets
+
+![](images/clipboard-4035790858.png)

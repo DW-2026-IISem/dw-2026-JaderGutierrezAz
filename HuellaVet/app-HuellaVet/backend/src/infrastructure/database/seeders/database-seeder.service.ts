@@ -1,5 +1,6 @@
 import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { seedOwners } from '../../../features/business/owners/infrastructure/persistence/seeders/owners.seeder.js';
+import { seedPets } from '../../../features/business/pets/infrastructure/persistence/seeders/pets.seeder.js';
 
 @Injectable()
 export class DatabaseSeederService implements OnModuleInit {
@@ -12,6 +13,7 @@ export class DatabaseSeederService implements OnModuleInit {
 
     try {
       await seedOwners();
+      await seedPets();
       this.logger.log('✅ Seeders ejecutados');
     } catch (error: any) {
       this.logger.error(`❌ Error en seeders: ${error.message}`, error.stack);
