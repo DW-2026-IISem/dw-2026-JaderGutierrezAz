@@ -2869,3 +2869,7 @@ npm run start:dev
 #### 11.21 features/business/consultations/index.ts
 
 ![](images/clipboard-150619318.png)
+
+#### 1.22 consultations/consultations.module.ts
+
+![](images/clipboard-1252185737.png)
