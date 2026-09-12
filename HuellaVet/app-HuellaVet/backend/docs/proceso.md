@@ -2695,3 +2695,7 @@ npm run start:dev
 #### 10.4 — features/business/appointments/domain/interfaces/appointment-repository.interface.ts
 
 ![](images/clipboard-1007555767.png)
+
+#### 10.5 features/business/appointments/infrastructure/persistence/models/appointment.model.ts 
+
+![](images/clipboard-2249013320.png)

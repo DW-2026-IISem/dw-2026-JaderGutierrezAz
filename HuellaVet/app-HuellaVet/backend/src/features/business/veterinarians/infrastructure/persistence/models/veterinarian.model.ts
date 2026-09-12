@@ -1,9 +1,11 @@
 import {
+import { AppointmentModel } from '../../../../appointments/infrastructure/persistence/models/appointment.model.js';
   AutoIncrement,
   Column,
   CreatedAt,
   DataType,
   Model,
+  HasMany,
   PrimaryKey,
   Table,
   UpdatedAt,
@@ -24,6 +26,9 @@ export class VeterinarianModel extends Model {
 
   @Column({ type: DataType.BOOLEAN, allowNull: false, defaultValue: true })
   declare isActive: boolean;
+
+  @HasMany(() => AppointmentModel)
+  declare appointments: unknown[];
 
   @CreatedAt
   declare createdAt: Date;

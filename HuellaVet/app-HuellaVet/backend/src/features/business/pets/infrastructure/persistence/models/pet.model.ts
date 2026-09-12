@@ -6,11 +6,13 @@ import {
   DataType,
   ForeignKey,
   Model,
+  HasMany,
   PrimaryKey,
   Table,
   UpdatedAt,
 } from 'sequelize-typescript';
 import { OwnerModel } from '../../../../owners/infrastructure/persistence/models/owner.model.js';
+import { AppointmentModel } from '../../../../appointments/infrastructure/persistence/models/appointment.model.js';
 
 @Table({ tableName: 'pets', timestamps: true })
 export class PetModel extends Model {
@@ -34,6 +36,9 @@ export class PetModel extends Model {
 
   @Column({ type: DataType.BOOLEAN, allowNull: false, defaultValue: true })
   declare isActive: boolean;
+
+  @HasMany(() => AppointmentModel)
+  declare appointments: unknown[];
 
   @CreatedAt
   declare createdAt: Date;
