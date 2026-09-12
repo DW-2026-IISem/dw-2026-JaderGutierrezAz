@@ -2469,3 +2469,7 @@ npm run start:dev
 #### 7.28 Actualizar `app.module.ts` (importar `BusinessModule`)
 
 ![](images/clipboard-979758543.png)
+
+#### 7.29 Verificar tabla física `owners` y API (`npm run start:dev`)
+
+![](images/clipboard-1756492043.png)
