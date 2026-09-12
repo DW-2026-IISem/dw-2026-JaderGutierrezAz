@@ -3073,3 +3073,7 @@ npm run start:dev
 #### 13.20 features/business/vaccine-batches/index.ts
 
 ![](images/clipboard-4186628899.png)
+
+#### 13.21 vaccine-batches/vaccine-batches.module.ts
+
+![](images/clipboard-2550806463.png)
