@@ -2963,3 +2963,7 @@ npm run start:dev
 #### 12.18 vaccines/presentation/http/serializers/vaccine.serializer.ts
 
 ![](images/clipboard-2149352838.png)
+
+#### 12.19 vaccines/presentation/http/controllers/vaccines.controller.ts
+
+![](images/clipboard-306143106.png)
