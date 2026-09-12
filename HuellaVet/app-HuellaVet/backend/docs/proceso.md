@@ -2935,3 +2935,7 @@ npm run start:dev
 #### 12.11 vaccines/application/dto/update-vaccine.dto.ts
 
 ![](images/clipboard-13247032.png)
+
+#### 12.12 vaccines/application/mappers/vaccine.mapper.ts
+
+![](images/clipboard-1191085851.png)
