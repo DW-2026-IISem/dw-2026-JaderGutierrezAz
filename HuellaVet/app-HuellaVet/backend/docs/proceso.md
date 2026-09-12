@@ -2696,7 +2696,7 @@ npm run start:dev
 
 ![](images/clipboard-1007555767.png)
 
-#### 10.5 features/business/appointments/infrastructure/persistence/models/appointment.model.ts 
+#### 10.5 features/business/appointments/infrastructure/persistence/models/appointment.model.ts
 
 ![](images/clipboard-2249013320.png)
 
@@ -2704,6 +2704,10 @@ npm run start:dev
 
 ![](images/clipboard-1748330624.png)
 
-#### 10.7 — migración documental
+#### 10.7 migración documental
 
 ![](images/clipboard-3941881571.png)
+
+#### 10.8 features/business/appointments/infrastructure/persistence/seeders/appointments.seeder.ts
+
+![](images/clipboard-4197430570.png)
