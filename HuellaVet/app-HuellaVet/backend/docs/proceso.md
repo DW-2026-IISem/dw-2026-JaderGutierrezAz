@@ -2767,3 +2767,7 @@ npm run start:dev
 #### 10.22 features/business/appointments/appointments.module.ts
 
 ![](images/clipboard-855329164.png)
+
+#### 10.23 infrastructure/database/sequelize/sequelize.factory.ts
+
+![](images/clipboard-1541889386.png)

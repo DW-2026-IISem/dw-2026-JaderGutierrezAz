@@ -5,11 +5,13 @@ import { getSequelizeOptions } from './sequelize.options.js';
 import { OwnerModel } from '../../../features/business/owners/infrastructure/persistence/models/owner.model.js';
 import { PetModel } from '../../../features/business/pets/infrastructure/persistence/models/pet.model.js';
 import { VeterinarianModel } from '../../../features/business/veterinarians/infrastructure/persistence/models/veterinarian.model.js';
+import { AppointmentModel } from '../../../features/business/appointments/infrastructure/persistence/models/appointment.model.js';
 
 export const ALL_MODELS = [
   OwnerModel,
   PetModel,
   VeterinarianModel,
+  AppointmentModel,
 ];
 
 export async function createSequelizeInstance(
