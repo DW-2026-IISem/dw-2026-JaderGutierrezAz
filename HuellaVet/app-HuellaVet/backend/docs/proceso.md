@@ -3069,3 +3069,7 @@ npm run start:dev
 #### 13.19 vaccine-batches/presentation/http/controllers/vaccine-batches.controller.ts
 
 ![](images/clipboard-1571083565.png)
+
+#### 13.20 features/business/vaccine-batches/index.ts
+
+![](images/clipboard-4186628899.png)
