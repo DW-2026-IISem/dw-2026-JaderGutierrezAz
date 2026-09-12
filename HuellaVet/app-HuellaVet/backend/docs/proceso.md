@@ -2727,3 +2727,7 @@ npm run start:dev
 #### 10.12 features/business/appointments/application/dto/update-appointment.dto.ts
 
 ![](images/clipboard-2323239961.png)
+
+#### 10.13 features/business/appointments/application/mappers/appointment.mapper.ts
+
+![](images/clipboard-4176486348.png)
