@@ -2495,3 +2495,7 @@ npm run start:dev
 #### 8.5`features/business/pets/infrastructure/persistence/repositories/pet.repository.ts`
 
 ![](images/clipboard-1730207914.png)
+
+#### 8.6`features/business/pets/infrastructure/persistence/migrations/create-pets-table.migration.ts`
+
+![](images/clipboard-1122216855.png)
