@@ -2617,3 +2617,7 @@ npm run start:dev
 #### 9.10 features/business/veterinarians/application/dto/create-veterinarian.dto.ts
 
 ![](images/clipboard-3530933949.png)
+
+#### 9.11 features/business/veterinarians/application/dto/update-veterinarian.dto.ts
+
+![](images/clipboard-3130564276.png)
