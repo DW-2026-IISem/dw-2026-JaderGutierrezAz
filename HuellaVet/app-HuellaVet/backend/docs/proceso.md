@@ -2609,3 +2609,7 @@ npm run start:dev
 #### 9.8 features/business/veterinarians/application/dto/veterinarian-filter.dto.ts
 
 ![](images/clipboard-2305272575.png)
+
+#### 9.9 features/business/veterinarians/application/dto/veterinarian-response.dto.ts
+
+![](images/clipboard-2549285405.png)
