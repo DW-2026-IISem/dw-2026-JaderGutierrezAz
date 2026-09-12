@@ -2797,3 +2797,7 @@ npm run start:dev
 #### 11.3 — features/business/consultations/domain/exceptions/consultation-already-exists.exception.ts
 
 ![](images/clipboard-298267993.png)
+
+#### 11.4 — features/business/consultations/domain/interfaces/consultation-repository.interface.ts
+
+![](images/clipboard-120288324.png)
