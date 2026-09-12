@@ -2775,3 +2775,7 @@ npm run start:dev
 #### 10.24 Actualizar features/business/business.module.ts 
 
 ![](images/clipboard-2573414761.png)
+
+#### 10.25 Actualizar infrastructure/database/seeders/database-seeder.service.ts
+
+![](images/clipboard-100414762.png)
