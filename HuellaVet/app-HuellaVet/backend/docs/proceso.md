@@ -2575,3 +2575,9 @@ npm run start:dev
 #### 8.25 Verificar tabla PETS
 
 ![](images/clipboard-803767112.png)
+
+## FASE 9 — `08 veterinarians`
+
+#### 9.1 — features/business/veterinarians/domain/entities/veterinarian.entity.ts
+
+![](images/clipboard-3774029882.png)
