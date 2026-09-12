@@ -2473,3 +2473,9 @@ npm run start:dev
 #### 7.29 Verificar tabla física `owners` y API (`npm run start:dev`)
 
 ![](images/clipboard-1756492043.png)
+
+## FASE 8 — `07_BUSINESS_PETS`
+
+#### 8.1`features/business/pets/domain/entities/pet.entity.ts`
+
+![](images/clipboard-1510197354.png)
