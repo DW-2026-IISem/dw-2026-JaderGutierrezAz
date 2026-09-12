@@ -2535,3 +2535,7 @@ npm run start:dev
 #### 8.15 features/business/pets/application/use-cases/get-pet.use-case.ts
 
 ![](images/clipboard-2053401522.png)
+
+#### 8.16 features/business/pets/application/use-cases/list-pets.use-case.ts
+
+![](images/clipboard-498781929.png)
