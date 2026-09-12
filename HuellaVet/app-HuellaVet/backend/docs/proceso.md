@@ -2755,3 +2755,7 @@ npm run start:dev
 #### 10.19 appointments/presentation/http/serializers/appointment.serializer.ts
 
 ![](images/clipboard-1209457633.png)
+
+#### 10.20 appointments/presentation/http/controllers/appointments.controller.ts
+
+![](images/clipboard-2797950558.png)
