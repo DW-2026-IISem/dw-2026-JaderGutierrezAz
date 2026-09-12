@@ -2971,3 +2971,7 @@ npm run start:dev
 #### 12.20 features/business/vaccines/index.ts
 
 ![](images/clipboard-4034162906.png)
+
+#### 12.21 features/business/vaccines/vaccines.module.ts
+
+![](images/clipboard-4192117049.png)
