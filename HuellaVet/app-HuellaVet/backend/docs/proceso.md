@@ -2669,3 +2669,7 @@ npm run start:dev
 #### 9.23 Registrar VeterinariansModule en business.module.ts
 
 ![](images/clipboard-2939679398.png)
+
+#### 9.24 Ejecutar el seeder de veterinarians
+
+![](images/clipboard-2457980604.png)
