@@ -2657,3 +2657,7 @@ npm run start:dev
 #### 9.20 features/business/veterinarians/index.ts
 
 ![](images/clipboard-164442797.png)
+
+#### 9.21 features/business/veterinarians/veterinarians.module.ts
+
+![](images/clipboard-2386609755.png)
