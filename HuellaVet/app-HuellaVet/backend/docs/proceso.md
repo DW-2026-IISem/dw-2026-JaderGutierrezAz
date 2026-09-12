@@ -2555,3 +2555,7 @@ npm run start:dev
 #### 8.20 features/business/pets/index.ts
 
 ![](images/clipboard-2705021014.png)
+
+#### 8.21 features/business/pets/pets.module.ts
+
+![](images/clipboard-1663937601.png)
