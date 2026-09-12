@@ -2899,3 +2899,7 @@ npm run start:dev
 #### 12.2 — features/business/vaccines/domain/exceptions/vaccine-not-found.exception.ts
 
 ![](images/clipboard-775788595.png)
+
+#### 12.3 — features/business/vaccines/domain/interfaces/vaccine-repository.interface.ts
+
+![](images/clipboard-1468076734.png)
