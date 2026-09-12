@@ -2585,3 +2585,7 @@ npm run start:dev
 #### 9.2 — features/business/veterinarians/domain/exceptions/veterinarian-not-found.exception.ts
 
 ![](images/clipboard-1057870257.png)
+
+#### 9.3 — features/business/veterinarians/domain/interfaces/veterinarian-repository.interface.ts
+
+![](images/clipboard-2329198172.png)
