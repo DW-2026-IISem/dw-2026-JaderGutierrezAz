@@ -2763,3 +2763,7 @@ npm run start:dev
 #### 10.21 features/business/appointments/index.ts
 
 ![](images/clipboard-2070180993.png)
+
+#### 10.22 features/business/appointments/appointments.module.ts
+
+![](images/clipboard-855329164.png)
