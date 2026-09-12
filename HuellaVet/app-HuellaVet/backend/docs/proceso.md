@@ -2461,3 +2461,7 @@ npm run start:dev
 #### 7.26 Actualizar `business.module.ts` (importar `OwnersModule`)
 
 ![](images/clipboard-586847002.png)
+
+#### 7.27 Actualizar `database-seeder.service.ts` (correr `seedOwners`)
+
+![](images/clipboard-18267568.png)
