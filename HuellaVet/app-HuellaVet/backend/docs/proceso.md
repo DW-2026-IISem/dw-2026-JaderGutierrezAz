@@ -2923,3 +2923,7 @@ npm run start:dev
 #### 12.8 vaccines/application/dto/vaccine-filter.dto.ts
 
 ![](images/clipboard-2605339878.png)
+
+#### 12.9 vaccines/application/dto/vaccine-response.dto.ts
+
+![](images/clipboard-2869823606.png)
