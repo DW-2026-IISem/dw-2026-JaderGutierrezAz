@@ -2817,3 +2817,7 @@ npm run start:dev
 #### 11.8 consultations/infrastructure/persistence/seeders/consultations.seeder.ts
 
 ![](images/clipboard-1173884606.png)
+
+#### 11.9 consultations/application/dto/consultation-filter.dto.ts
+
+![](images/clipboard-3020569096.png)
