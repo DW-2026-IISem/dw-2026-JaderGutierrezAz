@@ -2687,3 +2687,7 @@ npm run start:dev
 #### 10.2 — features/business/appointments/domain/exceptions/appointment-not-found.exception.ts
 
 ![](images/clipboard-2719688279.png)
+
+#### 10.3 — features/business/appointments/domain/exceptions/appointment-overlap.exception.ts
+
+![](images/clipboard-3759099496.png)
