@@ -2445,3 +2445,7 @@ npm run start:dev
 #### 7.22 features/business/owners/presentation/http/controllers/owners.controller.ts
 
 ![](images/clipboard-1424721035.png)
+
+#### 7.23 features/business/owners/index.ts
+
+![](images/clipboard-1341269150.png)
