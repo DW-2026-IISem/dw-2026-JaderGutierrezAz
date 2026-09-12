@@ -2865,3 +2865,7 @@ npm run start:dev
 #### 11.20 consultations/presentation/http/controllers/consultations.controller.ts
 
 ![](images/clipboard-4277933159.png)
+
+#### 11.21 features/business/consultations/index.ts
+
+![](images/clipboard-150619318.png)
