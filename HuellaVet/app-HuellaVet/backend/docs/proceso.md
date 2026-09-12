@@ -2997,3 +2997,7 @@ npm run start:dev
 #### 13.1 — features/business/vaccine-batches/domain/entities/vaccine-batch.entity.ts
 
 ![](images/clipboard-3141153791.png)
+
+#### 13.2 — features/business/vaccine-batches/domain/exceptions/vaccine-batch-not-found.exception.ts
+
+![](images/clipboard-3841787300.png)
