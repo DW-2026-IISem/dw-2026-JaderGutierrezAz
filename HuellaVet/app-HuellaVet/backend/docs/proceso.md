@@ -3045,3 +3045,7 @@ npm run start:dev
 #### 13.13 vaccine-batches/application/use-cases/create-vaccine-batch.use-case.ts
 
 ![](images/clipboard-301101249.png)
+
+#### 13.14 vaccine-batches/application/use-cases/delete-vaccine-batch.use-case.ts
+
+![](images/clipboard-388588962.png)
