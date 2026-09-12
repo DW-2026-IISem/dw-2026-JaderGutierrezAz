@@ -2821,3 +2821,7 @@ npm run start:dev
 #### 11.9 consultations/application/dto/consultation-filter.dto.ts
 
 ![](images/clipboard-3020569096.png)
+
+#### 11.10 consultations/application/dto/consultation-response.dto.ts
+
+![](images/clipboard-3977406428.png)
