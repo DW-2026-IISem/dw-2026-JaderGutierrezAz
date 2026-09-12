@@ -3077,3 +3077,7 @@ npm run start:dev
 #### 13.21 vaccine-batches/vaccine-batches.module.ts
 
 ![](images/clipboard-2550806463.png)
+
+#### 13.22 infrastructure/database/sequelize/sequelize.factory.ts
+
+![](images/clipboard-3869161299.png)
