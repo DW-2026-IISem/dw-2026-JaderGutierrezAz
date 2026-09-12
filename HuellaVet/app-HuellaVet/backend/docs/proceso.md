@@ -2857,3 +2857,7 @@ npm run start:dev
 #### 11.18 consultations/application/use-cases/update-consultation.use-case.ts
 
 ![](images/clipboard-720558709.png)
+
+#### 11.19 consultations/presentation/http/serializers/consultation.serializer.ts
+
+![](images/clipboard-556242505.png)
