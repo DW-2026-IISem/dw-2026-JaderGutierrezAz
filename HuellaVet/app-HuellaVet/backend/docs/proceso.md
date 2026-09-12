@@ -2861,3 +2861,7 @@ npm run start:dev
 #### 11.19 consultations/presentation/http/serializers/consultation.serializer.ts
 
 ![](images/clipboard-556242505.png)
+
+#### 11.20 consultations/presentation/http/controllers/consultations.controller.ts
+
+![](images/clipboard-4277933159.png)
