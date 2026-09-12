@@ -2625,3 +2625,7 @@ npm run start:dev
 #### 9.12 features/business/veterinarians/application/mappers/veterinarian.mapper.ts
 
 ![](images/clipboard-3678069055.png)
+
+#### 9.13 features/business/veterinarians/application/use-cases/create-veterinarian.use-case.ts
+
+![](images/clipboard-1939954805.png)
