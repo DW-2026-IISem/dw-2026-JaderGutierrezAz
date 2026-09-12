@@ -2889,3 +2889,9 @@ npm run start:dev
 #### 11.26 Verificar la tabla de consultations
 
 ![](images/clipboard-4007927364.png)
+
+## FASE 12 — `vaccines`
+
+#### 12.1 — features/business/vaccines/domain/entities/vaccine.entity.ts
+
+![](images/clipboard-4157683249.png)
