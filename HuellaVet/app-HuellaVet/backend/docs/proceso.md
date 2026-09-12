@@ -2519,3 +2519,7 @@ npm run start:dev
 #### 8.11 features/business/pets/application/dto/update-pet.dto.ts
 
 ![](images/clipboard-1329104702.png)
+
+#### 8.12 features/business/pets/application/mappers/pet.mapper.ts
+
+![](images/clipboard-4167019362.png)
