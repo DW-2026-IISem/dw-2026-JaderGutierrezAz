@@ -2959,3 +2959,7 @@ npm run start:dev
 #### 12.17 vaccines/application/use-cases/update-vaccine.use-case.ts
 
 ![](images/clipboard-1932853950.png)
+
+#### 12.18 vaccines/presentation/http/serializers/vaccine.serializer.ts
+
+![](images/clipboard-2149352838.png)
