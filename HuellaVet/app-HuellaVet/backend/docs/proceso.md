@@ -2801,3 +2801,7 @@ npm run start:dev
 #### 11.4 — features/business/consultations/domain/interfaces/consultation-repository.interface.ts
 
 ![](images/clipboard-120288324.png)
+
+#### 11.5 features/business/consultations/infrastructure/persistence/models/consultation.model.ts 
+
+![](images/clipboard-1511446442.png)
