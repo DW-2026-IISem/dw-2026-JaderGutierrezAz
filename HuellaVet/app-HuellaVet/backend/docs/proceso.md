@@ -2476,30 +2476,34 @@ npm run start:dev
 
 ## FASE 8 — `07_BUSINESS_PETS`
 
-#### 8.1`features/business/pets/domain/entities/pet.entity.ts`
+#### 8.1 features/business/pets/domain/entities/pet.entity.ts
 
 ![](images/clipboard-1510197354.png)
 
-#### 8.2 `features/business/pets/domain/exceptions/pet-not-found.exception.ts`
+#### 8.2 features/business/pets/domain/exceptions/pet-not-found.exception.ts
 
 ![](images/clipboard-1917222824.png)
 
-#### 8.3 — `features/business/pets/domain/interfaces/pet-repository.interface.ts`
+#### 8.3 — features/business/pets/domain/interfaces/pet-repository.interface.ts
 
 ![](images/clipboard-2812156377.png)
 
-#### 8.4`features/business/pets/infrastructure/persistence/models/pet.model.ts` (+ actualizar `owner.model.ts`)
+#### 8.4 features/business/pets/infrastructure/persistence/models/pet.model.ts (+ actualizar owner.model.ts)
 
 ![](images/clipboard-459809601.png)
 
-#### 8.5`features/business/pets/infrastructure/persistence/repositories/pet.repository.ts`
+#### 8.5 features/business/pets/infrastructure/persistence/repositories/pet.repository.ts
 
 ![](images/clipboard-1730207914.png)
 
-#### 8.6`features/business/pets/infrastructure/persistence/migrations/create-pets-table.migration.ts`
+#### 8.6 features/business/pets/infrastructure/persistence/migrations/create-pets-table.migration.ts
 
 ![](images/clipboard-1122216855.png)
 
-#### 8.7 `features/business/pets/infrastructure/persistence/seeders/pets.seeder.ts`
+#### 8.7features/business/pets/infrastructure/persistence/seeders/pets.seeder.ts
 
 ![](images/clipboard-1468788230.png)
+
+#### 8.8 features/business/pets/application/dto/pet-filter.dto.ts
+
+![](images/clipboard-3682941129.png)
