@@ -2589,3 +2589,7 @@ npm run start:dev
 #### 9.3 — features/business/veterinarians/domain/interfaces/veterinarian-repository.interface.ts
 
 ![](images/clipboard-2329198172.png)
+
+### 9.4 features/business/veterinarians/infrastructure/persistence/models/veterinarian.model.ts
+
+![](images/clipboard-4263776032.png)
