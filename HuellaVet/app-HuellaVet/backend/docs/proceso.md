@@ -3061,3 +3061,7 @@ npm run start:dev
 #### 13.17 vaccine-batches/application/use-cases/update-vaccine-batch.use-case.ts
 
 ![](images/clipboard-3700630618.png)
+
+#### 13.18 vaccine-batches/presentation/http/serializers/vaccine-batch.serializer.ts
+
+![](images/clipboard-60485662.png)
