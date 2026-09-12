@@ -3013,3 +3013,7 @@ npm run start:dev
 #### 13.5 — features/business/vaccine-batches/infrastructure/persistence/repositories/vaccine-batch.repository.ts
 
 ![](images/clipboard-2926557948.png)
+
+#### 13.6 vaccine-batches/infrastructure/persistence/migrations/create-vaccine-batches-table.migration.ts
+
+![](images/clipboard-3329500435.png)
