@@ -2487,3 +2487,7 @@ npm run start:dev
 #### 8.3 — `features/business/pets/domain/interfaces/pet-repository.interface.ts`
 
 ![](images/clipboard-2812156377.png)
+
+#### 8.4`features/business/pets/infrastructure/persistence/models/pet.model.ts` (+ actualizar `owner.model.ts`)
+
+![](images/clipboard-459809601.png)
