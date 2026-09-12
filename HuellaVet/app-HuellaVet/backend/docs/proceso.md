@@ -2673,3 +2673,7 @@ npm run start:dev
 #### 9.24 Ejecutar el seeder de veterinarians
 
 ![](images/clipboard-2457980604.png)
+
+#### 9.25 — Verificar tabla veterinarians
+
+![](images/clipboard-10706475.png)
