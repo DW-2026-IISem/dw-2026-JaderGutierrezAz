@@ -2907,3 +2907,7 @@ npm run start:dev
 #### 12.4 — features/business/vaccines/infrastructure/persistence/models/vaccine.model.ts
 
 ![](images/clipboard-673038626.png)
+
+#### 12.5 — features/business/vaccines/infrastructure/persistence/repositories/vaccine.repository.ts
+
+![](images/clipboard-2400978445.png)
