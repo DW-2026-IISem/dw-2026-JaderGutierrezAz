@@ -2551,3 +2551,7 @@ npm run start:dev
 #### 8.19 features/business/pets/presentation/http/controllers/pets.controller.ts
 
 ![](images/clipboard-1229608901.png)
+
+#### 8.20 features/business/pets/index.ts
+
+![](images/clipboard-2705021014.png)
