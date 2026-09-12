@@ -2911,3 +2911,7 @@ npm run start:dev
 #### 12.5 — features/business/vaccines/infrastructure/persistence/repositories/vaccine.repository.ts
 
 ![](images/clipboard-2400978445.png)
+
+#### 12.6 vaccines/infrastructure/persistence/migrations/create-vaccines-table.migration.ts
+
+![](images/clipboard-69693677.png)
