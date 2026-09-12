@@ -2813,3 +2813,7 @@ npm run start:dev
 #### 11.7 infrastructure/persistence/migrations/create-consultations-table.migration.ts
 
 ![](images/clipboard-250121753.png)
+
+#### 11.8 consultations/infrastructure/persistence/seeders/consultations.seeder.ts
+
+![](images/clipboard-1173884606.png)
