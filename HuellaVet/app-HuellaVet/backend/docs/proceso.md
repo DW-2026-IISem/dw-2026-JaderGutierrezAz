@@ -3065,3 +3065,7 @@ npm run start:dev
 #### 13.18 vaccine-batches/presentation/http/serializers/vaccine-batch.serializer.ts
 
 ![](images/clipboard-60485662.png)
+
+#### 13.19 vaccine-batches/presentation/http/controllers/vaccine-batches.controller.ts
+
+![](images/clipboard-1571083565.png)
