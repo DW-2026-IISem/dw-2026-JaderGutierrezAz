@@ -2789,3 +2789,7 @@ npm run start:dev
 #### 11.1 features/business/consultations/domain/entities/consultation.entity.ts
 
 ![](images/clipboard-2115196595.png)
+
+#### 11.2 features/business/consultations/domain/exceptions/consultation-not-found.exception.ts
+
+![](images/clipboard-2781246843.png)
