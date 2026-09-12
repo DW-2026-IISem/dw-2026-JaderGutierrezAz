@@ -2849,3 +2849,7 @@ npm run start:dev
 #### 11.16 consultations/application/use-cases/get-consultation.use-case.ts
 
 ![](images/clipboard-4057394979.png)
+
+#### 11.17 consultations/application/use-cases/list-consultations.use-case.ts
+
+![](images/clipboard-3601199963.png)
