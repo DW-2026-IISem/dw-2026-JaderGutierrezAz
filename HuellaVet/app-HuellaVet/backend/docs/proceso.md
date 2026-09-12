@@ -2919,3 +2919,7 @@ npm run start:dev
 #### 12.7 vaccines/infrastructure/persistence/seeders/vaccines.seeder.ts
 
 ![](images/clipboard-4152616097.png)
+
+#### 12.8 vaccines/application/dto/vaccine-filter.dto.ts
+
+![](images/clipboard-2605339878.png)
