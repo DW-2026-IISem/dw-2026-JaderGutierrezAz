@@ -3037,3 +3037,7 @@ npm run start:dev
 #### 13.11 vaccine-batches/application/dto/update-vaccine-batch.dto.ts
 
 ![](images/clipboard-292971512.png)
+
+#### 13.12 vaccine-batches/application/mappers/vaccine-batch.mapper.ts
+
+![](images/clipboard-1577824965.png)
