@@ -3001,3 +3001,7 @@ npm run start:dev
 #### 13.2 — features/business/vaccine-batches/domain/exceptions/vaccine-batch-not-found.exception.ts
 
 ![](images/clipboard-3841787300.png)
+
+#### 13.3 — features/business/vaccine-batches/domain/interfaces/vaccine-batch-repository.interface.ts
+
+![](images/clipboard-893953524.png)
