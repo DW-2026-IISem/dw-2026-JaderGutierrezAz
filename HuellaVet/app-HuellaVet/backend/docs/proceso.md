@@ -2805,3 +2805,7 @@ npm run start:dev
 #### 11.5 features/business/consultations/infrastructure/persistence/models/consultation.model.ts 
 
 ![](images/clipboard-1511446442.png)
+
+#### 11.6 features/business/consultations/infrastructure/persistence/repositories/consultation.repository.ts
+
+![](images/clipboard-2072089044.png)

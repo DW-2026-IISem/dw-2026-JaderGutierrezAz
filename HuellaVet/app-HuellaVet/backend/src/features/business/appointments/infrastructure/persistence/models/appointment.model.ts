@@ -5,6 +5,7 @@ import {
   CreatedAt,
   DataType,
   ForeignKey,
+  HasOne,
   Model,
   PrimaryKey,
   Table,
@@ -12,6 +13,7 @@ import {
 } from 'sequelize-typescript';
 import { PetModel } from '../../../../pets/infrastructure/persistence/models/pet.model.js';
 import { VeterinarianModel } from '../../../../veterinarians/infrastructure/persistence/models/veterinarian.model.js';
+import { ConsultationModel } from '../../../../consultations/infrastructure/persistence/models/consultation.model.js';
 
 @Table({ tableName: 'appointments', timestamps: true })
 export class AppointmentModel extends Model {
@@ -45,6 +47,9 @@ export class AppointmentModel extends Model {
 
   @Column({ type: DataType.STRING(30), allowNull: false, defaultValue: 'PENDIENTE' })
   declare state: string;
+
+  @HasOne(() => ConsultationModel)
+  declare consultation: unknown;
 
   @CreatedAt
   declare createdAt: Date;
