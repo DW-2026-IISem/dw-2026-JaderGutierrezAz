@@ -2543,3 +2543,7 @@ npm run start:dev
 #### 8.17 features/business/pets/application/use-cases/update-pet.use-case.ts
 
 ![](images/clipboard-2444011858.png)
+
+#### 8.18 features/business/pets/presentation/http/serializers/pet.serializer.ts
+
+![](images/clipboard-2915351652.png)
