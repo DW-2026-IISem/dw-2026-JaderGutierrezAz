@@ -2991,3 +2991,9 @@ npm run start:dev
 #### 12.25 Verificar tabla vaccines
 
 ![](images/clipboard-3527170794.png)
+
+## FASE 10 — `vaccine_batch`
+
+#### 13.1 — features/business/vaccine-batches/domain/entities/vaccine-batch.entity.ts
+
+![](images/clipboard-3141153791.png)
