@@ -2547,3 +2547,7 @@ npm run start:dev
 #### 8.18 features/business/pets/presentation/http/serializers/pet.serializer.ts
 
 ![](images/clipboard-2915351652.png)
+
+#### 8.19 features/business/pets/presentation/http/controllers/pets.controller.ts
+
+![](images/clipboard-1229608901.png)
