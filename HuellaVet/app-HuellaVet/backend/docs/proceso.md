@@ -2661,3 +2661,7 @@ npm run start:dev
 #### 9.21 features/business/veterinarians/veterinarians.module.ts
 
 ![](images/clipboard-2386609755.png)
+
+#### 9.22 Registrar VeterinarianModel en sequelize.factory.ts
+
+![](images/clipboard-4001826065.png)
