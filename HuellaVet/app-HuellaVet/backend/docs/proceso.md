@@ -2939,3 +2939,7 @@ npm run start:dev
 #### 12.12 vaccines/application/mappers/vaccine.mapper.ts
 
 ![](images/clipboard-1191085851.png)
+
+#### 12.13 vaccines/application/use-cases/create-vaccine.use-case.ts
+
+![](images/clipboard-3169684750.png)
