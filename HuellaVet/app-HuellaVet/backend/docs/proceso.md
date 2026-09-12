@@ -2649,3 +2649,7 @@ npm run start:dev
 #### 9.18 features/business/veterinarians/presentation/http/serializers/veterinarian.serializer.ts
 
 ![](images/clipboard-1628028019.png)
+
+#### 9.19 features/business/veterinarians/presentation/http/controllers/veterinarians.controller.ts
+
+![](images/clipboard-3986247298.png)
