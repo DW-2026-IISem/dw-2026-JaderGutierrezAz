@@ -2833,3 +2833,7 @@ npm run start:dev
 #### 11.12 consultations/application/dto/update-consultation.dto.ts
 
 ![](images/clipboard-4215767320.png)
+
+#### 11.13 business/consultations/application/mappers/consultation.mapper.ts
+
+![](images/clipboard-3070279702.png)
