@@ -2967,3 +2967,7 @@ npm run start:dev
 #### 12.19 vaccines/presentation/http/controllers/vaccines.controller.ts
 
 ![](images/clipboard-306143106.png)
+
+#### 12.20 features/business/vaccines/index.ts
+
+![](images/clipboard-4034162906.png)
