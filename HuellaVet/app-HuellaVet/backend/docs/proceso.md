@@ -3033,3 +3033,7 @@ npm run start:dev
 #### 13.10 vaccine-batches/application/dto/create-vaccine-batch.dto.ts
 
 ![](images/clipboard-3933006696.png)
+
+#### 13.11 vaccine-batches/application/dto/update-vaccine-batch.dto.ts
+
+![](images/clipboard-292971512.png)
