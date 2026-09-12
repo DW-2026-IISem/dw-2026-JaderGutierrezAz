@@ -2685,3 +2685,5 @@ npm run start:dev
 ![](images/clipboard-450675480.png)
 
 #### 10.2 — features/business/appointments/domain/exceptions/appointment-not-found.exception.ts
+
+![](images/clipboard-2719688279.png)
