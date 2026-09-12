@@ -2483,3 +2483,7 @@ npm run start:dev
 #### 8.2 `features/business/pets/domain/exceptions/pet-not-found.exception.ts`
 
 ![](images/clipboard-1917222824.png)
+
+#### 8.3 — `features/business/pets/domain/interfaces/pet-repository.interface.ts`
+
+![](images/clipboard-2812156377.png)
