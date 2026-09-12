@@ -2751,3 +2751,7 @@ npm run start:dev
 #### 10.18 appointments/application/use-cases/update-appointment.use-case.ts
 
 ![](images/clipboard-1199791532.png)
+
+#### 10.19 appointments/presentation/http/serializers/appointment.serializer.ts
+
+![](images/clipboard-1209457633.png)
