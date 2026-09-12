@@ -2601,3 +2601,7 @@ npm run start:dev
 #### 9.6 features/business/veterinarians/infrastructure/persistence/migrations/create-veterinarians-table.migration.ts
 
 ![](images/clipboard-663561820.png)
+
+#### 9.7 features/business/veterinarians/infrastructure/persistence/seeders/veterinarians.seeder.ts
+
+![](images/clipboard-1672337171.png)
