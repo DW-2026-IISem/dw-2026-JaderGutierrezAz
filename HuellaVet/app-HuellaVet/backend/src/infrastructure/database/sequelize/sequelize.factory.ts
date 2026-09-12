@@ -6,12 +6,14 @@ import { OwnerModel } from '../../../features/business/owners/infrastructure/per
 import { PetModel } from '../../../features/business/pets/infrastructure/persistence/models/pet.model.js';
 import { VeterinarianModel } from '../../../features/business/veterinarians/infrastructure/persistence/models/veterinarian.model.js';
 import { AppointmentModel } from '../../../features/business/appointments/infrastructure/persistence/models/appointment.model.js';
+import { ConsultationModel } from '../../../features/business/consultations/infrastructure/persistence/models/consultation.model.js';
 
 export const ALL_MODELS = [
   OwnerModel,
   PetModel,
   VeterinarianModel,
   AppointmentModel,
+  ConsultationModel,
 ];
 
 export async function createSequelizeInstance(

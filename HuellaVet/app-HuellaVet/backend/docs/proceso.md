@@ -2870,6 +2870,10 @@ npm run start:dev
 
 ![](images/clipboard-150619318.png)
 
-#### 1.22 consultations/consultations.module.ts
+#### 11.22 consultations/consultations.module.ts
 
 ![](images/clipboard-1252185737.png)
+
+#### 11.23 infrastructure/database/sequelize/sequelize.factory.ts
+
+![](images/clipboard-3179463649.png)
