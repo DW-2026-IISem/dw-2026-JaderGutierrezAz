@@ -2779,3 +2779,7 @@ npm run start:dev
 #### 10.25 Actualizar infrastructure/database/seeders/database-seeder.service.ts
 
 ![](images/clipboard-100414762.png)
+
+#### 10.26 Verificar tabla appointments
+
+![](images/clipboard-1870539144.png)

@@ -1,12 +1,10 @@
 import {
-import { AppointmentModel } from '../../../../appointments/infrastructure/persistence/models/appointment.model.js';
   AutoIncrement,
   Column,
   CreatedAt,
   DataType,
+  HasMany,
   Model,
-  HasMany,
-  HasMany,
   PrimaryKey,
   Table,
   UpdatedAt,

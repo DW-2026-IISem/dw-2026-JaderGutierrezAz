@@ -68,9 +68,7 @@ export class Appointment {
   }
 
   update(
-    props: Partial
-      Omit<AppointmentProps, 'id' | 'petId' | 'veterinarianId' | 'createdAt' | 'updatedAt'>
-    >,
+    props: Partial<Omit<AppointmentProps, 'id' | 'petId' | 'veterinarianId' | 'createdAt' | 'updatedAt'>>,
   ): void {
     const nextStart = props.startDate ?? this.startDate;
     const nextEnd = props.endDate ?? this.endDate;
