@@ -2853,3 +2853,7 @@ npm run start:dev
 #### 11.17 consultations/application/use-cases/list-consultations.use-case.ts
 
 ![](images/clipboard-3601199963.png)
+
+#### 11.18 consultations/application/use-cases/update-consultation.use-case.ts
+
+![](images/clipboard-720558709.png)
