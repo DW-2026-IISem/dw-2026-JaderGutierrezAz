@@ -2837,3 +2837,7 @@ npm run start:dev
 #### 11.13 business/consultations/application/mappers/consultation.mapper.ts
 
 ![](images/clipboard-3070279702.png)
+
+#### 11.14 consultations/application/use-cases/create-consultation.use-case.ts
+
+![](images/clipboard-690730523.png)
