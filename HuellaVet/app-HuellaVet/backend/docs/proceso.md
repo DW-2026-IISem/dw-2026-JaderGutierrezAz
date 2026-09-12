@@ -2809,3 +2809,7 @@ npm run start:dev
 #### 11.6 features/business/consultations/infrastructure/persistence/repositories/consultation.repository.ts
 
 ![](images/clipboard-2072089044.png)
+
+#### 11.7 infrastructure/persistence/migrations/create-consultations-table.migration.ts
+
+![](images/clipboard-250121753.png)
