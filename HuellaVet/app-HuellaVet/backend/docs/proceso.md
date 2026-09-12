@@ -2515,3 +2515,7 @@ npm run start:dev
 #### 8.10 features/business/pets/application/dto/create-pet.dto.ts
 
 ![](images/clipboard-1395147411.png)
+
+#### 8.11 features/business/pets/application/dto/update-pet.dto.ts
+
+![](images/clipboard-1329104702.png)
