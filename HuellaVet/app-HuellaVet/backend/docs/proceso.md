@@ -2523,3 +2523,7 @@ npm run start:dev
 #### 8.12 features/business/pets/application/mappers/pet.mapper.ts
 
 ![](images/clipboard-4167019362.png)
+
+#### 8.13 features/business/pets/application/use-cases/create-pet.use-case.ts
+
+![](images/clipboard-200566459.png)
