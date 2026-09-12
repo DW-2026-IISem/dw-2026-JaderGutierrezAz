@@ -3017,3 +3017,7 @@ npm run start:dev
 #### 13.6 vaccine-batches/infrastructure/persistence/migrations/create-vaccine-batches-table.migration.ts
 
 ![](images/clipboard-3329500435.png)
+
+#### 13.7 vaccine-batches/infrastructure/persistence/seeders/vaccine-batches.seeder.ts
+
+![](images/clipboard-759391991.png)
