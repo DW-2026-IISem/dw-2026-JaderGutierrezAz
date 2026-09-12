@@ -2711,3 +2711,7 @@ npm run start:dev
 #### 10.8 features/business/appointments/infrastructure/persistence/seeders/appointments.seeder.ts
 
 ![](images/clipboard-4197430570.png)
+
+#### 10.9 features/business/appointments/application/dto/appointment-filter.dto.ts
+
+![](images/clipboard-83667713.png)
