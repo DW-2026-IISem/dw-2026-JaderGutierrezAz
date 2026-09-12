@@ -2715,3 +2715,7 @@ npm run start:dev
 #### 10.9 features/business/appointments/application/dto/appointment-filter.dto.ts
 
 ![](images/clipboard-83667713.png)
+
+#### 10.10 features/business/appointments/application/dto/appointment-response.dto.ts
+
+![](images/clipboard-3226069260.png)
