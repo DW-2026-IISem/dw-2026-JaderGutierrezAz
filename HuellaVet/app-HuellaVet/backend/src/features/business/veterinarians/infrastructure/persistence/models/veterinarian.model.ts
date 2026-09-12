@@ -6,10 +6,12 @@ import { AppointmentModel } from '../../../../appointments/infrastructure/persis
   DataType,
   Model,
   HasMany,
+  HasMany,
   PrimaryKey,
   Table,
   UpdatedAt,
 } from 'sequelize-typescript';
+import { AppointmentModel } from '../../../../appointments/infrastructure/persistence/models/appointment.model.js';
 
 @Table({ tableName: 'veterinarians', timestamps: true })
 export class VeterinarianModel extends Model {

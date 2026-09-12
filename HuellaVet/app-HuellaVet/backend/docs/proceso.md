@@ -2699,3 +2699,9 @@ npm run start:dev
 #### 10.5 features/business/appointments/infrastructure/persistence/models/appointment.model.ts 
 
 ![](images/clipboard-2249013320.png)
+
+#### 10.6 features/business/appointments/infrastructure/persistence/repositories/appointment.repository.ts
+
+![](images/clipboard-1748330624.png)
+
+#### 10.7 — migración documental
