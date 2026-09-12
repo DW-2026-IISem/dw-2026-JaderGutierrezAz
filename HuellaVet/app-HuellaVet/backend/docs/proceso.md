@@ -2581,3 +2581,7 @@ npm run start:dev
 #### 9.1 — features/business/veterinarians/domain/entities/veterinarian.entity.ts
 
 ![](images/clipboard-3774029882.png)
+
+#### 9.2 — features/business/veterinarians/domain/exceptions/veterinarian-not-found.exception.ts
+
+![](images/clipboard-1057870257.png)
