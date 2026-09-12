@@ -2677,3 +2677,11 @@ npm run start:dev
 #### 9.25 — Verificar tabla veterinarians
 
 ![](images/clipboard-10706475.png)
+
+## FASE 10 — `09_APPOINTMENTS`
+
+#### 10.1 — features/business/appointments/domain/entities/appointment.entity.ts
+
+![](images/clipboard-450675480.png)
+
+#### 10.2 — features/business/appointments/domain/exceptions/appointment-not-found.exception.ts
