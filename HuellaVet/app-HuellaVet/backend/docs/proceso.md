@@ -2449,3 +2449,7 @@ npm run start:dev
 #### 7.23 features/business/owners/index.ts
 
 ![](images/clipboard-1341269150.png)
+
+#### 7.24 features/business/owners/owners.module.ts
+
+![](images/clipboard-4045657800.png)
