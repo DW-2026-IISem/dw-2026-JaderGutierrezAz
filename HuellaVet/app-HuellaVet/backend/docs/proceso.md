@@ -2559,3 +2559,7 @@ npm run start:dev
 #### 8.21 features/business/pets/pets.module.ts
 
 ![](images/clipboard-1663937601.png)
+
+#### 8.22 Registrar PetModel en sequelize.factory.ts
+
+![](images/clipboard-1966897372.png)

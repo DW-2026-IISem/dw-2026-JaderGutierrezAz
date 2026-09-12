@@ -3,9 +3,11 @@ import { DatabaseDialect } from '../../../config/environment/env.interface.js';
 import { getSequelizeOptions } from './sequelize.options.js';
 
 import { OwnerModel } from '../../../features/business/owners/infrastructure/persistence/models/owner.model.js';
+import { PetModel } from '../../../features/business/pets/infrastructure/persistence/models/pet.model.js';
 
 export const ALL_MODELS = [
   OwnerModel,
+  PetModel,
 ];
 
 export async function createSequelizeInstance(
