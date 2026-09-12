@@ -3021,3 +3021,7 @@ npm run start:dev
 #### 13.7 vaccine-batches/infrastructure/persistence/seeders/vaccine-batches.seeder.ts
 
 ![](images/clipboard-759391991.png)
+
+#### 13.8 vaccine-batches/application/dto/vaccine-batch-filter.dto.ts
+
+![](images/clipboard-3219722770.png)
