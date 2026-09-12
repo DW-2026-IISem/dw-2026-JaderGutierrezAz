@@ -2927,3 +2927,7 @@ npm run start:dev
 #### 12.9 vaccines/application/dto/vaccine-response.dto.ts
 
 ![](images/clipboard-2869823606.png)
+
+#### 12.10 vaccines/application/dto/create-vaccine.dto.ts
+
+![](images/clipboard-3901393079.png)
