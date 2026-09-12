@@ -3005,3 +3005,7 @@ npm run start:dev
 #### 13.3 — features/business/vaccine-batches/domain/interfaces/vaccine-batch-repository.interface.ts
 
 ![](images/clipboard-893953524.png)
+
+#### 13.4 features/business/vaccine-batches/infrastructure/persistence/models/vaccine-batch.model.ts
+
+![](images/clipboard-3762401836.png)
