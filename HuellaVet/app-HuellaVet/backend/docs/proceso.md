@@ -2691,3 +2691,7 @@ npm run start:dev
 #### 10.3 — features/business/appointments/domain/exceptions/appointment-overlap.exception.ts
 
 ![](images/clipboard-3759099496.png)
+
+#### 10.4 — features/business/appointments/domain/interfaces/appointment-repository.interface.ts
+
+![](images/clipboard-1007555767.png)
