@@ -2705,3 +2705,5 @@ npm run start:dev
 ![](images/clipboard-1748330624.png)
 
 #### 10.7 — migración documental
+
+![](images/clipboard-3941881571.png)
