@@ -3,6 +3,7 @@ import { seedOwners } from '../../../features/business/owners/infrastructure/per
 import { seedPets } from '../../../features/business/pets/infrastructure/persistence/seeders/pets.seeder.js';
 import { seedVeterinarians } from '../../../features/business/veterinarians/infrastructure/persistence/seeders/veterinarians.seeder.js';
 import { seedAppointments } from '../../../features/business/appointments/infrastructure/persistence/seeders/appointments.seeder.js';
+import { seedConsultations } from '../../../features/business/consultations/infrastructure/persistence/seeders/consultations.seeder.js';
 
 @Injectable()
 export class DatabaseSeederService implements OnModuleInit {
@@ -18,6 +19,7 @@ export class DatabaseSeederService implements OnModuleInit {
       await seedPets();
       await seedVeterinarians();
       await seedAppointments();
+      await seedConsultations();
       this.logger.log('✅ Seeders ejecutados');
     } catch (error: any) {
       this.logger.error(`❌ Error en seeders: ${error.message}`, error.stack);
