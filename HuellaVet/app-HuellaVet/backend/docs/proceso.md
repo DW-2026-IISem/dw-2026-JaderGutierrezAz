@@ -2633,3 +2633,7 @@ npm run start:dev
 #### 9.14 features/business/veterinarians/application/use-cases/delete-veterinarian.use-case.ts
 
 ![](images/clipboard-2173510013.png)
+
+#### 9.15 features/business/veterinarians/application/use-cases/get-veterinarian.use-case.ts
+
+![](images/clipboard-490834471.png)
