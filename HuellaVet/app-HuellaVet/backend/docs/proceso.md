@@ -2759,3 +2759,7 @@ npm run start:dev
 #### 10.20 appointments/presentation/http/controllers/appointments.controller.ts
 
 ![](images/clipboard-2797950558.png)
+
+#### 10.21 features/business/appointments/index.ts
+
+![](images/clipboard-2070180993.png)
