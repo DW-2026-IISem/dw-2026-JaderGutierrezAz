@@ -3041,3 +3041,7 @@ npm run start:dev
 #### 13.12 vaccine-batches/application/mappers/vaccine-batch.mapper.ts
 
 ![](images/clipboard-1577824965.png)
+
+#### 13.13 vaccine-batches/application/use-cases/create-vaccine-batch.use-case.ts
+
+![](images/clipboard-301101249.png)
