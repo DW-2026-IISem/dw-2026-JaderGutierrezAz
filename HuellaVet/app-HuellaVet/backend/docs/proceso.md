@@ -2571,3 +2571,7 @@ npm run start:dev
 #### 8.24 Ejecutar el seeder de pets
 
 ![](images/clipboard-4035790858.png)
+
+#### 8.25 Verificar tabla PETS
+
+![](images/clipboard-803767112.png)

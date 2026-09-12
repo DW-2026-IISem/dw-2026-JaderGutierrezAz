@@ -35,5 +35,5 @@ export class OwnerModel extends Model {
   declare isActive: boolean;
 
   @HasMany(() => PetModel)
-  declare pets: PetModel[];
+  declare pets: unknown[];
 }

@@ -24,7 +24,7 @@ export class PetModel extends Model {
   declare ownerId: number;
 
   @BelongsTo(() => OwnerModel)
-  declare owner: OwnerModel;
+  declare owner: unknown;
 
   @Column({ type: DataType.STRING(150), allowNull: false })
   declare name: string;
