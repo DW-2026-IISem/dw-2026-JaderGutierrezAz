@@ -2499,3 +2499,7 @@ npm run start:dev
 #### 8.6`features/business/pets/infrastructure/persistence/migrations/create-pets-table.migration.ts`
 
 ![](images/clipboard-1122216855.png)
+
+#### 8.7 `features/business/pets/infrastructure/persistence/seeders/pets.seeder.ts`
+
+![](images/clipboard-1468788230.png)
