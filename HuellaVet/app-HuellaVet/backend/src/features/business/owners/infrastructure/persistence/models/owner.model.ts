@@ -2,10 +2,12 @@ import {
   AutoIncrement,
   Column,
   DataType,
+  HasMany,
   Model,
   PrimaryKey,
   Table,
 } from 'sequelize-typescript';
+import { PetModel } from '../../../../pets/infrastructure/persistence/models/pet.model.js';
 
 @Table({ tableName: 'owners', timestamps: false })
 export class OwnerModel extends Model {
@@ -31,4 +33,7 @@ export class OwnerModel extends Model {
 
   @Column({ type: DataType.BOOLEAN, allowNull: false, defaultValue: true })
   declare isActive: boolean;
+
+  @HasMany(() => PetModel)
+  declare pets: PetModel[];
 }
