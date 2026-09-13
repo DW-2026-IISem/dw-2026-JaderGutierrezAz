@@ -3369,3 +3369,7 @@ npm run start:dev
 #### 16.17 payments/application/use-cases/update-payment.use-case.ts
 
 ![](images/clipboard-911333918.png)
+
+#### 16.18 payments/presentation/http/serializers/payment.serializer.ts
+
+![](images/clipboard-1998179544.png)
