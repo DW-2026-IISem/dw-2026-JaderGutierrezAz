@@ -3110,7 +3110,7 @@ npm run start:dev
 
 ![](images/clipboard-1297854474.png)
 
-#### 14.4 — features/business/vaccine-applications/infrastructure/persistence/models/vaccine-application.model.ts 
+#### 14.4 — features/business/vaccine-applications/infrastructure/persistence/models/vaccine-application.model.ts
 
 ![](images/clipboard-2974111446.png)
 
@@ -3178,7 +3178,7 @@ npm run start:dev
 
 ![](images/clipboard-2860280911.png)
 
-#### 14.21 vaccine-applications/vaccine-applications.module.ts 
+#### 14.21 vaccine-applications/vaccine-applications.module.ts
 
 ![](images/clipboard-3297820603.png)
 
@@ -3212,7 +3212,7 @@ npm run start:dev
 
 ![](images/clipboard-572874256.png)
 
-#### 15.4 features/business/recipes/infrastructure/persistence/models/recipe.model.ts 
+#### 15.4 features/business/recipes/infrastructure/persistence/models/recipe.model.ts
 
 ![](images/clipboard-1863186805.png)
 
@@ -3299,3 +3299,9 @@ npm run start:dev
 #### 15.22 Verificar tabla `recipes`
 
 ![](images/clipboard-1285769776.png)
+
+## FASE 16 — `payments`
+
+#### 16.1 — features/business/payments/domain/entities/payment.entity.ts
+
+![](images/clipboard-2354855036.png)
