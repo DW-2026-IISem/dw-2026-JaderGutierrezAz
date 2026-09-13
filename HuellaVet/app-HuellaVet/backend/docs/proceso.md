@@ -3103,3 +3103,7 @@ npm run start:dev
 #### 14.2 — features/business/vaccine-applications/domain/exceptions/vaccine-application-not-found.exception.ts
 
 ![](images/clipboard-4092535806.png)
+
+### 14.3 — features/business/vaccine-applications/domain/interfaces/vaccine-application-repository.interface.ts
+
+![](images/clipboard-1297854474.png)
