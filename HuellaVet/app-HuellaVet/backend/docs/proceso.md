@@ -3267,3 +3267,7 @@ npm run start:dev
 #### 15.17 recipes/application/use-cases/update-recipe.use-case.ts
 
 ![](images/clipboard-3915201009.png)
+
+#### 15.18 recipes/presentation/http/serializers/recipe.serializer.ts
+
+![](images/clipboard-3454575530.png)
