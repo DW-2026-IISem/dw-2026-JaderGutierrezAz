@@ -3275,3 +3275,7 @@ npm run start:dev
 #### 15.19 recipes/presentation/http/controllers/recipes.controller.ts
 
 ![](images/clipboard-2437065282.png)
+
+#### 15.20 features/business/recipes/index.ts
+
+![](images/clipboard-429024283.png)
