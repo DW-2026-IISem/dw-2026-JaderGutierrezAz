@@ -3123,3 +3123,7 @@ npm run start:dev
 #### 14.7 vaccine-applications/infrastructure/persistence/seeders/vaccine-applications.seeder.ts
 
 ![](images/clipboard-1704509716.png)
+
+#### 14.8 vaccine-applications/application/dto/vaccine-application-filter.dto.ts
+
+![](images/clipboard-1977268471.png)
