@@ -3107,3 +3107,7 @@ npm run start:dev
 ### 14.3 — features/business/vaccine-applications/domain/interfaces/vaccine-application-repository.interface.ts
 
 ![](images/clipboard-1297854474.png)
+
+#### 14.4 — features/business/vaccine-applications/infrastructure/persistence/models/vaccine-application.model.ts 
+
+![](images/clipboard-2974111446.png)
