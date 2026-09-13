@@ -11,6 +11,7 @@ import { VaccineModel } from '../../../features/business/vaccines/infrastructure
 import { VaccineBatchModel } from '../../../features/business/vaccine-batches/infrastructure/persistence/models/vaccine-batch.model.js';
 import { VaccineApplicationModel } from '../../../features/business/vaccine-applications/infrastructure/persistence/models/vaccine-application.model.js';
 import { RecipeModel } from '../../../features/business/recipes/infrastructure/persistence/models/recipe.model.js';
+import { PaymentModel } from '../../../features/business/payments/infrastructure/persistence/models/payment.model.js';
 
 export const ALL_MODELS = [
   OwnerModel,
@@ -22,6 +23,7 @@ export const ALL_MODELS = [
   VaccineBatchModel,
   VaccineApplicationModel,
   RecipeModel,
+  PaymentModel,
 ];
 
 export async function createSequelizeInstance(

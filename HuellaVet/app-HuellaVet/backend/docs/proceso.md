@@ -3385,3 +3385,7 @@ npm run start:dev
 #### 16.21 features/business/payments/payments.module.ts
 
 ![](images/clipboard-749251361.png)
+
+#### 16.22 infrastructure/database/sequelize/sequelize.factory.ts
+
+![](images/clipboard-3691474882.png)
