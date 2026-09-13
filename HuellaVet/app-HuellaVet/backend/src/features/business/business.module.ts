@@ -8,6 +8,7 @@ import { VaccinesModule } from './vaccines/vaccines.module.js';
 import { VaccineBatchesModule } from './vaccine-batches/vaccine-batches.module.js';
 import { VaccineApplicationsModule } from './vaccine-applications/vaccine-applications.module.js';
 import { RecipesModule } from './recipes/recipes.module.js';
+import { PaymentsModule } from './payments/payments.module.js';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { RecipesModule } from './recipes/recipes.module.js';
     VaccineBatchesModule,
     VaccineApplicationsModule,
     RecipesModule,
+    PaymentsModule,
   ],
   exports: [
     OwnersModule,
@@ -31,6 +33,7 @@ import { RecipesModule } from './recipes/recipes.module.js';
     VaccineBatchesModule,
     VaccineApplicationsModule,
     RecipesModule,
+    PaymentsModule,
   ],
 })
 export class BusinessModule {}

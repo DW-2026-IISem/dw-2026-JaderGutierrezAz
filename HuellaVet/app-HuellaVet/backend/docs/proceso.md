@@ -3389,3 +3389,7 @@ npm run start:dev
 #### 16.22 infrastructure/database/sequelize/sequelize.factory.ts
 
 ![](images/clipboard-3691474882.png)
+
+#### 16.23 features/business/business.module.ts
+
+![](images/clipboard-2115961412.png)
