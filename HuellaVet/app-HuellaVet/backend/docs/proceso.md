@@ -3099,3 +3099,7 @@ npm run start:dev
 #### 14.1 — features/business/vaccine-applications/domain/entities/vaccine-application.entity.ts
 
 ![](images/clipboard-4103067742.png)
+
+#### 14.2 — features/business/vaccine-applications/domain/exceptions/vaccine-application-not-found.exception.ts
+
+![](images/clipboard-4092535806.png)
