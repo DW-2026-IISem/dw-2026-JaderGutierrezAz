@@ -5,12 +5,14 @@ import {
   CreatedAt,
   DataType,
   ForeignKey,
+  HasMany,
   Model,
   PrimaryKey,
   Table,
   UpdatedAt,
 } from 'sequelize-typescript';
 import { VaccineModel } from '../../../../vaccines/infrastructure/persistence/models/vaccine.model.js';
+import { VaccineApplicationModel } from '../../../../vaccine-applications/infrastructure/persistence/models/vaccine-application.model.js';
 
 @Table({ tableName: 'vaccine_batches', timestamps: true })
 export class VaccineBatchModel extends Model {
@@ -34,6 +36,9 @@ export class VaccineBatchModel extends Model {
 
   @Column({ type: DataType.BOOLEAN, allowNull: false, defaultValue: true })
   declare isActive: boolean;
+
+  @HasMany(() => VaccineApplicationModel)
+  declare vaccineApplications: unknown[];
 
   @CreatedAt
   declare createdAt: Date;
