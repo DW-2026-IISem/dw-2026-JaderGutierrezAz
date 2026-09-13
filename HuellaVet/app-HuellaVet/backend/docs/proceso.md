@@ -3279,3 +3279,7 @@ npm run start:dev
 #### 15.20 features/business/recipes/index.ts
 
 ![](images/clipboard-429024283.png)
+
+#### 15.21 features/business/recipes/recipes.module.ts
+
+![](images/clipboard-2947497609.png)
