@@ -3271,3 +3271,7 @@ npm run start:dev
 #### 15.18 recipes/presentation/http/serializers/recipe.serializer.ts
 
 ![](images/clipboard-3454575530.png)
+
+#### 15.19 recipes/presentation/http/controllers/recipes.controller.ts
+
+![](images/clipboard-2437065282.png)
