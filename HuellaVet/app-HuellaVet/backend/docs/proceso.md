@@ -3393,3 +3393,7 @@ npm run start:dev
 #### 16.23 features/business/business.module.ts
 
 ![](images/clipboard-2115961412.png)
+
+#### 16.24 infrastructure/database/seeders/database-seeder.service.ts
+
+![](images/clipboard-1055711613.png)
