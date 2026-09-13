@@ -3219,3 +3219,7 @@ npm run start:dev
 #### 15.5 features/business/recipes/infrastructure/persistence/repositories/recipe.repository.ts
 
 ![](images/clipboard-261442532.png)
+
+#### 15.6 infrastructure/persistence/migrations/create-recipes-table.migration.ts
+
+![](images/clipboard-549456952.png)
