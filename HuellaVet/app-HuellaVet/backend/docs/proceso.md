@@ -3377,3 +3377,7 @@ npm run start:dev
 #### 16.19 payments/presentation/http/controllers/payments.controller.ts
 
 ![](images/clipboard-1429139746.png)
+
+#### 16.20-features/business/payments/index.ts
+
+![](images/clipboard-1496497782.png)
