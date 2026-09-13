@@ -3361,3 +3361,7 @@ npm run start:dev
 #### 16.15 payments/application/use-cases/get-payment.use-case.ts
 
 ![](images/clipboard-4059138861.png)
+
+#### 16.16 payments/application/use-cases/list-payments.use-case.ts
+
+![](images/clipboard-1409692436.png)
