@@ -3223,3 +3223,7 @@ npm run start:dev
 #### 15.6 infrastructure/persistence/migrations/create-recipes-table.migration.ts
 
 ![](images/clipboard-549456952.png)
+
+#### 15.7 infrastructure/persistence/seeders/recipes.seeder.ts
+
+![](images/clipboard-1531330708.png)
