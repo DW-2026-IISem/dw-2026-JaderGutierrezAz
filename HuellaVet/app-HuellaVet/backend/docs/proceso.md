@@ -3167,3 +3167,7 @@ npm run start:dev
 #### 14.18 vaccine-applications/presentation/http/serializers/vaccine-application.serializer.ts
 
 ![](images/clipboard-3581679789.png)
+
+#### 14.19 vaccine-applications/presentation/http/controllers/vaccine-applications.controller.ts
+
+![](images/clipboard-711603653.png)
