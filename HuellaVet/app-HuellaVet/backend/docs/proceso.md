@@ -3243,3 +3243,7 @@ npm run start:dev
 #### 15.11 recipes/application/dto/update-recipe.dto.ts
 
 ![](images/clipboard-3326925577.png)
+
+#### 15.12 recipes/application/mappers/recipe.mapper.ts
+
+![](images/clipboard-1525845816.png)
