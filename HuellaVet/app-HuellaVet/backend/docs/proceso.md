@@ -2772,7 +2772,7 @@ npm run start:dev
 
 ![](images/clipboard-1541889386.png)
 
-#### 10.24 Actualizar features/business/business.module.ts 
+#### 10.24 Actualizar features/business/business.module.ts
 
 ![](images/clipboard-2573414761.png)
 
@@ -2802,7 +2802,7 @@ npm run start:dev
 
 ![](images/clipboard-120288324.png)
 
-#### 11.5 features/business/consultations/infrastructure/persistence/models/consultation.model.ts 
+#### 11.5 features/business/consultations/infrastructure/persistence/models/consultation.model.ts
 
 ![](images/clipboard-1511446442.png)
 
@@ -3093,3 +3093,9 @@ npm run start:dev
 #### 13.25 Verificar tabla vaccines_batches
 
 ![](images/clipboard-2051050836.png)
+
+## FASE 14 — vaccine_applications
+
+#### 14.1 — features/business/vaccine-applications/domain/entities/vaccine-application.entity.ts
+
+![](images/clipboard-4103067742.png)
