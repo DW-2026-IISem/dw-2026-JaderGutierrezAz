@@ -3163,3 +3163,7 @@ npm run start:dev
 #### 14.17 vaccine-applications/application/use-cases/update-vaccine-application.use-case.ts
 
 ![](images/clipboard-2200032246.png)
+
+#### 14.18 vaccine-applications/presentation/http/serializers/vaccine-application.serializer.ts
+
+![](images/clipboard-3581679789.png)
