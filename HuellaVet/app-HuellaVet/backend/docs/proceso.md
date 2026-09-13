@@ -3305,3 +3305,7 @@ npm run start:dev
 #### 16.1 — features/business/payments/domain/entities/payment.entity.ts
 
 ![](images/clipboard-2354855036.png)
+
+#### 16.2 — features/business/payments/domain/exceptions/payment-not-found.exception.ts
+
+![](images/clipboard-2829619601.png)
