@@ -9,6 +9,7 @@ import { AppointmentModel } from '../../../features/business/appointments/infras
 import { ConsultationModel } from '../../../features/business/consultations/infrastructure/persistence/models/consultation.model.js';
 import { VaccineModel } from '../../../features/business/vaccines/infrastructure/persistence/models/vaccine.model.js';
 import { VaccineBatchModel } from '../../../features/business/vaccine-batches/infrastructure/persistence/models/vaccine-batch.model.js';
+import { VaccineApplicationModel } from '../../../features/business/vaccine-applications/infrastructure/persistence/models/vaccine-application.model.js';
 
 export const ALL_MODELS = [
   OwnerModel,
@@ -18,6 +19,7 @@ export const ALL_MODELS = [
   ConsultationModel,
   VaccineModel,
   VaccineBatchModel,
+  VaccineApplicationModel,
 ];
 
 export async function createSequelizeInstance(

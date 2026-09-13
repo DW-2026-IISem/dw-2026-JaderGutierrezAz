@@ -3179,3 +3179,7 @@ npm run start:dev
 #### 14.21 vaccine-applications/vaccine-applications.module.ts 
 
 ![](images/clipboard-3297820603.png)
+
+#### 14.22 infrastructure/database/sequelize/sequelize.factory.ts
+
+![](images/clipboard-2266580701.png)
