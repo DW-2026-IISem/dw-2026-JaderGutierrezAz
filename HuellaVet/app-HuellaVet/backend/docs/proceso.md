@@ -3231,3 +3231,7 @@ npm run start:dev
 #### 15.8 features/business/recipes/application/dto/recipe-filter.dto.ts
 
 ![](images/clipboard-3740900573.png)
+
+#### 15.9 recipes/application/dto/recipe-response.dto.ts
+
+![](images/clipboard-3010011018.png)
