@@ -3215,3 +3215,7 @@ npm run start:dev
 #### 15.4 features/business/recipes/infrastructure/persistence/models/recipe.model.ts 
 
 ![](images/clipboard-1863186805.png)
+
+#### 15.5 features/business/recipes/infrastructure/persistence/repositories/recipe.repository.ts
+
+![](images/clipboard-261442532.png)

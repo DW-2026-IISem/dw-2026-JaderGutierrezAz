@@ -13,6 +13,7 @@ import {
 } from 'sequelize-typescript';
 import { AppointmentModel } from '../../../../appointments/infrastructure/persistence/models/appointment.model.js';
 import { VaccineApplicationModel } from '../../../../vaccine-applications/infrastructure/persistence/models/vaccine-application.model.js';
+import { RecipeModel } from '../../../../recipes/infrastructure/persistence/models/recipe.model.js';
 
 @Table({ tableName: 'consultations', timestamps: true })
 export class ConsultationModel extends Model {
@@ -39,6 +40,9 @@ export class ConsultationModel extends Model {
 
   @HasMany(() => VaccineApplicationModel)
   declare vaccineApplications: unknown[];
+
+  @HasMany(() => RecipeModel)
+  declare recipes: unknown[];
 
   @CreatedAt
   declare createdAt: Date;
