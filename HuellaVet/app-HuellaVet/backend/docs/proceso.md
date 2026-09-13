@@ -3397,3 +3397,7 @@ npm run start:dev
 #### 16.24 infrastructure/database/seeders/database-seeder.service.ts
 
 ![](images/clipboard-1055711613.png)
+
+#### 16.25 Verificar tabla `payments`
+
+![](images/clipboard-1738939582.png)
