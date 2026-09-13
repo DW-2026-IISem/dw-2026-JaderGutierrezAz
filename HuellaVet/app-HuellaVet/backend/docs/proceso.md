@@ -3373,3 +3373,7 @@ npm run start:dev
 #### 16.18 payments/presentation/http/serializers/payment.serializer.ts
 
 ![](images/clipboard-1998179544.png)
+
+#### 16.19 payments/presentation/http/controllers/payments.controller.ts
+
+![](images/clipboard-1429139746.png)
