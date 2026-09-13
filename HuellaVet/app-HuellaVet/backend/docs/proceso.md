@@ -3313,3 +3313,7 @@ npm run start:dev
 #### 16.3 — features/business/payments/domain/interfaces/payment-repository.interface.ts
 
 ![](images/clipboard-70230971.png)
+
+#### 16.4 features/business/payments/infrastructure/persistence/models/payment.model.ts
+
+![](images/clipboard-2955852038.png)
