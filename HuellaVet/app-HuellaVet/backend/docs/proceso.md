@@ -1036,6 +1036,8 @@ npm run start:dev
 
 ![![](images/clipboard-2041521247.png)](images/clipboard-393427436.png)
 
+## FASE 6 — `05_BASE_APP_COMMON_SECURITY`
+
 #### 6.1 — config/app/app.constants.ts
 
 Archivo del feature en Clean Architecture.
@@ -2354,7 +2356,7 @@ npm run start:dev
 
 ![](images/clipboard-4102991336.png)
 
-## FASE 7 — `06_BUSINESS_OWNERS`
+## FASE 7 — `BUSINESS_OWNERS`
 
 **Objetivo de la fase:** Primera entidad de negocio. Orden lógico: dominio → infraestructura → aplicación → presentación → módulo → cableado → verificación.
 
@@ -2474,7 +2476,7 @@ npm run start:dev
 
 ![](images/clipboard-1756492043.png)
 
-## FASE 8 — `07_BUSINESS_PETS`
+## FASE 8 — `PETS`
 
 #### 8.1 features/business/pets/domain/entities/pet.entity.ts
 
@@ -2576,7 +2578,7 @@ npm run start:dev
 
 ![](images/clipboard-803767112.png)
 
-## FASE 9 — `08 veterinarians`
+## FASE 9 — `veterinarians`
 
 #### 9.1 — features/business/veterinarians/domain/entities/veterinarian.entity.ts
 
@@ -2590,7 +2592,7 @@ npm run start:dev
 
 ![](images/clipboard-2329198172.png)
 
-### 9.4 features/business/veterinarians/infrastructure/persistence/models/veterinarian.model.ts
+#### 9.4 features/business/veterinarians/infrastructure/persistence/models/veterinarian.model.ts
 
 ![](images/clipboard-4263776032.png)
 
@@ -2678,7 +2680,7 @@ npm run start:dev
 
 ![](images/clipboard-10706475.png)
 
-## FASE 10 — `09_APPOINTMENTS`
+## FASE 10 — `APPOINTMENTS`
 
 #### 10.1 — features/business/appointments/domain/entities/appointment.entity.ts
 
@@ -2992,7 +2994,7 @@ npm run start:dev
 
 ![](images/clipboard-3527170794.png)
 
-## FASE 10 — `vaccine_batch`
+## FASE 13 — `vaccine_batch`
 
 #### 13.1 — features/business/vaccine-batches/domain/entities/vaccine-batch.entity.ts
 
@@ -3094,7 +3096,7 @@ npm run start:dev
 
 ![](images/clipboard-2051050836.png)
 
-## FASE 14 — vaccine_applications
+## FASE 14 — `vaccine_applications`
 
 #### 14.1 — features/business/vaccine-applications/domain/entities/vaccine-application.entity.ts
 
@@ -3104,7 +3106,7 @@ npm run start:dev
 
 ![](images/clipboard-4092535806.png)
 
-### 14.3 — features/business/vaccine-applications/domain/interfaces/vaccine-application-repository.interface.ts
+#### 14.3 — features/business/vaccine-applications/domain/interfaces/vaccine-application-repository.interface.ts
 
 ![](images/clipboard-1297854474.png)
 
@@ -3112,7 +3114,7 @@ npm run start:dev
 
 ![](images/clipboard-2974111446.png)
 
-### 14.5 features/business/vaccine-applications/infrastructure/persistence/repositories/vaccine-application.repository.ts
+#### 14.5 features/business/vaccine-applications/infrastructure/persistence/repositories/vaccine-application.repository.ts
 
 ![](images/clipboard-2041655213.png)
 
@@ -3195,3 +3197,9 @@ npm run start:dev
 #### 14.25 Verificar tabla vaccine_applications
 
 ![](images/clipboard-3833449718.png)
+
+## FASE 15 — `recipes`
+
+#### 15.1 — features/business/recipes/domain/entities/recipe.entity.ts
+
+![](images/clipboard-3124559769.png)
