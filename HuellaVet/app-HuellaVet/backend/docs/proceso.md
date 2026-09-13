@@ -3115,3 +3115,7 @@ npm run start:dev
 ### 14.5 features/business/vaccine-applications/infrastructure/persistence/repositories/vaccine-application.repository.ts
 
 ![](images/clipboard-2041655213.png)
+
+#### 14.6 vaccine-applications/infrastructure/persistence/migrations/create-vaccine-applications-table.migration.ts
+
+![](images/clipboard-2385664140.png)
