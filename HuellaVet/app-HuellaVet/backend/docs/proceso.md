@@ -3345,3 +3345,7 @@ npm run start:dev
 #### 16.11 payments/application/dto/update-payment.dto.ts
 
 ![](images/clipboard-1845823534.png)
+
+#### 16.12 payments/application/mappers/payment.mapper.ts
+
+![](images/clipboard-1719918979.png)
