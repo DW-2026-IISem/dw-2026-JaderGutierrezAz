@@ -3329,3 +3329,7 @@ npm run start:dev
 #### 16.7 payments/infrastructure/persistence/seeders/payments.seeder.ts
 
 ![](images/clipboard-2536789566.png)
+
+#### 16.8 payments/application/dto/payment-filter.dto.ts
+
+![](images/clipboard-2785837302.png)
