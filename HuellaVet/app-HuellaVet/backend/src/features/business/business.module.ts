@@ -7,6 +7,7 @@ import { ConsultationsModule } from './consultations/consultations.module.js';
 import { VaccinesModule } from './vaccines/vaccines.module.js';
 import { VaccineBatchesModule } from './vaccine-batches/vaccine-batches.module.js';
 import { VaccineApplicationsModule } from './vaccine-applications/vaccine-applications.module.js';
+import { RecipesModule } from './recipes/recipes.module.js';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { VaccineApplicationsModule } from './vaccine-applications/vaccine-applic
     VaccinesModule,
     VaccineBatchesModule,
     VaccineApplicationsModule,
+    RecipesModule,
   ],
   exports: [
     OwnersModule,
@@ -28,6 +30,7 @@ import { VaccineApplicationsModule } from './vaccine-applications/vaccine-applic
     VaccinesModule,
     VaccineBatchesModule,
     VaccineApplicationsModule,
+    RecipesModule,
   ],
 })
 export class BusinessModule {}
