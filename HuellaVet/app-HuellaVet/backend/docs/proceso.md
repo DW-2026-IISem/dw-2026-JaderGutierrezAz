@@ -3135,3 +3135,7 @@ npm run start:dev
 #### 14.10 vaccine-applications/application/dto/create-vaccine-application.dto.ts
 
 ![](images/clipboard-3835423054.png)
+
+#### 14.11 vaccine-applications/application/dto/update-vaccine-application.dto.ts
+
+![](images/clipboard-2247292736.png)
