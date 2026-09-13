@@ -3325,3 +3325,7 @@ npm run start:dev
 #### 16.6 payments/infrastructure/persistence/migrations/create-payments-table.migration.ts
 
 ![](images/clipboard-2711840445.png)
+
+#### 16.7 payments/infrastructure/persistence/seeders/payments.seeder.ts
+
+![](images/clipboard-2536789566.png)
