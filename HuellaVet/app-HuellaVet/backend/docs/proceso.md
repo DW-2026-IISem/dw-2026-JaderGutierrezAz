@@ -3341,3 +3341,7 @@ npm run start:dev
 #### 16.10 payments/application/dto/create-payment.dto.ts
 
 ![](images/clipboard-1747528496.png)
+
+#### 16.11 payments/application/dto/update-payment.dto.ts
+
+![](images/clipboard-1845823534.png)
