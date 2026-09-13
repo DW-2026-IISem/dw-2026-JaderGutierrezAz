@@ -3227,3 +3227,7 @@ npm run start:dev
 #### 15.7 infrastructure/persistence/seeders/recipes.seeder.ts
 
 ![](images/clipboard-1531330708.png)
+
+#### 15.8 features/business/recipes/application/dto/recipe-filter.dto.ts
+
+![](images/clipboard-3740900573.png)
