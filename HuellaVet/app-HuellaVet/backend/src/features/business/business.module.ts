@@ -6,6 +6,7 @@ import { AppointmentsModule } from './appointments/appointments.module.js';
 import { ConsultationsModule } from './consultations/consultations.module.js';
 import { VaccinesModule } from './vaccines/vaccines.module.js';
 import { VaccineBatchesModule } from './vaccine-batches/vaccine-batches.module.js';
+import { VaccineApplicationsModule } from './vaccine-applications/vaccine-applications.module.js';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { VaccineBatchesModule } from './vaccine-batches/vaccine-batches.module.j
     ConsultationsModule,
     VaccinesModule,
     VaccineBatchesModule,
+    VaccineApplicationsModule,
   ],
   exports: [
     OwnersModule,
@@ -25,6 +27,7 @@ import { VaccineBatchesModule } from './vaccine-batches/vaccine-batches.module.j
     ConsultationsModule,
     VaccinesModule,
     VaccineBatchesModule,
+    VaccineApplicationsModule,
   ],
 })
 export class BusinessModule {}
