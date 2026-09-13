@@ -3247,3 +3247,11 @@ npm run start:dev
 #### 15.12 recipes/application/mappers/recipe.mapper.ts
 
 ![](images/clipboard-1525845816.png)
+
+#### 15.13 recipes/application/use-cases/create-recipe.use-case.ts
+
+![](images/clipboard-1200850509.png)
+
+#### 15.14 recipes/application/use-cases/delete-recipe.use-case.ts
+
+![](images/clipboard-2660676811.png)
