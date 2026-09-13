@@ -3203,3 +3203,7 @@ npm run start:dev
 #### 15.1 — features/business/recipes/domain/entities/recipe.entity.ts
 
 ![](images/clipboard-3124559769.png)
+
+#### 15.2 — features/business/recipes/domain/exceptions/recipe-not-found.exception.ts
+
+![](images/clipboard-1564447950.png)
