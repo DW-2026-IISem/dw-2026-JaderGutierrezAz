@@ -3127,3 +3127,7 @@ npm run start:dev
 #### 14.8 vaccine-applications/application/dto/vaccine-application-filter.dto.ts
 
 ![](images/clipboard-1977268471.png)
+
+#### 14.9 vaccine-applications/application/dto/vaccine-application-response.dto.ts
+
+![](images/clipboard-3642180310.png)
