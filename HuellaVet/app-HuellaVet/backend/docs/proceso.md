@@ -3119,3 +3119,7 @@ npm run start:dev
 #### 14.6 vaccine-applications/infrastructure/persistence/migrations/create-vaccine-applications-table.migration.ts
 
 ![](images/clipboard-2385664140.png)
+
+#### 14.7 vaccine-applications/infrastructure/persistence/seeders/vaccine-applications.seeder.ts
+
+![](images/clipboard-1704509716.png)
