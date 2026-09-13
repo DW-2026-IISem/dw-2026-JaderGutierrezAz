@@ -3259,3 +3259,7 @@ npm run start:dev
 #### 15.15 recipes/application/use-cases/get-recipe.use-case.ts
 
 ![](images/clipboard-3025478885.png)
+
+#### 15.16 recipes/application/use-cases/list-recipes.use-case.ts
+
+![](images/clipboard-2762655226.png)
