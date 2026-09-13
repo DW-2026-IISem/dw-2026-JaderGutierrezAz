@@ -3191,3 +3191,7 @@ npm run start:dev
 #### 14.24 infrastructure/database/seeders/database-seeder.service.ts
 
 ![](images/clipboard-1320798631.png)
+
+#### 14.25 Verificar tabla vaccine_applications
+
+![](images/clipboard-3833449718.png)
