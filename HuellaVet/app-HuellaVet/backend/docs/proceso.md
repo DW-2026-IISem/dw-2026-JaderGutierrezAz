@@ -3295,3 +3295,7 @@ npm run start:dev
 #### 15.24 infrastructure/database/seeders/database-seeder.service.ts
 
 ![](images/clipboard-3773902432.png)
+
+#### 15.22 Verificar tabla `recipes`
+
+![](images/clipboard-1285769776.png)
