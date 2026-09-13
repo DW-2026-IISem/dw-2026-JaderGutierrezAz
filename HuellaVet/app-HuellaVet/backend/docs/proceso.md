@@ -3381,3 +3381,7 @@ npm run start:dev
 #### 16.20-features/business/payments/index.ts
 
 ![](images/clipboard-1496497782.png)
+
+#### 16.21 features/business/payments/payments.module.ts
+
+![](images/clipboard-749251361.png)
