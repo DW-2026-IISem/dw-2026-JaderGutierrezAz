@@ -3283,3 +3283,7 @@ npm run start:dev
 #### 15.21 features/business/recipes/recipes.module.ts
 
 ![](images/clipboard-2947497609.png)
+
+#### 15.22 infrastructure/database/sequelize/sequelize.factory.ts
+
+![](images/clipboard-3222932436.png)
