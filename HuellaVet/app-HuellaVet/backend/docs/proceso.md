@@ -1,4 +1,4 @@
-# Manual de creación del Backend
+# Archivo Proceso Manual de creación del Backend
 
 **Nombre:** Jader Gutiérrez Areiza
 
@@ -6,7 +6,7 @@
 
 **Docente:** Jaider Quintero
 
-Programa Ingeniería en Sistemas
+Programa Ingeniería en Sistemas - Octavo Semestre
 
 Universidad de La Guajira
 
@@ -3401,3 +3401,233 @@ npm run start:dev
 #### 16.25 Verificar tabla `payments`
 
 ![](images/clipboard-1738939582.png)
+
+## FASE 17 — `Comprobación de tablas`
+
+El obvjetivo es demostrar el funcionamiento real de la base de datos ejecutando todas las operaciones desde Swagger UI, en el orden en que ocurren en el proyecto, la idea es: Registrar un propietario, se registra su mascota, se da de alta un veterinario, se agenda una cita, se abre la consulta derivada de esa cita, se registra una vacuna y su lote, se aplica la vacuna durante la consulta, se emite la receta con las indicaciones post-consulta y finalmente se genera el pago asociado a la cita.
+
+Es decir, la idea es la siguiente:
+
+| \# | Paso | Grupo en Swagger | Endpoint | Tabla |
+|-------|----------------|----------------|------------------|------------------|
+| 1 | Propietario | `Owners` | `POST /owners` | `owners` |
+| 2 | Veterinario | `Veterinarians` | `POST /veterinarians` | `veterinarians` |
+| 3 | Mascota | `Pets` | `POST /pets` | `pets` |
+| 4 | Cita | `Appointments` | `POST /appointments` | `appointments` |
+| 5 | Validación de cruce de horario | `Appointments` | `POST /appointments` | `appointments` |
+| 6 | Consulta | `Consultations` | `POST /consultations` | `consultations` |
+| 7 | Validación de consulta única por cita | `Consultations` | `POST /consultations` | `consultations` |
+| 8 | Vacuna | `Vaccines` | `POST /vaccines` | `vaccines` |
+| 9 | Lote de vacuna | `VaccineBatches` | `POST /vaccine-batches` | `vaccine_batches` |
+| 10 | Aplicación de vacuna | `VaccineApplications` | `POST /vaccine-applications` | `vaccine_applications` |
+| 11 | Receta | `Recipes` | `POST /recipes` | `recipes` |
+| 12 | Pago | `Payments` | `POST /payments` | `payments` |
+
+**Ahora bien, se inicializa el backend de HuellaVet con:**
+
+---
+npm run start:dev
+---
+
+![](images/clipboard-3318811600.png)
+
+**Ahora abre en el navegador la ruta ejecuta:**
+
+---
+http://localhost:3000/api/docs
+---
+
+#### 17.1 Owner
+
+**En Swagger**, expande `POST /owners` → "Try it out" y crea un nuevo propietario.
+
+**Body JSON:**
+
+---
+{
+  "documentType": "CC",
+  "documentNumber": "12143234167",
+  "name": "Juanito Lopez",
+  "phone": "+57 200 347567",
+  "email": "juanito@example.com"
+}
+---
+
+![](images/clipboard-1368384226.png)
+
+**Comprobación en DBeaver**
+
+![](images/clipboard-3493281484.png)
+
+### 17.2 — Veterinarian 
+
+**Swagger**, `POST /veterinarians`→ "Try it out" y crea un nuevo veterinario:
+
+**Body JSON:**
+
+---
+{
+  "name": "Dr. Camilo Andrés Ipuana",
+  "description": "Medicina general, especialista en pequeños animales"
+}
+---
+
+![](images/clipboard-2037645479.png)
+
+**Comprobación en DBeaver**
+
+![](images/clipboard-1349856636.png)
+
+### 17.3 — Pet 
+
+**Swagger**, `POST /pets`→ "Try it out" y crea una nueva mascota:
+
+**Body JSON:**
+
+---
+{
+  "ownerId": 4,
+  "name": "Rocco",
+  "description": "Labrador dorado, 2 años, esterilizado"
+}
+---
+
+![**Comprobación en DBeaver**](images/clipboard-2701086833.png)
+
+![](images/clipboard-1151186398.png)
+
+### 17.4 — Appointment
+
+**Swagger**, `POST /appointments` → "Try it out" y crea una nueva cita:
+
+**Body JSON:**
+
+---
+{
+  "petId": 3,
+  "veterinarianId": 3,
+  "startDate": "2026-09-20T09:00:00.000Z",
+  "endDate": "2026-09-20T09:30:00.000Z",
+  "reason": "Control de vacunación anual"
+}
+---
+
+![](images/clipboard-1877495296.png)
+
+**Comprobación en DBeaver**
+
+![](images/clipboard-217689446.png)
+
+### 17.5 — Consultation 
+
+**Swagger**, `POST /consultations` → "Try it out" y crea una nueva consulta:
+
+---
+{
+  "appointmentId": 2,
+  "name": "Consulta control anual",
+  "description": "Peso 13kg, temperatura normal, sin signos de alarma"
+}
+---
+
+![](images/clipboard-646938860.png)
+
+**Comprobación en DBeaver**
+
+![](images/clipboard-1991553706.png)
+
+### 17.6 — Vaccine 
+
+**Swagger**, `POST /vaccines` → "Try it out" y crea una nueva vacuna:
+
+---
+{
+  "name": "Nobivac Rabia",
+  "description": "Vacuna antirrábica de virus inactivado"
+}
+---
+
+![](images/clipboard-500113705.png)
+
+**Comprobación en DBeaver**
+
+![](images/clipboard-1147837188.png)
+
+### 17.7 — Vaccine Batch 
+
+**Swagger**, `POST /vaccine-batches` → "Try it out" y crea una nueva lote de vacuna:
+
+---
+{
+  "vaccineId": 1,
+  "name": "Lote NR-2026-045",
+  "description": "Vencimiento 03/2027, laboratorio MSD Salud Animal"
+}
+---
+
+![](images/clipboard-898253104.png)
+
+**Comprobación en DBeaver**
+
+![](images/clipboard-409988690.png)
+
+### 17.8 — Vaccine Application 
+
+**Swagger**, `POST /vaccine-applications` → "Try it out" y crea una nueva aplicación de vacuna:
+
+---
+{
+  "consultationId": 1,
+  "vaccineBatchId": 1,
+  "name": "Aplicación antirrábica Rocco",
+  "description": "Dosis única, sin reacción adversa observada"
+}
+---
+
+![](images/clipboard-335979772.png)
+
+**Comprobación en DBeaver**
+
+![](images/clipboard-1219310803.png)
+
+### 17.9 — Recipe
+
+**Swagger**, `POST /recipes` → "Try it out" y crea una nueva receta:
+
+---
+{
+  "consultationId": 2,
+  "name": "Receta post-vacunación",
+  "description": "Antiinflamatorio Meloxicam 0.1mg/kg cada 24h por 3 días si presenta dolor local"
+}
+---
+
+![](images/clipboard-4277969414.png)
+
+**Comprobación en DBeaver**
+
+![](images/clipboard-3314659058.png)
+
+### 17.10 — Payment 
+
+**Swagger**, `POST /payments` → "Try it out" y crea un nuevo pago:
+
+---
+{
+  "referenceType": "APPOINTMENT",
+  "referenceId": 2,
+  "method": "TRANSFERENCIA",
+  "amount": 65000,
+  "date": "2026-09-20T09:30:00.000Z"
+}
+---
+
+![](images/clipboard-3653604519.png)
+
+**Comprobación en DBeaver**
+
+![](images/clipboard-2430121962.png)
+
+### 17.11 — Verificación final con registros en DBeaver
+
+![](images/clipboard-1860320819.png)
