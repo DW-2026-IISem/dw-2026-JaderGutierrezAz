@@ -330,3 +330,12 @@ EOF
 ```
 
 ![](images/clipboard-1036046033.png)
+
+## 3.3 Carpeta seeders (reservada)
+
+```         
+mkdir -p src/database/seeders
+# opcional: touch src/database/seeders/.gitkeep
+```
+
+![](images/clipboard-1581497702.png)
