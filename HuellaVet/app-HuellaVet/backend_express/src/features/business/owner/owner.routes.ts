@@ -16,5 +16,10 @@ export class OwnerRoutes {
     app
       .route("/api/propietarios/:id")
       .get(this.ownerController.getOne.bind(this.ownerController));
+
+    // create
+    app
+      .route("/api/propietarios")
+      .post(this.ownerController.create.bind(this.ownerController));
   }
 }
