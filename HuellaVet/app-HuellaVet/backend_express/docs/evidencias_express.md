@@ -458,3 +458,54 @@ EOF
 ```
 
 ![](images/clipboard-841696338.png)
+
+## 4.2 Esqueleto controller / routes + carpeta HTTP
+
+```         
+: > src/features/business/client/client.controller.ts
+cat >> src/features/business/client/client.controller.ts << 'EOF'
+import { Request, Response } from "express";
+import { Client, ClientI } from "./client.model";
+
+function paramId(req: Request): number {
+  const raw = req.params.id;
+  const value = Array.isArray(raw) ? raw[0] : raw;
+  return Number(value);
+}
+
+export class ClientController {
+  // ================== READ ==================
+  // (rellenar en ISS-03-B) getAll, luego getOne
+
+  // ================== CREATE ==================
+  // (rellenar en ISS-03-C)
+
+  // ================== UPDATE ==================
+  // (rellenar en ISS-03-D)
+
+  // ================== DELETE ==================
+  // (rellenar en ISS-03-E)
+}
+EOF
+```
+
+![](images/clipboard-1447651348.png)
+
+```         
+: > src/features/business/client/client.routes.ts
+cat >> src/features/business/client/client.routes.ts << 'EOF'
+import { Application } from "express";
+import { ClientController } from "./client.controller";
+
+export class ClientRoutes {
+  public clientController: ClientController = new ClientController();
+
+  public routes(app: Application): void {
+    // ================== RUTAS SIN AUTENTICACIÓN / SIN MIDDLEWARE JWT ==================
+    // (rellenar en ISS-03-B…E)
+  }
+}
+EOF
+```
+
+![](images/clipboard-826932618.png)
