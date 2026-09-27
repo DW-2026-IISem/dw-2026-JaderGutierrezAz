@@ -113,3 +113,55 @@ EOF
 ```
 
 ![](images/clipboard-1226400142.png)
+
+### 2.5.2 `src/config/index.ts` (esqueleto)
+
+```         
+: > src/config/index.ts
+cat >> src/config/index.ts << 'EOF'
+import dotenv from "dotenv";
+import express, { Application } from "express";
+import morgan from "morgan";
+var cors = require("cors");
+
+dotenv.config();
+
+export class App {
+  public app: Application;
+
+  constructor(private port?: number | string) {
+    this.app = express();
+    this.settings();
+    this.middlewares();
+    this.routes();
+    this.dbConnection();
+  }
+
+  private settings(): void {
+    this.app.set('port', this.port || process.env.PORT || 4000);
+  }
+
+  private middlewares(): void {
+    this.app.use(morgan('dev'));
+    this.app.use(cors());
+    this.app.use(express.json());
+    this.app.use(express.urlencoded({ extended: false }));
+  }
+
+  private routes(): void {
+    // ISS-03 §4.3
+  }
+
+  private async dbConnection(): Promise<void> {
+    // ISS-02 / ISS-03
+  }
+
+  async listen() {
+    await this.app.listen(this.app.get('port'));
+    console.log(`🚀 Servidor ejecutándose en puerto ${this.app.get('port')}`);
+  }
+}
+EOF
+```
+
+![](images/clipboard-2671787410.png)
