@@ -644,3 +644,11 @@ npm run dev
 ### HTTP — archivo nuevo
 
 ![](images/clipboard-1466507612.png)
+
+### Verificación
+
+### ![](images/clipboard-1012446475.png)
+
+### Cierre del ISS
+
+![](images/clipboard-2381866197.png)
