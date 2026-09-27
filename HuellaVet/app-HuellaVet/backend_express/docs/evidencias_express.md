@@ -573,7 +573,7 @@ npm run dev
 
 ![![](images/clipboard-3210174298.png)](images/clipboard-1793068076.png)
 
-# ISS-03-C — Feature Owner: Crear owner
+# 6.ISS-03-C — Feature Owner: Crear owner
 
 ### Controller — PARCHE `owner.controller.ts`
 
@@ -586,3 +586,25 @@ npm run dev
 ### HTTP — archivo nuevo
 
 ![](images/clipboard-551017914.png)
+
+### Verificación
+
+``` bash
+curl -s -X POST http://localhost:4000/api/clientes \   -H 'Content-Type: application/json' \   -d '{"name":"Ana","phone":"3001","email":"ana@test.com","password":"Password123!","status":"active"}'
+```
+
+![](images/clipboard-637351897.png)
+
+### Cierre del ISS
+
+```         
+npm run dev
+```
+
+![](images/clipboard-1596052749.png)
+
+# 7.ISS-03-D — Feature Owner: Update (PUT) y Update (PATCH)
+
+### Controller — PARCHE `owner.controller.ts`
+
+![](images/clipboard-892359768.png)

@@ -53,7 +53,47 @@ export class OwnerController {
   }
 
   // ================== UPDATE ==================
-  // (rellenar más adelante)
+  public async updatePut(req: Request, res: Response) {
+    try {
+      const id = paramId(req);
+      const body = req.body as OwnerI;
+      const owner = await Owner.findByPk(id);
+      if (!owner) {
+        res.status(404).json({ error: "Owner not found" });
+        return;
+      }
+
+      await owner.update({
+        document_type: body.document_type,
+        document_number: body.document_number,
+        name: body.name,
+        phone: body.phone,
+        email: body.email,
+        is_active: body.is_active ?? owner.is_active,
+      });
+
+      res.status(200).json({ owner });
+    } catch (error) {
+      res.status(500).json({ error: "Error updating owner (PUT)", detail: String(error) });
+    }
+  }
+
+  public async updatePatch(req: Request, res: Response) {
+    try {
+      const id = paramId(req);
+      const body = req.body as Partial<OwnerI>;
+      const owner = await Owner.findByPk(id);
+      if (!owner) {
+        res.status(404).json({ error: "Owner not found" });
+        return;
+      }
+
+      await owner.update(body);
+      res.status(200).json({ owner });
+    } catch (error) {
+      res.status(500).json({ error: "Error updating owner (PATCH)", detail: String(error) });
+    }
+  }
 
   // ================== DELETE ==================
   // (rellenar más adelante)
