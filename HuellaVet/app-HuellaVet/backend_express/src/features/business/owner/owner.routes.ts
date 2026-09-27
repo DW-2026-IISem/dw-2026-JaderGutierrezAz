@@ -21,5 +21,11 @@ export class OwnerRoutes {
     app
       .route("/api/propietarios")
       .post(this.ownerController.create.bind(this.ownerController));
+
+    // update (PUT / PATCH)
+    app
+      .route("/api/propietarios/:id")
+      .put(this.ownerController.updatePut.bind(this.ownerController))
+      .patch(this.ownerController.updatePatch.bind(this.ownerController));
   }
 }
