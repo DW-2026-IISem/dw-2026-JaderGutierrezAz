@@ -339,3 +339,18 @@ mkdir -p src/database/seeders
 ```
 
 ![](images/clipboard-1581497702.png)
+
+### Verificación del ISS-02
+
+```         
+npx tsc --noEmit
+test -f src/database/db.ts && test -f .env && test -d src/database/seeders
+```
+
+### Cierre del ISS
+
+``` bash
+npm run dev
+```
+
+![](images/clipboard-1136565286.png)
