@@ -63,3 +63,33 @@ npm ls --depth=0
 ```
 
 ![](images/clipboard-3925105098.png)
+
+## 2.4 TypeScript (`tsconfig.json`)
+
+```         
+: > tsconfig.json
+cat >> tsconfig.json << 'EOF'
+{
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "module": "commonjs",
+    "target": "ES2020",
+    "lib": ["ES2020"],
+    "types": ["node"],
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "sourceMap": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "moduleDetection": "force",
+    "isolatedModules": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
+}
+EOF
+```
+
+![](images/clipboard-2077984614.png)
