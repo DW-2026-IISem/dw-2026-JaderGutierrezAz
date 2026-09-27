@@ -5,17 +5,21 @@ var cors = require("cors");
 import { sequelize, getDatabaseInfo, testConnection } from "../database/db";
 import "../features/business/owner/owner.model";
 import { Routes } from "../routes/index";
-
+import { setupSwagger } from "../swagger/index";
 dotenv.config();
 
 export class App {
   public app: Application;
     public routePrv: Routes = new Routes();
+    private docs(): void {
+      setupSwagger(this.app);
+    }
   constructor(private port?: number | string) {
     this.app = express();
     this.settings();
     this.middlewares();
     this.routes();
+    this.docs();
     this.dbConnection();
   }
 
