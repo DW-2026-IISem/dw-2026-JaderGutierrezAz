@@ -2,12 +2,15 @@ import dotenv from "dotenv";
 import express, { Application } from "express";
 import morgan from "morgan";
 var cors = require("cors");
+import { sequelize, getDatabaseInfo, testConnection } from "../database/db";
+import "../features/business/owner/owner.model";
+import { Routes } from "../routes/index";
 
 dotenv.config();
 
 export class App {
   public app: Application;
-
+    public routePrv: Routes = new Routes();
   constructor(private port?: number | string) {
     this.app = express();
     this.settings();
@@ -28,11 +31,27 @@ export class App {
   }
 
   private routes(): void {
-    // se completa cuando montemos la feature owner
+      this.routePrv.ownerRoutes.routes(this.app);
   }
 
   private async dbConnection(): Promise<void> {
-    // se completa en la infraestructura de BD
+        try {
+      const dbInfo = getDatabaseInfo();
+      console.log(`🔗 Intentando conectar a: ${dbInfo.engine.toUpperCase()}`);
+
+      const isConnected = await testConnection();
+
+      if (!isConnected) {
+        throw new Error(`No se pudo conectar a la base de datos ${dbInfo.engine.toUpperCase()}`);
+      }
+
+      // alter: true actualiza columnas faltantes. force: false no recrea tablas.
+      await sequelize.sync({ force: false, alter: true });
+      console.log(`📦 Base de datos sincronizada exitosamente`);
+    } catch (error) {
+      console.error("❌ Error al conectar con la base de datos:", error);
+      process.exit(1);
+    }
   }
 
   async listen() {

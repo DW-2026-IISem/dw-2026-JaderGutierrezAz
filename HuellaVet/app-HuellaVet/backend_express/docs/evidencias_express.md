@@ -509,3 +509,24 @@ EOF
 ```
 
 ![](images/clipboard-826932618.png)
+
+## 4.3 Agregador Routes + cableado en Config
+
+```         
+: > src/routes/index.ts
+cat >> src/routes/index.ts << 'EOF'
+import { ClientRoutes } from "../features/business/client/client.routes";
+
+export class Routes {
+  public clientRoutes: ClientRoutes = new ClientRoutes();
+}
+EOF
+```
+
+![](images/clipboard-1225914407.png)
+
+**PARCHE** — `src/config/index.ts` **ya existe**.
+
+![](images/clipboard-2548506739.png)
+
+![](images/clipboard-2478352528.png)
