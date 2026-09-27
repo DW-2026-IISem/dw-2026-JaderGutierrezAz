@@ -3,6 +3,7 @@ export type SeedCounts = {
   pets: number;
   veterinarians: number;
   appointments: number;
+  consultations: number;
 };
 
 export const DEFAULT_SEED_COUNTS: SeedCounts = {
@@ -10,6 +11,7 @@ export const DEFAULT_SEED_COUNTS: SeedCounts = {
   pets: 15,
   veterinarians: 6,
   appointments: 20,
+  consultations: 15,
 };
 
 export function resolveSeedCounts(argv: string[] = process.argv.slice(2)): SeedCounts {
@@ -33,6 +35,11 @@ export function resolveSeedCounts(argv: string[] = process.argv.slice(2)): SeedC
   const envAppointments = process.env.SEED_APPOINTMENTS;
   if (envAppointments !== undefined && envAppointments !== "") {
     counts.appointments = Number(envAppointments);
+  }
+
+  const envConsultations = process.env.SEED_CONSULTATIONS;
+  if (envConsultations !== undefined && envConsultations !== "") {
+    counts.consultations = Number(envConsultations);
   }
 
   for (const arg of argv) {

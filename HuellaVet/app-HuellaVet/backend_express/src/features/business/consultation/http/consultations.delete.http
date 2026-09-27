@@ -1,0 +1,12 @@
+### Feature Consultation — DELETE físico / DELETE lógico (is_active = false)
+### Leyenda: SIN AUTH (sin middleware JWT / sin autenticación)
+@baseUrl = http://localhost:4000
+@id = 1
+
+# @name deleteConsultationPhysical
+DELETE {{baseUrl}}/api/consultas/{{id}}
+
+###
+
+# @name deleteConsultationLogical
+PATCH {{baseUrl}}/api/consultas/{{id}}/deactivate

@@ -1,0 +1,12 @@
+### Feature Consultation — GET ALL / GET ONE
+### Leyenda: SIN AUTH (sin middleware JWT / sin autenticación)
+@baseUrl = http://localhost:4000
+@id = 1
+
+# @name getAllConsultations
+GET {{baseUrl}}/api/consultas
+
+###
+
+# @name getOneConsultation
+GET {{baseUrl}}/api/consultas/{{id}}

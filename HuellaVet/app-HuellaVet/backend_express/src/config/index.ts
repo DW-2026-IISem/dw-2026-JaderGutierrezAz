@@ -9,6 +9,8 @@ import "../features/business/pet/pet.associations";
 import "../features/business/veterinarian/veterinarian.model";
 import "../features/business/appointment/appointment.model";
 import "../features/business/appointment/appointment.associations";
+import "../features/business/consultation/consultation.model";
+import "../features/business/consultation/consultation.associations";
 import { Routes } from "../routes/index";
 import { setupSwagger } from "../swagger/index";
 dotenv.config();
@@ -44,6 +46,7 @@ export class App {
       this.routePrv.petRoutes.routes(this.app);
       this.routePrv.veterinarianRoutes.routes(this.app);
       this.routePrv.appointmentRoutes.routes(this.app);
+      this.routePrv.consultationRoutes.routes(this.app);
   }
 
   private async dbConnection(): Promise<void> {

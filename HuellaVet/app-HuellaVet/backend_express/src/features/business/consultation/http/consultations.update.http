@@ -1,0 +1,25 @@
+### Feature Consultation — UPDATE (PUT) / UPDATE (PATCH)
+### Leyenda: SIN AUTH (sin middleware JWT / sin autenticación)
+@baseUrl = http://localhost:4000
+@id = 1
+
+# @name updateConsultationPut
+PUT {{baseUrl}}/api/consultas/{{id}}
+Content-Type: application/json
+
+{
+  "appointment_id": 1,
+  "name": "Consulta general actualizada",
+  "description": "Incluye revisión dermatológica",
+  "is_active": true
+}
+
+###
+
+# @name updateConsultationPatch
+PATCH {{baseUrl}}/api/consultas/{{id}}
+Content-Type: application/json
+
+{
+  "description": "Descripción parcial"
+}
