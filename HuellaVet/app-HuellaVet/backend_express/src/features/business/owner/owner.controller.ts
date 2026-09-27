@@ -9,7 +9,30 @@ function paramId(req: Request): number {
 
 export class OwnerController {
   // ================== READ ==================
-  // (rellenar en el siguiente paso) getAll, luego getOne
+  public async getAll(req: Request, res: Response) {
+    try {
+      const owners = await Owner.findAll({
+        where: { is_active: true },
+      });
+      res.status(200).json({ owners });
+    } catch (error) {
+      res.status(500).json({ error: "Error fetching owners", detail: String(error) });
+    }
+  }
+
+  public async getOne(req: Request, res: Response) {
+    try {
+      const id = paramId(req);
+      const owner = await Owner.findByPk(id);
+      if (!owner) {
+        res.status(404).json({ error: "Owner not found" });
+        return;
+      }
+      res.status(200).json({ owner });
+    } catch (error) {
+      res.status(500).json({ error: "Error fetching owner", detail: String(error) });
+    }
+  }
 
   // ================== CREATE ==================
   // (rellenar más adelante)

@@ -544,3 +544,9 @@ npm run dev
 ```
 
 ![](images/clipboard-3339490355.png)
+
+# 5. ISS-03-B — Feature Owner — GetAll y GetOne
+
+### Controller — PARCHE `owner.controller.ts`
+
+![](images/clipboard-3017911602.png)
