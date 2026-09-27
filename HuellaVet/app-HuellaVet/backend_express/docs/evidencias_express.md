@@ -529,4 +529,18 @@ EOF
 
 ![](images/clipboard-2548506739.png)
 
-![](images/clipboard-2478352528.png)
+### Verificación ISS-03-A
+
+``` bash
+test -d src/features/business/client/http && echo HTTP_FOLDER_OK
+```
+
+![](images/clipboard-3549479573.png)
+
+### Cierre del ISS
+
+``` bash
+npm run dev
+```
+
+![](images/clipboard-3339490355.png)
