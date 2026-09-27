@@ -572,3 +572,9 @@ npm run dev
 ```
 
 ![![](images/clipboard-3210174298.png)](images/clipboard-1793068076.png)
+
+# ISS-03-C — Feature Owner: Crear owner
+
+### Controller — PARCHE `owner.controller.ts`
+
+![](images/clipboard-1583207536.png)

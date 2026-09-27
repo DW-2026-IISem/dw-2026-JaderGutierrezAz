@@ -35,7 +35,22 @@ export class OwnerController {
   }
 
   // ================== CREATE ==================
-  // (rellenar más adelante)
+  public async create(req: Request, res: Response) {
+    try {
+      const body = req.body as OwnerI;
+      const owner = await Owner.create({
+        document_type: body.document_type,
+        document_number: body.document_number,
+        name: body.name,
+        phone: body.phone,
+        email: body.email,
+        is_active: body.is_active ?? true,
+      });
+      res.status(201).json({ owner });
+    } catch (error) {
+      res.status(500).json({ error: "Error creating owner", detail: String(error) });
+    }
+  }
 
   // ================== UPDATE ==================
   // (rellenar más adelante)
