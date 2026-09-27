@@ -550,3 +550,7 @@ npm run dev
 ### Controller — PARCHE `owner.controller.ts`
 
 ![](images/clipboard-3017911602.png)
+
+### Rutas — PARCHE `owner.routes.ts`
+
+![](images/clipboard-3041779782.png)

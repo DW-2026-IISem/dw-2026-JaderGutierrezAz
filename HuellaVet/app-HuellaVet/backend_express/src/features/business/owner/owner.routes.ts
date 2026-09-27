@@ -6,6 +6,15 @@ export class OwnerRoutes {
 
   public routes(app: Application): void {
     // ================== RUTAS SIN AUTENTICACIÓN / SIN MIDDLEWARE JWT ==================
-    // (rellenar en el siguiente paso)
+
+    // getAll
+    app
+      .route("/api/propietarios")
+      .get(this.ownerController.getAll.bind(this.ownerController));
+
+    // getOne
+    app
+      .route("/api/propietarios/:id")
+      .get(this.ownerController.getOne.bind(this.ownerController));
   }
 }
