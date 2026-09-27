@@ -607,4 +607,4 @@ npm run dev
 
 ### Controller — PARCHE `owner.controller.ts`
 
-![](images/clipboard-892359768.png)
+![](images/clipboard-944469270.png)
