@@ -182,3 +182,63 @@ npm run dev
 ```
 
 ![](images/clipboard-1340656068.png)
+
+# 3. ISS-02 — Infraestructura de base de datos
+
+## 3.1 Drivers Sequelize y `.env`
+
+```         
+npm install sequelize@^6.37.8 mysql2@^3.24.4 pg@^8.23.0 pg-hstore@^2.3.4 \
+  tedious@^20.0.0 oracledb@^7.0.1
+npm install -D @types/sequelize@^6.12.0
+```
+
+![](images/clipboard-576636262.png)
+
+```         
+: > .env
+cat >> .env << 'EOF'
+PORT=4000
+
+# Variable para seleccionar el motor de base de datos
+DB_ENGINE=mysql
+
+# Configuración para MySQL
+MYSQL_HOST=localhost
+MYSQL_USER=admin
+MYSQL_PASSWORD=MiNiCo57**
+MYSQL_NAME=tecnogua
+MYSQL_PORT=3306
+
+# Configuración para PostgreSQL
+POSTGRES_HOST=localhost
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=password
+POSTGRES_NAME=almacen_2025_iisem_node
+POSTGRES_PORT=5432
+
+# Configuración para SQL Server
+MSSQL_HOST=localhost
+MSSQL_USER=sa
+MSSQL_PASSWORD=password
+MSSQL_NAME=almacen_2025_iisem_node
+MSSQL_PORT=1433
+
+# Configuración para Oracle
+ORACLE_HOST=localhost
+ORACLE_USER=ALMACENDB_ADMIN
+ORACLE_PASSWORD=password
+ORACLE_NAME=xe
+ORACLE_PORT=1521
+
+EOF
+```
+
+![](images/clipboard-3961495472.png)
+
+```         
+test -f .env && grep DB_ENGINE .env
+npm ls sequelize mysql2 --depth=0
+```
+
+![](images/clipboard-4224675796.png)
