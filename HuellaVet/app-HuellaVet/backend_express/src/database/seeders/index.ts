@@ -4,9 +4,12 @@ import "../../features/business/owner/owner.model";
 import "../../features/business/pet/pet.model";
 import "../../features/business/pet/pet.associations";
 import "../../features/business/veterinarian/veterinarian.model";
+import "../../features/business/appointment/appointment.model";
+import "../../features/business/appointment/appointment.associations";
 import { seedOwners } from "../../features/business/owner/owner.seeder";
 import { seedPets } from "../../features/business/pet/pet.seeder";
 import { seedVeterinarians } from "../../features/business/veterinarian/veterinarian.seeder";
+import { seedAppointments } from "../../features/business/appointment/appointment.seeder";
 import { resolveSeedCounts } from "./counts";
 
 dotenv.config();
@@ -27,6 +30,7 @@ export async function runAllSeeders(): Promise<void> {
   await seedOwners(counts.owners);
   await seedPets(counts.pets);
   await seedVeterinarians(counts.veterinarians);
+  await seedAppointments(counts.appointments);
 
   console.log("🌱 SeedersRunner finalizado");
 }

@@ -175,7 +175,7 @@ find src -type f | sort
 
 ![](images/clipboard-3483115887.png)
 
-### Cierre del ISS
+### Cierre del ISSUE-01
 
 ``` bash
 npm run dev
@@ -347,7 +347,7 @@ npx tsc --noEmit
 test -f src/database/db.ts && test -f .env && test -d src/database/seeders
 ```
 
-### Cierre del ISS
+### Cierre del ISSUE-02
 
 ``` bash
 npm run dev
@@ -537,7 +537,7 @@ test -d src/features/business/client/http && echo HTTP_FOLDER_OK
 
 ![](images/clipboard-3549479573.png)
 
-### Cierre del ISS
+### Cierre del ISSUE-03-A
 
 ``` bash
 npm run dev
@@ -565,7 +565,7 @@ npm run dev
 curl -s http://localhost:4000/api/clientes curl -s http://localhost:4000/api/clientes/1
 ```
 
-### Cierre del ISS
+### Cierre del ISSUE-03-B
 
 ``` bash
 npm run dev
@@ -595,7 +595,7 @@ curl -s -X POST http://localhost:4000/api/clientes \   -H 'Content-Type: applica
 
 ![](images/clipboard-637351897.png)
 
-### Cierre del ISS
+### Cierre del ISSUE-03-C
 
 ```         
 npm run dev
@@ -623,7 +623,7 @@ npm run dev
 curl -s -X PUT http://localhost:4000/api/clientes/1 -H 'Content-Type: application/json' \   -d '{"name":"Ana","address":"x","phone":"300","email":"ana@test.com","status":"active"}' curl -s -X PATCH http://localhost:4000/api/clientes/1 -H 'Content-Type: application/json' \   -d '{"phone":"301"}'
 ```
 
-### Cierre del ISS
+### Cierre del ISSUE-03-D
 
 ``` bash
 npm run dev
@@ -649,7 +649,7 @@ npm run dev
 
 ### ![](images/clipboard-1012446475.png)
 
-### Cierre del ISS
+### Cierre del ISSUE-03-E
 
 ![](images/clipboard-2381866197.png)
 
@@ -1844,7 +1844,7 @@ EOF
 
 ![](images/clipboard-1066656441.png)
 
-### Cierre del ISS
+### Cierre del ISSUE-06
 
 ```         
 npm run dev
@@ -1854,7 +1854,7 @@ npm run dev
 
 # 12. ISS-07 — Feature Veterinarian (veterinarios)
 
-## 12.1 Modelo Product
+## 12.1 Modelo veterinarian
 
 ```         
 : > src/features/business/product/product.model.ts
@@ -2607,7 +2607,7 @@ EOF
 
 ![](images/clipboard-140143796.png)
 
-### Cierre del ISS
+### Cierre del ISSUE-07
 
 ```         
 npm run dev
@@ -2616,3 +2616,852 @@ npm run dev
 ![![](images/clipboard-3390655105.png)](images/clipboard-971816487.png)
 
 ![](images/clipboard-1529466648.png)
+
+# 13. ISS-08 — Feature Appointment (citas)
+
+## 13.1 Modelo Appointment
+
+![](images/clipboard-2368540258.png)
+
+## 13.2 Controller + routes (CRUD completo)
+
+```         
+: > src/features/business/product-sale/product-sale.controller.ts
+cat >> src/features/business/product-sale/product-sale.controller.ts << 'EOF'
+import { Request, Response } from "express";
+import { Transaction } from "sequelize";
+import { sequelize } from "../../../database/db";
+import { ProductSale, ProductSaleI } from "./product-sale.model";
+import { Sale } from "../sale/sale.model";
+import { Product } from "../product/product.model";
+
+function paramId(req: Request): number {
+  const raw = req.params.id;
+  const value = Array.isArray(raw) ? raw[0] : raw;
+  return Number(value);
+}
+
+async function recalcSaleTotals(sale_id: number, t: Transaction): Promise<void> {
+  const items = await ProductSale.findAll({
+    where: { sale_id, status: "active" },
+    transaction: t,
+  });
+  const subtotal = items.reduce((sum, row) => sum + Number(row.line_total), 0);
+  const sale = await Sale.findByPk(sale_id, { transaction: t });
+  if (!sale) return;
+  const total = subtotal + Number(sale.tax) - Number(sale.discounts);
+  await sale.update({ subtotal, total }, { transaction: t });
+}
+
+export class ProductSaleController {
+  // ================== READ ==================
+  public async getAll(req: Request, res: Response) {
+    try {
+      const product_sales = await ProductSale.findAll({
+        where: { status: "active" },
+      });
+      res.status(200).json({ product_sales });
+    } catch (error) {
+      res.status(500).json({ error: "Error fetching product sales", detail: String(error) });
+    }
+  }
+
+  public async getOne(req: Request, res: Response) {
+    try {
+      const id = paramId(req);
+      const product_sale = await ProductSale.findByPk(id);
+      if (!product_sale) {
+        res.status(404).json({ error: "Product sale not found" });
+        return;
+      }
+      res.status(200).json({ product_sale });
+    } catch (error) {
+      res.status(500).json({ error: "Error fetching product sale", detail: String(error) });
+    }
+  }
+
+  // ================== CREATE ==================
+  /** Agrega una línea a una venta existente (ajusta stock y totales). */
+  public async create(req: Request, res: Response) {
+    const t = await sequelize.transaction();
+    try {
+      const body = req.body as Pick<ProductSaleI, "sale_id" | "product_id" | "quantity" | "status">;
+
+      if (!body.sale_id || !body.product_id || !body.quantity || body.quantity < 1) {
+        await t.rollback();
+        res.status(400).json({ error: "sale_id, product_id and quantity (>=1) are required" });
+        return;
+      }
+
+      const sale = await Sale.findByPk(body.sale_id, { transaction: t });
+      if (!sale) {
+        await t.rollback();
+        res.status(404).json({ error: "Sale not found" });
+        return;
+      }
+      if (sale.status !== "active") {
+        await t.rollback();
+        res.status(400).json({ error: "Sale must be active" });
+        return;
+      }
+
+      const product = await Product.findByPk(body.product_id, {
+        transaction: t,
+        lock: t.LOCK.UPDATE,
+      });
+      if (!product) {
+        await t.rollback();
+        res.status(404).json({ error: "Product not found" });
+        return;
+      }
+      if (product.status !== "active") {
+        await t.rollback();
+        res.status(400).json({ error: "Product must be active" });
+        return;
+      }
+      if (product.quantity < body.quantity) {
+        await t.rollback();
+        res.status(400).json({
+          error: "Insufficient stock",
+          available: product.quantity,
+          requested: body.quantity,
+        });
+        return;
+      }
+
+      const unit_price = Number(product.price);
+      const line_total = unit_price * body.quantity;
+
+      const product_sale = await ProductSale.create(
+        {
+          sale_id: body.sale_id,
+          product_id: body.product_id,
+          quantity: body.quantity,
+          unit_price,
+          line_total,
+          status: body.status ?? "active",
+        },
+        { transaction: t }
+      );
+
+      await product.update(
+        { quantity: product.quantity - body.quantity },
+        { transaction: t }
+      );
+      await recalcSaleTotals(body.sale_id, t);
+
+      await t.commit();
+      res.status(201).json({ product_sale });
+    } catch (error) {
+      await t.rollback();
+      res.status(500).json({ error: "Error creating product sale", detail: String(error) });
+    }
+  }
+
+  // ================== UPDATE ==================
+  public async updatePut(req: Request, res: Response) {
+    const t = await sequelize.transaction();
+    try {
+      const id = paramId(req);
+      const body = req.body as Pick<ProductSaleI, "quantity" | "status">;
+      const product_sale = await ProductSale.findByPk(id, {
+        transaction: t,
+        lock: t.LOCK.UPDATE,
+      });
+      if (!product_sale) {
+        await t.rollback();
+        res.status(404).json({ error: "Product sale not found" });
+        return;
+      }
+
+      const newQty = Number(body.quantity);
+      if (!newQty || newQty < 1) {
+        await t.rollback();
+        res.status(400).json({ error: "quantity (>=1) is required" });
+        return;
+      }
+
+      const product = await Product.findByPk(product_sale.product_id, {
+        transaction: t,
+        lock: t.LOCK.UPDATE,
+      });
+      if (!product) {
+        await t.rollback();
+        res.status(404).json({ error: "Product not found" });
+        return;
+      }
+
+      const delta = newQty - product_sale.quantity;
+      if (delta > 0 && product.quantity < delta) {
+        await t.rollback();
+        res.status(400).json({
+          error: "Insufficient stock",
+          available: product.quantity,
+          requested_extra: delta,
+        });
+        return;
+      }
+
+      const unit_price = Number(product_sale.unit_price);
+      const line_total = unit_price * newQty;
+
+      await product.update(
+        { quantity: product.quantity - delta },
+        { transaction: t }
+      );
+      await product_sale.update(
+        {
+          quantity: newQty,
+          line_total,
+          status: body.status ?? product_sale.status,
+        },
+        { transaction: t }
+      );
+      await recalcSaleTotals(product_sale.sale_id, t);
+
+      await t.commit();
+      res.status(200).json({ product_sale });
+    } catch (error) {
+      await t.rollback();
+      res.status(500).json({ error: "Error updating product sale (PUT)", detail: String(error) });
+    }
+  }
+
+  public async updatePatch(req: Request, res: Response) {
+    const t = await sequelize.transaction();
+    try {
+      const id = paramId(req);
+      const body = req.body as Partial<Pick<ProductSaleI, "quantity" | "status">>;
+      const product_sale = await ProductSale.findByPk(id, {
+        transaction: t,
+        lock: t.LOCK.UPDATE,
+      });
+      if (!product_sale) {
+        await t.rollback();
+        res.status(404).json({ error: "Product sale not found" });
+        return;
+      }
+
+      if (body.quantity !== undefined) {
+        const newQty = Number(body.quantity);
+        if (!newQty || newQty < 1) {
+          await t.rollback();
+          res.status(400).json({ error: "quantity must be >= 1" });
+          return;
+        }
+
+        const product = await Product.findByPk(product_sale.product_id, {
+          transaction: t,
+          lock: t.LOCK.UPDATE,
+        });
+        if (!product) {
+          await t.rollback();
+          res.status(404).json({ error: "Product not found" });
+          return;
+        }
+
+        const delta = newQty - product_sale.quantity;
+        if (delta > 0 && product.quantity < delta) {
+          await t.rollback();
+          res.status(400).json({
+            error: "Insufficient stock",
+            available: product.quantity,
+            requested_extra: delta,
+          });
+          return;
+        }
+
+        await product.update(
+          { quantity: product.quantity - delta },
+          { transaction: t }
+        );
+        await product_sale.update(
+          {
+            quantity: newQty,
+            line_total: Number(product_sale.unit_price) * newQty,
+          },
+          { transaction: t }
+        );
+      }
+
+      if (body.status !== undefined) {
+        await product_sale.update({ status: body.status }, { transaction: t });
+      }
+
+      await recalcSaleTotals(product_sale.sale_id, t);
+      await t.commit();
+      res.status(200).json({ product_sale });
+    } catch (error) {
+      await t.rollback();
+      res.status(500).json({ error: "Error updating product sale (PATCH)", detail: String(error) });
+    }
+  }
+
+  // ================== DELETE ==================
+  /** Eliminación física: restaura stock y recalcula totales de la venta */
+  public async deletePhysical(req: Request, res: Response) {
+    const t = await sequelize.transaction();
+    try {
+      const id = paramId(req);
+      const product_sale = await ProductSale.findByPk(id, {
+        transaction: t,
+        lock: t.LOCK.UPDATE,
+      });
+      if (!product_sale) {
+        await t.rollback();
+        res.status(404).json({ error: "Product sale not found" });
+        return;
+      }
+
+      const product = await Product.findByPk(product_sale.product_id, {
+        transaction: t,
+        lock: t.LOCK.UPDATE,
+      });
+      if (product && product_sale.status === "active") {
+        await product.update(
+          { quantity: product.quantity + product_sale.quantity },
+          { transaction: t }
+        );
+      }
+
+      const sale_id = product_sale.sale_id;
+      await product_sale.destroy({ transaction: t });
+      await recalcSaleTotals(sale_id, t);
+
+      await t.commit();
+      res.status(200).json({ message: "Product sale permanently deleted", id });
+    } catch (error) {
+      await t.rollback();
+      res.status(500).json({ error: "Error deleting product sale", detail: String(error) });
+    }
+  }
+
+  /** Eliminación lógica → status = inactive (restaura stock y recalcula) */
+  public async deleteLogical(req: Request, res: Response) {
+    const t = await sequelize.transaction();
+    try {
+      const id = paramId(req);
+      const product_sale = await ProductSale.findByPk(id, {
+        transaction: t,
+        lock: t.LOCK.UPDATE,
+      });
+      if (!product_sale) {
+        await t.rollback();
+        res.status(404).json({ error: "Product sale not found" });
+        return;
+      }
+
+      if (product_sale.status === "active") {
+        const product = await Product.findByPk(product_sale.product_id, {
+          transaction: t,
+          lock: t.LOCK.UPDATE,
+        });
+        if (product) {
+          await product.update(
+            { quantity: product.quantity + product_sale.quantity },
+            { transaction: t }
+          );
+        }
+      }
+
+      await product_sale.update({ status: "inactive" }, { transaction: t });
+      await recalcSaleTotals(product_sale.sale_id, t);
+
+      await t.commit();
+      res.status(200).json({
+        message: "Product sale deactivated (logical delete)",
+        product_sale,
+      });
+    } catch (error) {
+      await t.rollback();
+      res.status(500).json({ error: "Error deactivating product sale", detail: String(error) });
+    }
+  }
+}
+EOF
+```
+
+![](images/clipboard-1599576384.png)
+
+```         
+: > src/features/business/product-sale/product-sale.routes.ts
+cat >> src/features/business/product-sale/product-sale.routes.ts << 'EOF'
+import { Application } from "express";
+import { ProductSaleController } from "./product-sale.controller";
+
+export class ProductSaleRoutes {
+  public productSaleController: ProductSaleController = new ProductSaleController();
+
+  public routes(app: Application): void {
+    // ================== RUTAS SIN AUTENTICACIÓN / SIN MIDDLEWARE JWT ==================
+
+    // getAll
+    app
+      .route("/api/detalle-ventas")
+      .get(this.productSaleController.getAll.bind(this.productSaleController));
+
+    // getOne
+    app
+      .route("/api/detalle-ventas/:id")
+      .get(this.productSaleController.getOne.bind(this.productSaleController));
+
+    // create
+    app
+      .route("/api/detalle-ventas")
+      .post(this.productSaleController.create.bind(this.productSaleController));
+
+    // update (PUT / PATCH)
+    app
+      .route("/api/detalle-ventas/:id")
+      .put(this.productSaleController.updatePut.bind(this.productSaleController))
+      .patch(this.productSaleController.updatePatch.bind(this.productSaleController));
+
+    // delete físico
+    app
+      .route("/api/detalle-ventas/:id")
+      .delete(this.productSaleController.deletePhysical.bind(this.productSaleController));
+
+    // delete lógico
+    app
+      .route("/api/detalle-ventas/:id/deactivate")
+      .patch(this.productSaleController.deleteLogical.bind(this.productSaleController));
+  }
+}
+EOF
+```
+
+![](images/clipboard-388284108.png)
+
+## 13.3 HTTP (REST Client)
+
+```         
+: > src/features/business/sale/http/sales.get.http
+cat >> src/features/business/sale/http/sales.get.http << 'EOF'
+### Feature Sale — GET ALL / GET ONE
+### Leyenda: SIN AUTH (sin middleware JWT / sin autenticación)
+@baseUrl = http://localhost:4000
+@id = 1
+
+# @name getAllSales
+GET {{baseUrl}}/api/ventas
+
+###
+
+# @name getOneSale
+GET {{baseUrl}}/api/ventas/{{id}}
+EOF
+```
+
+![](images/clipboard-4253789022.png)
+
+```         
+: > src/features/business/sale/http/sales.create.http
+cat >> src/features/business/sale/http/sales.create.http << 'EOF'
+### Feature Sale — CREATE
+### Leyenda: SIN AUTH (sin middleware JWT / sin autenticación)
+@baseUrl = http://localhost:4000
+
+# @name createSale
+POST {{baseUrl}}/api/ventas
+Content-Type: application/json
+
+{
+  "client_id": 1,
+  "tax": 19,
+  "discounts": 5,
+  "items": [
+    { "product_id": 1, "quantity": 2 },
+    { "product_id": 2, "quantity": 1 }
+  ]
+}
+EOF
+```
+
+![](images/clipboard-3807698813.png)
+
+```         
+: > src/features/business/sale/http/sales.update.http
+cat >> src/features/business/sale/http/sales.update.http << 'EOF'
+### Feature Sale — UPDATE (PUT) / UPDATE (PATCH) — solo cabecera
+### Leyenda: SIN AUTH (sin middleware JWT / sin autenticación)
+@baseUrl = http://localhost:4000
+@id = 1
+
+# @name updateSalePut
+PUT {{baseUrl}}/api/ventas/{{id}}
+Content-Type: application/json
+
+{
+  "client_id": 1,
+  "tax": 20,
+  "discounts": 10,
+  "sale_date": "2026-09-16T12:00:00.000Z",
+  "status": "active"
+}
+
+###
+
+# @name updateSalePatch
+PATCH {{baseUrl}}/api/ventas/{{id}}
+Content-Type: application/json
+
+{
+  "tax": 15,
+  "discounts": 0
+}
+EOF
+```
+
+![](images/clipboard-4007010606.png)
+
+```         
+: > src/features/business/sale/http/sales.delete.http
+cat >> src/features/business/sale/http/sales.delete.http << 'EOF'
+### Feature Sale — DELETE físico / DELETE lógico (status = inactive)
+### Leyenda: SIN AUTH (sin middleware JWT / sin autenticación)
+@baseUrl = http://localhost:4000
+@id = 1
+
+# @name deleteSalePhysical
+DELETE {{baseUrl}}/api/ventas/{{id}}
+
+###
+
+# @name deleteSaleLogical
+PATCH {{baseUrl}}/api/ventas/{{id}}/deactivate
+EOF
+```
+
+![](images/clipboard-3192490517.png)
+
+## 13.4 Cableado Routes + Config
+
+![](images/clipboard-1641645133.png)
+
+**PARCHE** — `src/config/index.ts`:
+
+**1. Debajo de** `import "../features/business/veterinarian/veterinarian.model";`
+
+![](images/clipboard-217621651.png)
+
+**2. Dentro de** `routes()`, debajo de `this.routePrv.veterinarianRoutes.routes(this.app);`
+
+![](images/clipboard-3775292350.png)
+
+## 13.5 Relación Pet, Appointment y Veterinarian 
+
+```         
+: > src/features/business/sale/sale.associations.ts
+cat >> src/features/business/sale/sale.associations.ts << 'EOF'
+import { Sale } from "./sale.model";
+import { Client } from "../client/client.model";
+
+Sale.belongsTo(Client, { foreignKey: "client_id", as: "client" });
+Client.hasMany(Sale, { foreignKey: "client_id", as: "sales" });
+EOF
+```
+
+![](images/clipboard-2889276086.png)
+
+**PARCHE** — `src/config/index.ts` **ya existe**.
+
+![](images/clipboard-364038656.png)
+
+### Verificación
+
+![](images/clipboard-3114862693.png)
+
+## 13.6 Seeder + Swagger Appointment
+
+```         
+: > src/features/business/sale/sale.seeder.ts
+cat >> src/features/business/sale/sale.seeder.ts << 'EOF'
+import { faker } from "@faker-js/faker";
+import { Sale } from "./sale.model";
+import { Client } from "../client/client.model";
+
+/**
+ * Seeder del feature Sale (cabeceras).
+ * Las líneas `product_sales` las inserta `product-sale.seeder.ts`.
+ * Idempotente: si ya hay ventas, no inserta.
+ */
+export async function seedSales(count: number): Promise<number> {
+  if (count <= 0) {
+    console.log("⏭️  sales: count=0, se omite");
+    return 0;
+  }
+
+  const existing = await Sale.count();
+  if (existing > 0) {
+    console.log(`⏭️  sales: ya hay ${existing} registro(s), se omite seeder`);
+    return 0;
+  }
+
+  const clients = await Client.findAll({ where: { status: "active" } });
+  if (clients.length === 0) {
+    console.log("⏭️  sales: faltan clientes activos, se omite seeder");
+    return 0;
+  }
+
+  const rows = Array.from({ length: count }, () => {
+    const client = clients[Math.floor(Math.random() * clients.length)];
+    const tax = Number(faker.number.float({ min: 0, max: 20, fractionDigits: 2 }));
+    const discounts = Number(faker.number.float({ min: 0, max: 10, fractionDigits: 2 }));
+    return {
+      sale_date: faker.date.recent({ days: 30 }),
+      subtotal: 0,
+      tax,
+      discounts,
+      total: tax - discounts,
+      client_id: client.id,
+      status: "active" as const,
+    };
+  });
+
+  await Sale.bulkCreate(rows);
+  console.log(`✅ sales: insertados ${count} registro(s) falsos (sin ítems)`);
+  return count;
+}
+EOF
+```
+
+![](images/clipboard-992922585.png)
+
+**PARCHE** — `src/database/seeders/counts.ts`
+
+```         
+: > src/database/seeders/counts.ts
+cat >> src/database/seeders/counts.ts << 'EOF'
+/**
+ * Cantidad de registros por tabla (snake_case = nombre de tabla BD).
+ * Prioridad: CLI (--clients=N) > env (SEED_CLIENTS) > default de este archivo.
+ *
+ * Cuando agregues features, suma aquí la clave (nombre de tabla) y léela en el runner.
+ */
+export type SeedCounts = {
+  clients: number;
+  product_types: number;
+  products: number;
+  sales: number;
+  product_sales: number;
+  // users?: number;
+  // roles?: number;
+};
+
+export const DEFAULT_SEED_COUNTS: SeedCounts = {
+  clients: 10,
+  product_types: 25,
+  products: 15,
+  sales: 5,
+  product_sales: 12,
+};
+
+export function resolveSeedCounts(argv: string[] = process.argv.slice(2)): SeedCounts {
+  const counts: SeedCounts = { ...DEFAULT_SEED_COUNTS };
+
+  const envMap: Array<[keyof SeedCounts, string | undefined]> = [
+    ["clients", process.env.SEED_CLIENTS],
+    ["product_types", process.env.SEED_PRODUCT_TYPES],
+    ["products", process.env.SEED_PRODUCTS],
+    ["sales", process.env.SEED_SALES],
+    ["product_sales", process.env.SEED_PRODUCT_SALES],
+  ];
+  for (const [key, value] of envMap) {
+    if (value !== undefined && value !== "") {
+      counts[key] = Number(value);
+    }
+  }
+
+  for (const arg of argv) {
+    const m = arg.match(/^--([a-zA-Z_]+)=(\d+)$/);
+    if (!m) continue;
+    const key = m[1] as keyof SeedCounts;
+    const value = Number(m[2]);
+    if (key in counts) {
+      counts[key] = value;
+    }
+  }
+
+  return counts;
+}
+EOF
+```
+
+![](images/clipboard-1587690319.png)
+
+**PARCHE** — `src/database/seeders/index.ts`
+
+```         
+: > src/database/seeders/index.ts
+cat >> src/database/seeders/index.ts << 'EOF'
+import dotenv from "dotenv";
+import { sequelize, testConnection } from "../db";
+import "../../features/business/client/client.model";
+import "../../features/business/product-type/product-type.model";
+import "../../features/business/product/product.model";
+import "../../features/business/sale/sale.model";
+import "../../features/business/product-sale/product-sale.model";
+import "../../features/business/product/product.associations";
+import "../../features/business/sale/sale.associations";
+import "../../features/business/product-sale/product-sale.associations";
+import { seedClients } from "../../features/business/client/client.seeder";
+import { seedProductTypes } from "../../features/business/product-type/product-type.seeder";
+import { seedProducts } from "../../features/business/product/product.seeder";
+import { seedSales } from "../../features/business/sale/sale.seeder";
+import { seedProductSales } from "../../features/business/product-sale/product-sale.seeder";
+import { resolveSeedCounts } from "./counts";
+
+dotenv.config();
+
+/**
+ * SeedersRunner — ejecuta los seeders de TODAS las tablas (features).
+ *
+ * Tablas actuales (orden padres → hijos):
+ *   clients → product_types → products → sales → product_sales
+ *
+ * Ejecutar seeders de todas las tablas:
+ *   npm run db:seed
+ *
+ * Variar cantidades (CLI o env; claves = nombre de tabla):
+ *   npm run db:seed -- --clients=20 --product_types=5 --products=15 --sales=5 --product_sales=12
+ *   SEED_CLIENTS=5 SEED_PRODUCT_TYPES=3 SEED_PRODUCTS=10 SEED_SALES=2 SEED_PRODUCT_SALES=6 npm run db:seed
+ *
+ * Defaults: ver `counts.ts`. Cada seeder es idempotente (si ya hay filas, omite).
+ * Ubicación de cada seeder: `src/features/.../<entidad>.seeder.ts`
+ * Este archivo solo orquesta; no define datos.
+ */
+export async function runAllSeeders(): Promise<void> {
+  const counts = resolveSeedCounts();
+  console.log("🌱 Iniciando SeedersRunner...");
+  console.log("📊 Conteos:", counts);
+
+  const ok = await testConnection();
+  if (!ok) {
+    throw new Error("No hay conexión a la base de datos");
+  }
+
+  const isMysql =
+    sequelize.getDialect() === "mysql" || sequelize.getDialect() === "mariadb";
+  if (isMysql) {
+    await sequelize.query("SET FOREIGN_KEY_CHECKS = 0");
+  }
+  try {
+    await sequelize.sync({ force: false, alter: true });
+  } finally {
+    if (isMysql) {
+      await sequelize.query("SET FOREIGN_KEY_CHECKS = 1");
+    }
+  }
+
+  // Orden: business (padres → hijos)
+  await seedClients(counts.clients);
+  await seedProductTypes(counts.product_types);
+  await seedProducts(counts.products);
+  await seedSales(counts.sales);
+  await seedProductSales(counts.product_sales);
+
+  console.log("🌱 SeedersRunner finalizado");
+}
+
+if (require.main === module) {
+  runAllSeeders()
+    .then(async () => {
+      await sequelize.close();
+      process.exit(0);
+    })
+    .catch(async (err) => {
+      console.error("❌ Error en seeders:", err);
+      await sequelize.close();
+      process.exit(1);
+    });
+}
+EOF
+```
+
+![](images/clipboard-201069120.png)
+
+![](images/clipboard-382456468.png)
+
+**PARCHE** — `src/swagger/index.ts` completo:
+
+```         
+: > src/swagger/index.ts
+cat >> src/swagger/index.ts << 'EOF'
+import { Application } from "express";
+import swaggerUi from "swagger-ui-express";
+import { clientSwagger } from "../features/business/client/client.swagger";
+import { productTypeSwagger } from "../features/business/product-type/product-type.swagger";
+import { productSwagger } from "../features/business/product/product.swagger";
+import { saleSwagger } from "../features/business/sale/sale.swagger";
+import { productSaleSwagger } from "../features/business/product-sale/product-sale.swagger";
+
+export type FeatureSwaggerModule = {
+  tags: unknown[];
+  paths: Record<string, unknown>;
+  components?: { schemas?: Record<string, unknown> };
+};
+
+/**
+ * Registry externo: importa la documentación OpenAPI de cada feature
+ * (mismo patrón que SeedersRunner).
+ */
+const featureSwaggerModules: FeatureSwaggerModule[] = [
+  clientSwagger,
+  productTypeSwagger,
+  productSwagger,
+  saleSwagger,
+  productSaleSwagger,
+];
+
+export function buildOpenApiDocument() {
+  const tags: unknown[] = [];
+  const paths: Record<string, unknown> = {};
+  const schemas: Record<string, unknown> = {};
+
+  for (const mod of featureSwaggerModules) {
+    tags.push(...mod.tags);
+    Object.assign(paths, mod.paths);
+    if (mod.components?.schemas) {
+      Object.assign(schemas, mod.components.schemas);
+    }
+  }
+
+  return {
+    openapi: "3.0.3",
+    info: {
+      title: "StoreLab API",
+      version: "1.0.0",
+      description:
+        "API StoreLab (Express + Sequelize). Los endpoints de business están documentados como **SIN AUTH** (este lab no implementa autenticación).",
+    },
+    servers: [
+      {
+        url: `http://localhost:${process.env.PORT || 4000}`,
+        description: "Local",
+      },
+    ],
+    tags,
+    paths,
+    components: { schemas },
+  };
+}
+
+/** Monta Swagger UI y el JSON OpenAPI */
+export function setupSwagger(app: Application): void {
+  const document = buildOpenApiDocument();
+  app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(document));
+  app.get("/api/docs.json", (_req, res) => {
+    res.json(document);
+  });
+  console.log("📘 Swagger UI: /api/docs  |  OpenAPI JSON: /api/docs.json");
+}
+EOF
+```
+
+![](images/clipboard-1545590031.png)
+
+### Cierre del ISSUE-08
+
+![![](images/clipboard-3610143904.png)](images/clipboard-2252877040.png)
+
+![](images/clipboard-2322458990.png)

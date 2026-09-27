@@ -1,0 +1,27 @@
+### Feature Appointment — UPDATE (PUT) / UPDATE (PATCH)
+### Leyenda: SIN AUTH (sin middleware JWT / sin autenticación)
+@baseUrl = http://localhost:4000
+@id = 1
+
+# @name updateAppointmentPut
+PUT {{baseUrl}}/api/citas/{{id}}
+Content-Type: application/json
+
+{
+  "pet_id": 1,
+  "veterinarian_id": 1,
+  "start_date": "2026-10-05T10:00:00.000Z",
+  "end_date": "2026-10-05T10:30:00.000Z",
+  "reason": "Reprogramación de control",
+  "state": "scheduled"
+}
+
+###
+
+# @name updateAppointmentPatch
+PATCH {{baseUrl}}/api/citas/{{id}}
+Content-Type: application/json
+
+{
+  "state": "completed"
+}

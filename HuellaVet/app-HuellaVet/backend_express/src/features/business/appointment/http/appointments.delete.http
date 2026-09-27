@@ -1,0 +1,12 @@
+### Feature Appointment — DELETE físico / DELETE lógico (state = cancelled)
+### Leyenda: SIN AUTH (sin middleware JWT / sin autenticación)
+@baseUrl = http://localhost:4000
+@id = 1
+
+# @name deleteAppointmentPhysical
+DELETE {{baseUrl}}/api/citas/{{id}}
+
+###
+
+# @name deleteAppointmentLogical
+PATCH {{baseUrl}}/api/citas/{{id}}/deactivate
