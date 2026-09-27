@@ -27,5 +27,15 @@ export class OwnerRoutes {
       .route("/api/propietarios/:id")
       .put(this.ownerController.updatePut.bind(this.ownerController))
       .patch(this.ownerController.updatePatch.bind(this.ownerController));
+
+    // delete físico
+    app
+      .route("/api/propietarios/:id")
+      .delete(this.ownerController.deletePhysical.bind(this.ownerController));
+
+    // delete lógico
+    app
+      .route("/api/propietarios/:id/deactivate")
+      .patch(this.ownerController.deleteLogical.bind(this.ownerController));
   }
 }
