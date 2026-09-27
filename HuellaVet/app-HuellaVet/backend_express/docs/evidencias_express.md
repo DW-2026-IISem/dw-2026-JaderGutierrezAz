@@ -12,10 +12,10 @@ Universidad de La Guajira
 
 # 1. ISS-00 — Requisitos previos
 
----
+```         
 node -v
 npm -v
----
+```
 
 ### Verificación
 
@@ -25,23 +25,41 @@ npm -v
 
 ## 2.1 Inicializar npm y scripts
 
----
+```         
 mkdir backend_expres
 cd backend_express
 npm init -y
 mkdir -p docs
----
+```
 
 ![](images/clipboard-1018530540.png)
 
 ## 2.2 Estructura de carpetas (features)
 
----
+```         
 mkdir -p \
   src/config \
   src/database/seeders \
   src/routes \
   src/features/business/client
----
+```
 
 ![](images/clipboard-1689050328.png)
+
+## 2.3 Dependencias base (Express + TypeScript)
+
+```         
+npm install express@^5.2.1 cors@^2.8.6 dotenv@^17.4.2 morgan@^1.12.1
+
+npm install -D typescript@~5.9.2 ts-node@^10.9.2 nodemon@^3.1.14 \
+  @types/node@^22.20.3 @types/express@^5.0.6 \
+  @types/cors@^2.8.19 @types/morgan@^1.9.10
+```
+
+![](images/clipboard-3704153351.png)
+
+```         
+npm ls --depth=0
+```
+
+![](images/clipboard-3925105098.png)
