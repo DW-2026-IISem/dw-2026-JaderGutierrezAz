@@ -93,3 +93,23 @@ EOF
 ```
 
 ![](images/clipboard-2077984614.png)
+
+## 2.5 Servidor y App (esqueleto HTTP)
+
+### 2.5.1 `src/server.ts`
+
+```         
+: > src/server.ts
+cat >> src/server.ts << 'EOF'
+import { App } from './config/index';
+
+async function main() {
+    const app = new App();
+    await app.listen();
+}
+
+main();
+EOF
+```
+
+![](images/clipboard-1226400142.png)
