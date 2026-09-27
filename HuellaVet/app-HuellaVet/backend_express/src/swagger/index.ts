@@ -2,6 +2,7 @@ import { Application } from "express";
 import swaggerUi from "swagger-ui-express";
 import { ownerSwagger } from "../features/business/owner/owner.swagger";
 import { petSwagger } from "../features/business/pet/pet.swagger";
+import { veterinarianSwagger } from "../features/business/veterinarian/veterinarian.swagger";
 
 export type FeatureSwaggerModule = {
   tags: unknown[];
@@ -12,6 +13,7 @@ export type FeatureSwaggerModule = {
 const featureSwaggerModules: FeatureSwaggerModule[] = [
   ownerSwagger,
   petSwagger,
+  veterinarianSwagger,
 ];
 
 export function buildOpenApiDocument() {

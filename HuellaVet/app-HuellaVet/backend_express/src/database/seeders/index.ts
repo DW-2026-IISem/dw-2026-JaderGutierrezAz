@@ -3,8 +3,10 @@ import { sequelize, testConnection } from "../db";
 import "../../features/business/owner/owner.model";
 import "../../features/business/pet/pet.model";
 import "../../features/business/pet/pet.associations";
+import "../../features/business/veterinarian/veterinarian.model";
 import { seedOwners } from "../../features/business/owner/owner.seeder";
 import { seedPets } from "../../features/business/pet/pet.seeder";
+import { seedVeterinarians } from "../../features/business/veterinarian/veterinarian.seeder";
 import { resolveSeedCounts } from "./counts";
 
 dotenv.config();
@@ -24,6 +26,7 @@ export async function runAllSeeders(): Promise<void> {
   // Orden: business (padres → hijos)
   await seedOwners(counts.owners);
   await seedPets(counts.pets);
+  await seedVeterinarians(counts.veterinarians);
 
   console.log("🌱 SeedersRunner finalizado");
 }

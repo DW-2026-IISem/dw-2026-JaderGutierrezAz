@@ -1,0 +1,24 @@
+### Feature Veterinarian — UPDATE (PUT) / UPDATE (PATCH)
+### Leyenda: SIN AUTH (sin middleware JWT / sin autenticación)
+@baseUrl = http://localhost:4000
+@id = 1
+
+# @name updateVeterinarianPut
+PUT {{baseUrl}}/api/veterinarios/{{id}}
+Content-Type: application/json
+
+{
+  "name": "Dr. Camilo Rojas Actualizado",
+  "description": "Cirugía y medicina interna",
+  "is_active": true
+}
+
+###
+
+# @name updateVeterinarianPatch
+PATCH {{baseUrl}}/api/veterinarios/{{id}}
+Content-Type: application/json
+
+{
+  "description": "Descripción parcial"
+}

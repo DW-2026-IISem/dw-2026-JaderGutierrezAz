@@ -1,0 +1,12 @@
+### Feature Veterinarian — DELETE físico / DELETE lógico (is_active = false)
+### Leyenda: SIN AUTH (sin middleware JWT / sin autenticación)
+@baseUrl = http://localhost:4000
+@id = 1
+
+# @name deleteVeterinarianPhysical
+DELETE {{baseUrl}}/api/veterinarios/{{id}}
+
+###
+
+# @name deleteVeterinarianLogical
+PATCH {{baseUrl}}/api/veterinarios/{{id}}/deactivate

@@ -1,0 +1,13 @@
+### Feature Veterinarian — CREATE
+### Leyenda: SIN AUTH (sin middleware JWT / sin autenticación)
+@baseUrl = http://localhost:4000
+
+# @name createVeterinarian
+POST {{baseUrl}}/api/veterinarios
+Content-Type: application/json
+
+{
+  "name": "Dr. Camilo Rojas",
+  "description": "Especialista en medicina interna de pequeñas especies",
+  "is_active": true
+}
