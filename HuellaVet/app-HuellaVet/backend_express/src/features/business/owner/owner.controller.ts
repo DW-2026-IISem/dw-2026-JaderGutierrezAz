@@ -96,5 +96,35 @@ export class OwnerController {
   }
 
   // ================== DELETE ==================
-  // (rellenar más adelante)
+  /** Eliminación física */
+  public async deletePhysical(req: Request, res: Response) {
+    try {
+      const id = paramId(req);
+      const owner = await Owner.findByPk(id);
+      if (!owner) {
+        res.status(404).json({ error: "Owner not found" });
+        return;
+      }
+      await owner.destroy();
+      res.status(200).json({ message: "Owner permanently deleted", id });
+    } catch (error) {
+      res.status(500).json({ error: "Error deleting owner", detail: String(error) });
+    }
+  }
+
+  /** Eliminación lógica → is_active = false */
+  public async deleteLogical(req: Request, res: Response) {
+    try {
+      const id = paramId(req);
+      const owner = await Owner.findByPk(id);
+      if (!owner) {
+        res.status(404).json({ error: "Owner not found" });
+        return;
+      }
+      await owner.update({ is_active: false });
+      res.status(200).json({ message: "Owner deactivated (logical delete)", owner });
+    } catch (error) {
+      res.status(500).json({ error: "Error deactivating owner", detail: String(error) });
+    }
+  }
 }

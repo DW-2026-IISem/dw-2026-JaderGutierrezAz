@@ -630,3 +630,9 @@ npm run dev
 ```
 
 ![![](images/clipboard-1692548297.png)](images/clipboard-2140658122.png)
+
+# 8.ISS-03-E — Feature Owner: Eliminar (físico y lógico)
+
+### Controller — PARCHE `owner.controller.ts`
+
+![](images/clipboard-567753139.png)
