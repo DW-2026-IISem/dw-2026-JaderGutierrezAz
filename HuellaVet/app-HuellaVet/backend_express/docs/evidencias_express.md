@@ -355,7 +355,7 @@ npm run dev
 
 ![](images/clipboard-1136565286.png)
 
-# 4. ISS-03-A — Feature Client — fundación (modelo, esqueleto, HTTP, cableado)
+# 4. ISS-03-A — Feature Owner —  (modelo, esqueleto, HTTP, cableado)
 
 ## 4.1 Modelo Owner
 
@@ -652,3 +652,181 @@ npm run dev
 ### Cierre del ISS
 
 ![](images/clipboard-2381866197.png)
+
+# 9. ISS-04 – Owner – Seeders con Faker (feature + runner externo)
+
+```         
+npm install -D @faker-js/faker@^10.6.0
+```
+
+![](images/clipboard-3759199174.png)
+
+```         
+: > src/features/business/client/client.seeder.ts
+cat >> src/features/business/client/client.seeder.ts << 'EOF'
+import { faker } from "@faker-js/faker";
+import { Client } from "./client.model";
+
+/**
+ * Seeder del feature Client (datos falsos con @faker-js/faker).
+ * Se invoca desde `src/database/seeders` (SeedersRunner), no desde la App.
+ *
+ * Idempotente: si ya hay filas, no vuelve a insertar.
+ */
+export async function seedClients(count: number): Promise<number> {
+  if (count <= 0) {
+    console.log("⏭️  clients: count=0, se omite");
+    return 0;
+  }
+
+  const existing = await Client.count();
+  if (existing > 0) {
+    console.log(`⏭️  clients: ya hay ${existing} registro(s), se omite seeder`);
+    return 0;
+  }
+
+  const rows = Array.from({ length: count }, (_, i) => ({
+    name: faker.person.fullName(),
+    address: faker.location.streetAddress(),
+    phone: faker.phone.number({ style: "national" }),
+    email: `client.${i}.${faker.string.alphanumeric(6)}@example.com`.toLowerCase(),
+    password: "Password123!",
+    status: "active" as const,
+  }));
+
+  await Client.bulkCreate(rows);
+  console.log(`✅ clients: insertados ${count} registro(s) falsos`);
+  return count;
+}
+EOF
+```
+
+![](images/clipboard-182988246.png)
+
+## 9.2 3. Conteos (`database/seeders/counts.ts`)
+
+```         
+: > src/database/seeders/counts.ts
+cat >> src/database/seeders/counts.ts << 'EOF'
+/**
+ * Cantidad de registros por feature/entidad.
+ * Prioridad: CLI (--clients=N) > env (SEED_CLIENTS) > default de este archivo.
+ *
+ * Cuando agregues features, suma aquí la clave y léela en el runner.
+ */
+export type SeedCounts = {
+  clients: number;
+  // users?: number;
+  // roles?: number;
+  // products?: number;
+};
+
+export const DEFAULT_SEED_COUNTS: SeedCounts = {
+  clients: 10,
+};
+
+export function resolveSeedCounts(argv: string[] = process.argv.slice(2)): SeedCounts {
+  const counts: SeedCounts = { ...DEFAULT_SEED_COUNTS };
+
+  const envClients = process.env.SEED_CLIENTS;
+  if (envClients !== undefined && envClients !== "") {
+    counts.clients = Number(envClients);
+  }
+
+  for (const arg of argv) {
+    const m = arg.match(/^--([a-zA-Z_]+)=(\d+)$/);
+    if (!m) continue;
+    const key = m[1] as keyof SeedCounts;
+    const value = Number(m[2]);
+    if (key in counts) {
+      counts[key] = value;
+    }
+  }
+
+  return counts;
+}
+EOF
+```
+
+![](images/clipboard-2525926667.png)
+
+### 9.2.2 Runner (`database/seeders/index.ts`)
+
+```         
+: > src/database/seeders/index.ts
+cat >> src/database/seeders/index.ts << 'EOF'
+import dotenv from "dotenv";
+import { sequelize, testConnection } from "../db";
+import "../../features/business/client/client.model";
+import { seedClients } from "../../features/business/client/client.seeder";
+import { resolveSeedCounts } from "./counts";
+
+dotenv.config();
+
+/**
+ * SeedersRunner — ejecuta TODOS los seeders de features.
+ *
+ * Ubicación: `src/database/seeders/` (orquestación fuera de cada feature).
+ * Cada feature exporta su seeder (ej. `features/business/client/client.seeder.ts`).
+ *
+ * Uso:
+ *   npm run db:seed
+ *   npm run db:seed -- --clients=20
+ *   SEED_CLIENTS=5 npm run db:seed
+ */
+export async function runAllSeeders(): Promise<void> {
+  const counts = resolveSeedCounts();
+  console.log("🌱 Iniciando SeedersRunner...");
+  console.log("📊 Conteos:", counts);
+
+  const ok = await testConnection();
+  if (!ok) {
+    throw new Error("No hay conexión a la base de datos");
+  }
+
+  await sequelize.sync({ force: false, alter: true });
+
+  // Orden: business (padres → hijos)
+  await seedClients(counts.clients);
+
+  console.log("🌱 SeedersRunner finalizado");
+}
+
+if (require.main === module) {
+  runAllSeeders()
+    .then(async () => {
+      await sequelize.close();
+      process.exit(0);
+    })
+    .catch(async (err) => {
+      console.error("❌ Error en seeders:", err);
+      await sequelize.close();
+      process.exit(1);
+    });
+}
+EOF
+```
+
+![](images/clipboard-2988760347.png)
+
+**PARCHE** — `package.json` **ya existe**.
+
+![](images/clipboard-1928459067.png)
+
+### Verificación ISS-04
+
+```         
+npm run db:seed
+npm run db:seed -- --clients=20
+SEED_CLIENTS=5 npm run db:seed
+```
+
+![](images/clipboard-1430647271.png)
+
+### Cierre del ISS
+
+```         
+npm run dev
+```
+
+![](images/clipboard-2342845865.png)
