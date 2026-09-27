@@ -640,3 +640,7 @@ npm run dev
 ### Rutas — PARCHE `owner.routes.ts`
 
 ![](images/clipboard-315368981.png)
+
+### HTTP — archivo nuevo
+
+![](images/clipboard-1466507612.png)
