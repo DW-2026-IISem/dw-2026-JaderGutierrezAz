@@ -616,3 +616,17 @@ npm run dev
 ### HTTP — archivo nuevo
 
 ![](images/clipboard-694287840.png)
+
+### Verificación
+
+``` bash
+curl -s -X PUT http://localhost:4000/api/clientes/1 -H 'Content-Type: application/json' \   -d '{"name":"Ana","address":"x","phone":"300","email":"ana@test.com","status":"active"}' curl -s -X PATCH http://localhost:4000/api/clientes/1 -H 'Content-Type: application/json' \   -d '{"phone":"301"}'
+```
+
+### Cierre del ISS
+
+``` bash
+npm run dev
+```
+
+![![](images/clipboard-1692548297.png)](images/clipboard-2140658122.png)
