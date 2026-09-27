@@ -165,3 +165,20 @@ EOF
 ```
 
 ![](images/clipboard-2671787410.png)
+
+### Verificación del ISS-01
+
+```         
+npx tsc --noEmit
+find src -type f | sort
+```
+
+![](images/clipboard-3483115887.png)
+
+### Cierre del ISS
+
+``` bash
+npm run dev
+```
+
+![](images/clipboard-1340656068.png)
