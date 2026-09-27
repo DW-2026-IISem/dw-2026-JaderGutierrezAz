@@ -1,6 +1,7 @@
 import { Application } from "express";
 import swaggerUi from "swagger-ui-express";
 import { ownerSwagger } from "../features/business/owner/owner.swagger";
+import { petSwagger } from "../features/business/pet/pet.swagger";
 
 export type FeatureSwaggerModule = {
   tags: unknown[];
@@ -8,14 +9,9 @@ export type FeatureSwaggerModule = {
   components?: { schemas?: Record<string, unknown> };
 };
 
-/**
- * Registry externo: importa la documentación OpenAPI de cada feature
- * (mismo patrón que SeedersRunner).
- */
 const featureSwaggerModules: FeatureSwaggerModule[] = [
   ownerSwagger,
-  // petSwagger,
-  // veterinarianSwagger,
+  petSwagger,
 ];
 
 export function buildOpenApiDocument() {
@@ -37,13 +33,10 @@ export function buildOpenApiDocument() {
       title: "HuellaVet API",
       version: "1.0.0",
       description:
-        "API HuellaVet (Express + Sequelize). Los endpoints de Owner están documentados como **SIN AUTH**. Todas las rutas business son **SIN AUTH** en este lab.",
+        "API HuellaVet (Express + Sequelize). Todas las rutas business son **SIN AUTH** en este lab.",
     },
     servers: [
-      {
-        url: `http://localhost:${process.env.PORT || 4000}`,
-        description: "Local",
-      },
+      { url: `http://localhost:${process.env.PORT || 4000}`, description: "Local" },
     ],
     tags,
     paths,
@@ -51,7 +44,6 @@ export function buildOpenApiDocument() {
   };
 }
 
-/** Monta Swagger UI y el JSON OpenAPI */
 export function setupSwagger(app: Application): void {
   const document = buildOpenApiDocument();
   app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(document));

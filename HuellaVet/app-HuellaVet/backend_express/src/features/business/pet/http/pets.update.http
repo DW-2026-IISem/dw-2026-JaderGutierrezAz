@@ -1,0 +1,25 @@
+### Feature Pet — UPDATE (PUT) / UPDATE (PATCH)
+### Leyenda: SIN AUTH (sin middleware JWT / sin autenticación)
+@baseUrl = http://localhost:4000
+@id = 1
+
+# @name updatePetPut
+PUT {{baseUrl}}/api/mascotas/{{id}}
+Content-Type: application/json
+
+{
+  "owner_id": 1,
+  "name": "Firulais Actualizado",
+  "description": "Labrador adulto",
+  "is_active": true
+}
+
+###
+
+# @name updatePetPatch
+PATCH {{baseUrl}}/api/mascotas/{{id}}
+Content-Type: application/json
+
+{
+  "description": "Descripción parcial"
+}

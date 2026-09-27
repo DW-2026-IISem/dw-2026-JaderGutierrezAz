@@ -1,0 +1,12 @@
+### Feature Pet — GET ALL / GET ONE
+### Leyenda: SIN AUTH (sin middleware JWT / sin autenticación)
+@baseUrl = http://localhost:4000
+@id = 1
+
+# @name getAllPets
+GET {{baseUrl}}/api/mascotas
+
+###
+
+# @name getOnePet
+GET {{baseUrl}}/api/mascotas/{{id}}

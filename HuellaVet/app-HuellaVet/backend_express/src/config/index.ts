@@ -4,6 +4,8 @@ import morgan from "morgan";
 var cors = require("cors");
 import { sequelize, getDatabaseInfo, testConnection } from "../database/db";
 import "../features/business/owner/owner.model";
+import "../features/business/pet/pet.model";
+import "../features/business/pet/pet.associations";
 import { Routes } from "../routes/index";
 import { setupSwagger } from "../swagger/index";
 dotenv.config();
@@ -36,6 +38,7 @@ export class App {
 
   private routes(): void {
       this.routePrv.ownerRoutes.routes(this.app);
+      this.routePrv.petRoutes.routes(this.app);
   }
 
   private async dbConnection(): Promise<void> {

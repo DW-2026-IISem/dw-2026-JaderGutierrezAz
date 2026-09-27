@@ -1,0 +1,14 @@
+### Feature Pet — CREATE
+### Leyenda: SIN AUTH (sin middleware JWT / sin autenticación)
+@baseUrl = http://localhost:4000
+
+# @name createPet
+POST {{baseUrl}}/api/mascotas
+Content-Type: application/json
+
+{
+  "owner_id": 1,
+  "name": "Firulais",
+  "description": "Labrador color dorado",
+  "is_active": true
+}

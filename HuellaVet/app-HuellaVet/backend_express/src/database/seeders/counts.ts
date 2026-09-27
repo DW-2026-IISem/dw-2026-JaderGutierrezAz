@@ -1,17 +1,11 @@
-/**
- * Cantidad de registros por feature/entidad.
- * Prioridad: CLI (--owners=N) > env (SEED_OWNERS) > default de este archivo.
- *
- * Cuando agregues features, suma aquí la clave y léela en el runner.
- */
 export type SeedCounts = {
   owners: number;
-  // pets?: number;
-  // veterinarians?: number;
+  pets: number;
 };
 
 export const DEFAULT_SEED_COUNTS: SeedCounts = {
   owners: 10,
+  pets: 15,
 };
 
 export function resolveSeedCounts(argv: string[] = process.argv.slice(2)): SeedCounts {
@@ -20,6 +14,11 @@ export function resolveSeedCounts(argv: string[] = process.argv.slice(2)): SeedC
   const envOwners = process.env.SEED_OWNERS;
   if (envOwners !== undefined && envOwners !== "") {
     counts.owners = Number(envOwners);
+  }
+
+  const envPets = process.env.SEED_PETS;
+  if (envPets !== undefined && envPets !== "") {
+    counts.pets = Number(envPets);
   }
 
   for (const arg of argv) {

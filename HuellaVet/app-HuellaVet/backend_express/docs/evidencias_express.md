@@ -1187,4 +1187,667 @@ curl -s http://localhost:4000/api/docs.json | head
 npm run dev
 ```
 
-![](images/clipboard-993005702.png)
+![![](images/clipboard-205691737.png)](images/clipboard-993005702.png)
+
+# 11. ISS-06 — Feature PET (Mascotas)
+
+## 11.1 Modelo Pet
+
+```         
+: > src/features/business/product-type/product-type.model.ts
+cat >> src/features/business/product-type/product-type.model.ts << 'EOF'
+import { DataTypes, Model } from "sequelize";
+import { sequelize } from "../../../database/db";
+
+export interface ProductTypeI {
+  id?: number;
+  name: string;
+  description?: string | null;
+  status: "active" | "inactive";
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
+export class ProductType extends Model {
+  public id!: number;
+  public name!: string;
+  public description!: string | null;
+  public status!: "active" | "inactive";
+  public readonly createdAt!: Date;
+  public readonly updatedAt!: Date;
+}
+
+ProductType.init(
+  {
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    description: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    status: {
+      type: DataTypes.ENUM("active", "inactive"),
+      defaultValue: "inactive",
+      allowNull: false,
+    },
+  },
+  {
+    sequelize,
+    modelName: "ProductType",
+    tableName: "product_types",
+    timestamps: true,
+  }
+);
+EOF
+```
+
+![](images/clipboard-2074010209.png)
+
+## 11.2 Controller + routes (CRUD completo)
+
+```         
+: > src/features/business/product-type/product-type.controller.ts
+cat >> src/features/business/product-type/product-type.controller.ts << 'EOF'
+import { Request, Response } from "express";
+import { ProductType, ProductTypeI } from "./product-type.model";
+
+function paramId(req: Request): number {
+  const raw = req.params.id;
+  const value = Array.isArray(raw) ? raw[0] : raw;
+  return Number(value);
+}
+
+export class ProductTypeController {
+  // ================== READ ==================
+  public async getAll(req: Request, res: Response) {
+    try {
+      const product_types = await ProductType.findAll({
+        where: { status: "active" },
+      });
+      res.status(200).json({ product_types });
+    } catch (error) {
+      res.status(500).json({ error: "Error fetching product types", detail: String(error) });
+    }
+  }
+
+  public async getOne(req: Request, res: Response) {
+    try {
+      const id = paramId(req);
+      const product_type = await ProductType.findByPk(id);
+      if (!product_type) {
+        res.status(404).json({ error: "Product type not found" });
+        return;
+      }
+      res.status(200).json({ product_type });
+    } catch (error) {
+      res.status(500).json({ error: "Error fetching product type", detail: String(error) });
+    }
+  }
+
+  // ================== CREATE ==================
+  public async create(req: Request, res: Response) {
+    try {
+      const body = req.body as ProductTypeI;
+      const product_type = await ProductType.create({
+        name: body.name,
+        description: body.description ?? null,
+        status: body.status ?? "active",
+      });
+      res.status(201).json({ product_type });
+    } catch (error) {
+      res.status(500).json({ error: "Error creating product type", detail: String(error) });
+    }
+  }
+
+  // ================== UPDATE ==================
+  public async updatePut(req: Request, res: Response) {
+    try {
+      const id = paramId(req);
+      const body = req.body as ProductTypeI;
+      const product_type = await ProductType.findByPk(id);
+      if (!product_type) {
+        res.status(404).json({ error: "Product type not found" });
+        return;
+      }
+
+      await product_type.update({
+        name: body.name,
+        description: body.description ?? null,
+        status: body.status ?? product_type.status,
+      });
+
+      res.status(200).json({ product_type });
+    } catch (error) {
+      res.status(500).json({ error: "Error updating product type (PUT)", detail: String(error) });
+    }
+  }
+
+  public async updatePatch(req: Request, res: Response) {
+    try {
+      const id = paramId(req);
+      const body = req.body as Partial<ProductTypeI>;
+      const product_type = await ProductType.findByPk(id);
+      if (!product_type) {
+        res.status(404).json({ error: "Product type not found" });
+        return;
+      }
+
+      await product_type.update(body);
+      res.status(200).json({ product_type });
+    } catch (error) {
+      res.status(500).json({ error: "Error updating product type (PATCH)", detail: String(error) });
+    }
+  }
+
+  // ================== DELETE ==================
+  /** Eliminación física */
+  public async deletePhysical(req: Request, res: Response) {
+    try {
+      const id = paramId(req);
+      const product_type = await ProductType.findByPk(id);
+      if (!product_type) {
+        res.status(404).json({ error: "Product type not found" });
+        return;
+      }
+      await product_type.destroy();
+      res.status(200).json({ message: "Product type permanently deleted", id });
+    } catch (error) {
+      res.status(500).json({ error: "Error deleting product type", detail: String(error) });
+    }
+  }
+
+  /** Eliminación lógica → status = inactive */
+  public async deleteLogical(req: Request, res: Response) {
+    try {
+      const id = paramId(req);
+      const product_type = await ProductType.findByPk(id);
+      if (!product_type) {
+        res.status(404).json({ error: "Product type not found" });
+        return;
+      }
+      await product_type.update({ status: "inactive" });
+      res.status(200).json({
+        message: "Product type deactivated (logical delete)",
+        product_type,
+      });
+    } catch (error) {
+      res.status(500).json({ error: "Error deactivating product type", detail: String(error) });
+    }
+  }
+}
+EOF
+```
+
+![](images/clipboard-1423733068.png)
+
+```         
+: > src/features/business/product-type/product-type.routes.ts
+cat >> src/features/business/product-type/product-type.routes.ts << 'EOF'
+import { Application } from "express";
+import { ProductTypeController } from "./product-type.controller";
+
+export class ProductTypeRoutes {
+  public productTypeController: ProductTypeController = new ProductTypeController();
+
+  public routes(app: Application): void {
+    // ================== RUTAS SIN AUTENTICACIÓN / SIN MIDDLEWARE JWT ==================
+
+    // getAll
+    app
+      .route("/api/tipos-producto")
+      .get(this.productTypeController.getAll.bind(this.productTypeController));
+
+    // getOne
+    app
+      .route("/api/tipos-producto/:id")
+      .get(this.productTypeController.getOne.bind(this.productTypeController));
+
+    // create
+    app
+      .route("/api/tipos-producto")
+      .post(this.productTypeController.create.bind(this.productTypeController));
+
+    // update (PUT / PATCH)
+    app
+      .route("/api/tipos-producto/:id")
+      .put(this.productTypeController.updatePut.bind(this.productTypeController))
+      .patch(this.productTypeController.updatePatch.bind(this.productTypeController));
+
+    // delete físico
+    app
+      .route("/api/tipos-producto/:id")
+      .delete(this.productTypeController.deletePhysical.bind(this.productTypeController));
+
+    // delete lógico
+    app
+      .route("/api/tipos-producto/:id/deactivate")
+      .patch(this.productTypeController.deleteLogical.bind(this.productTypeController));
+  }
+}
+EOF
+```
+
+![](images/clipboard-3288167326.png)
+
+## 11.3 HTTP (REST Client)
+
+```         
+: > src/features/business/product-type/http/product-types.get.http
+cat >> src/features/business/product-type/http/product-types.get.http << 'EOF'
+### Feature ProductType — GET ALL / GET ONE
+### Leyenda: SIN AUTH (sin middleware JWT / sin autenticación)
+@baseUrl = http://localhost:4000
+@id = 1
+
+# @name getAllProductTypes
+GET {{baseUrl}}/api/tipos-producto
+
+###
+
+# @name getOneProductType
+GET {{baseUrl}}/api/tipos-producto/{{id}}
+EOF
+```
+
+![](images/clipboard-391473640.png)
+
+```         
+: > src/features/business/product-type/http/product-types.create.http
+cat >> src/features/business/product-type/http/product-types.create.http << 'EOF'
+### Feature ProductType — CREATE
+### Leyenda: SIN AUTH (sin middleware JWT / sin autenticación)
+@baseUrl = http://localhost:4000
+
+# @name createProductType
+POST {{baseUrl}}/api/tipos-producto
+Content-Type: application/json
+
+{
+  "name": "Electrónica",
+  "description": "Dispositivos y accesorios",
+  "status": "active"
+}
+EOF
+```
+
+![](images/clipboard-3622249799.png)
+
+```         
+: > src/features/business/product-type/http/product-types.update.http
+cat >> src/features/business/product-type/http/product-types.update.http << 'EOF'
+### Feature ProductType — UPDATE (PUT) / UPDATE (PATCH)
+### Leyenda: SIN AUTH (sin middleware JWT / sin autenticación)
+@baseUrl = http://localhost:4000
+@id = 1
+
+# @name updateProductTypePut
+PUT {{baseUrl}}/api/tipos-producto/{{id}}
+Content-Type: application/json
+
+{
+  "name": "Electrónica Actualizada",
+  "description": "Categoría renovada",
+  "status": "active"
+}
+
+###
+
+# @name updateProductTypePatch
+PATCH {{baseUrl}}/api/tipos-producto/{{id}}
+Content-Type: application/json
+
+{
+  "description": "Descripción parcial"
+}
+EOF
+```
+
+![](images/clipboard-856011500.png)
+
+```         
+: > src/features/business/product-type/http/product-types.delete.http
+cat >> src/features/business/product-type/http/product-types.delete.http << 'EOF'
+### Feature ProductType — DELETE físico / DELETE lógico (status = inactive)
+### Leyenda: SIN AUTH (sin middleware JWT / sin autenticación)
+@baseUrl = http://localhost:4000
+@id = 1
+
+# @name deleteProductTypePhysical
+DELETE {{baseUrl}}/api/tipos-producto/{{id}}
+
+###
+
+# @name deleteProductTypeLogical
+PATCH {{baseUrl}}/api/tipos-producto/{{id}}/deactivate
+EOF
+```
+
+![](images/clipboard-2863253607.png)
+
+## 11.4 Cableado Routes + Config
+
+**PARCHE** — `src/routes/index.ts` **ya existe**.
+
+![](images/clipboard-581864163.png)
+
+**PARCHE** — `src/config/index.ts` **ya existe**.
+
+![](images/clipboard-3669661748.png)
+
+### Verificación
+
+```         
+curl -s -X POST http://localhost:4000/api/tipos-producto -H 'Content-Type: application/json' \
+  -d '{"name":"Bebidas","description":"Refrescos","status":"active"}'
+curl -s http://localhost:4000/api/tipos-producto
+```
+
+![](images/clipboard-3064446110.png)
+
+## 11.5 Seeder ProductType
+
+```         
+: > src/features/business/product-type/product-type.seeder.ts
+cat >> src/features/business/product-type/product-type.seeder.ts << 'EOF'
+import { faker } from "@faker-js/faker";
+import { ProductType } from "./product-type.model";
+
+/**
+ * Seeder del feature ProductType (datos falsos con @faker-js/faker).
+ * Se invoca desde `src/database/seeders` (SeedersRunner), no desde la App.
+ *
+ * Idempotente: si ya hay filas, no vuelve a insertar.
+ */
+export async function seedProductTypes(count: number): Promise<number> {
+  if (count <= 0) {
+    console.log("⏭️  product_types: count=0, se omite");
+    return 0;
+  }
+
+  const existing = await ProductType.count();
+  if (existing > 0) {
+    console.log(`⏭️  product_types: ya hay ${existing} registro(s), se omite seeder`);
+    return 0;
+  }
+
+  const rows = Array.from({ length: count }, () => ({
+    name: faker.commerce.department(),
+    description: faker.commerce.productDescription(),
+    status: "active" as const,
+  }));
+
+  await ProductType.bulkCreate(rows);
+  console.log(`✅ product_types: insertados ${count} registro(s) falsos`);
+  return count;
+}
+EOF
+```
+
+![](images/clipboard-1520149676.png)
+
+**PARCHE** — `src/database/seeders/counts.ts` **ya existe**.
+
+![](images/clipboard-1993536771.png)
+
+**PARCHE** — `src/database/seeders/index.ts` **ya existe**.
+
+![](images/clipboard-3235338249.png)
+
+## 11.6 Swagger Pet
+
+```         
+: > src/features/business/product-type/product-type.swagger.ts
+cat >> src/features/business/product-type/product-type.swagger.ts << 'EOF'
+/**
+ * Documentación OpenAPI del feature ProductType.
+ * Se agrega desde `src/swagger` (registry externo), no se monta aquí.
+ *
+ * Leyenda: endpoints documentados como SIN AUTH (sin middleware JWT).
+ */
+
+export const productTypeSwagger = {
+  tags: [
+    {
+      name: "TiposProducto",
+      description: "CRUD de tipos de producto — **SIN AUTH** (sin middleware JWT)",
+    },
+  ],
+  paths: {
+    "/api/tipos-producto": {
+      get: {
+        tags: ["TiposProducto"],
+        summary: "Listar tipos de producto activos",
+        description: "SIN AUTH — retorna tipos con status=active",
+        security: [],
+        responses: {
+          "200": {
+            description: "Lista de tipos de producto",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    product_types: {
+                      type: "array",
+                      items: { $ref: "#/components/schemas/ProductType" },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+      post: {
+        tags: ["TiposProducto"],
+        summary: "Crear tipo de producto",
+        description: "SIN AUTH",
+        security: [],
+        requestBody: {
+          required: true,
+          content: {
+            "application/json": {
+              schema: { $ref: "#/components/schemas/ProductTypeCreate" },
+            },
+          },
+        },
+        responses: {
+          "201": {
+            description: "Tipo de producto creado",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    product_type: { $ref: "#/components/schemas/ProductType" },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+    "/api/tipos-producto/{id}": {
+      get: {
+        tags: ["TiposProducto"],
+        summary: "Obtener tipo de producto por id",
+        description: "SIN AUTH",
+        security: [],
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            required: true,
+            schema: { type: "integer" },
+          },
+        ],
+        responses: {
+          "200": {
+            description: "Tipo de producto encontrado",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    product_type: { $ref: "#/components/schemas/ProductType" },
+                  },
+                },
+              },
+            },
+          },
+          "404": { description: "No encontrado" },
+        },
+      },
+      put: {
+        tags: ["TiposProducto"],
+        summary: "Actualizar tipo de producto (PUT — reemplazo)",
+        description: "SIN AUTH",
+        security: [],
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            required: true,
+            schema: { type: "integer" },
+          },
+        ],
+        requestBody: {
+          required: true,
+          content: {
+            "application/json": {
+              schema: { $ref: "#/components/schemas/ProductTypeUpdate" },
+            },
+          },
+        },
+        responses: {
+          "200": { description: "Actualizado" },
+          "404": { description: "No encontrado" },
+        },
+      },
+      patch: {
+        tags: ["TiposProducto"],
+        summary: "Actualizar tipo de producto (PATCH — parcial)",
+        description: "SIN AUTH",
+        security: [],
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            required: true,
+            schema: { type: "integer" },
+          },
+        ],
+        requestBody: {
+          required: true,
+          content: {
+            "application/json": {
+              schema: { $ref: "#/components/schemas/ProductTypePatch" },
+            },
+          },
+        },
+        responses: {
+          "200": { description: "Actualizado" },
+          "404": { description: "No encontrado" },
+        },
+      },
+      delete: {
+        tags: ["TiposProducto"],
+        summary: "Eliminar tipo de producto (físico)",
+        description: "SIN AUTH — borra la fila",
+        security: [],
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            required: true,
+            schema: { type: "integer" },
+          },
+        ],
+        responses: {
+          "200": { description: "Eliminado" },
+          "404": { description: "No encontrado" },
+        },
+      },
+    },
+    "/api/tipos-producto/{id}/deactivate": {
+      patch: {
+        tags: ["TiposProducto"],
+        summary: "Eliminar tipo de producto (lógico)",
+        description: "SIN AUTH — status = inactive",
+        security: [],
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            required: true,
+            schema: { type: "integer" },
+          },
+        ],
+        responses: {
+          "200": { description: "Desactivado" },
+          "404": { description: "No encontrado" },
+        },
+      },
+    },
+  },
+  components: {
+    schemas: {
+      ProductType: {
+        type: "object",
+        properties: {
+          id: { type: "integer", example: 1 },
+          name: { type: "string", example: "Electrónica" },
+          description: { type: "string", example: "Dispositivos y accesorios", nullable: true },
+          status: { type: "string", enum: ["active", "inactive"], example: "active" },
+          createdAt: { type: "string", format: "date-time" },
+          updatedAt: { type: "string", format: "date-time" },
+        },
+      },
+      ProductTypeCreate: {
+        type: "object",
+        required: ["name"],
+        properties: {
+          name: { type: "string" },
+          description: { type: "string" },
+          status: { type: "string", enum: ["active", "inactive"], default: "active" },
+        },
+      },
+      ProductTypeUpdate: {
+        type: "object",
+        required: ["name"],
+        properties: {
+          name: { type: "string" },
+          description: { type: "string" },
+          status: { type: "string", enum: ["active", "inactive"] },
+        },
+      },
+      ProductTypePatch: {
+        type: "object",
+        properties: {
+          name: { type: "string" },
+          description: { type: "string" },
+          status: { type: "string", enum: ["active", "inactive"] },
+        },
+      },
+    },
+  },
+};
+EOF
+```
+
+![](images/clipboard-1214040465.png)
+
+**PARCHE** — `src/swagger/index.ts` **ya existe**.
+
+![](images/clipboard-1066656441.png)
+
+### Cierre del ISS
+
+```         
+npm run dev
+```
+
+![![](images/clipboard-3501485980.png)](images/clipboard-2516005899.png)
