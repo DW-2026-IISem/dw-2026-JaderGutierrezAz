@@ -33,3 +33,15 @@ mkdir -p docs
 ---
 
 ![](images/clipboard-1018530540.png)
+
+## 2.2 Estructura de carpetas (features)
+
+---
+mkdir -p \
+  src/config \
+  src/database/seeders \
+  src/routes \
+  src/features/business/client
+---
+
+![](images/clipboard-1689050328.png)
