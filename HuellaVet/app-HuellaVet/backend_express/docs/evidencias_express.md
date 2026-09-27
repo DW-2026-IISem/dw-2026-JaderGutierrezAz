@@ -558,3 +558,17 @@ npm run dev
 ### HTTP — archivo nuevo
 
 ![](images/clipboard-513228882.png)
+
+### Verificación
+
+``` bash
+curl -s http://localhost:4000/api/clientes curl -s http://localhost:4000/api/clientes/1
+```
+
+### Cierre del ISS
+
+``` bash
+npm run dev
+```
+
+![![](images/clipboard-3210174298.png)](images/clipboard-1793068076.png)
