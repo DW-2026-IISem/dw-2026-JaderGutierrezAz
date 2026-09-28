@@ -4,6 +4,7 @@ import { VeterinarianRoutes } from "../features/business/veterinarian/veterinari
 import { AppointmentRoutes } from "../features/business/appointment/appointment.routes";
 import { ConsultationRoutes } from "../features/business/consultation/consultation.routes";
 import { VaccineRoutes } from "../features/business/vaccine/vaccine.routes";
+import { VaccineBatchRoutes } from "../features/business/vaccine-batch/vaccine-batch.routes";
 
 export class Routes {
   public ownerRoutes: OwnerRoutes = new OwnerRoutes();
@@ -12,4 +13,5 @@ export class Routes {
   public appointmentRoutes: AppointmentRoutes = new AppointmentRoutes();
   public consultationRoutes: ConsultationRoutes = new ConsultationRoutes();
   public vaccineRoutes: VaccineRoutes = new VaccineRoutes();
+  public vaccineBatchRoutes: VaccineBatchRoutes = new VaccineBatchRoutes();
 }

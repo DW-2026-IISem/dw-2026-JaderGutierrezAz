@@ -1,0 +1,12 @@
+### Feature VaccineBatch — DELETE físico / DELETE lógico (is_active = false)
+### Leyenda: SIN AUTH (sin middleware JWT / sin autenticación)
+@baseUrl = http://localhost:4000
+@id = 1
+
+# @name deleteVaccineBatchPhysical
+DELETE {{baseUrl}}/api/lotes-vacunas/{{id}}
+
+###
+
+# @name deleteVaccineBatchLogical
+PATCH {{baseUrl}}/api/lotes-vacunas/{{id}}/deactivate

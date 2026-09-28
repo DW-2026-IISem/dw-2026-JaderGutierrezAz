@@ -1,0 +1,14 @@
+### Feature VaccineBatch — CREATE
+### Leyenda: SIN AUTH (sin middleware JWT / sin autenticación)
+@baseUrl = http://localhost:4000
+
+# @name createVaccineBatch
+POST {{baseUrl}}/api/lotes-vacunas
+Content-Type: application/json
+
+{
+  "vaccine_id": 1,
+  "name": "Lote A-2026-001",
+  "description": "Lote recibido en septiembre",
+  "is_active": true
+}

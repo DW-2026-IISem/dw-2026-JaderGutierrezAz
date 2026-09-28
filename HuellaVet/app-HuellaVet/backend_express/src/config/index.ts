@@ -12,6 +12,8 @@ import "../features/business/appointment/appointment.associations";
 import "../features/business/consultation/consultation.model";
 import "../features/business/consultation/consultation.associations";
 import "../features/business/vaccine/vaccine.model";
+import "../features/business/vaccine-batch/vaccine-batch.model";
+import "../features/business/vaccine-batch/vaccine-batch.associations";
 import { Routes } from "../routes/index";
 import { setupSwagger } from "../swagger/index";
 dotenv.config();
@@ -49,6 +51,7 @@ export class App {
       this.routePrv.appointmentRoutes.routes(this.app);
       this.routePrv.consultationRoutes.routes(this.app);
       this.routePrv.vaccineRoutes.routes(this.app);
+      this.routePrv.vaccineBatchRoutes.routes(this.app);
   }
 
   private async dbConnection(): Promise<void> {

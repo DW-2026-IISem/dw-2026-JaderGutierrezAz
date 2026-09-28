@@ -1,0 +1,25 @@
+### Feature VaccineBatch — UPDATE (PUT) / UPDATE (PATCH)
+### Leyenda: SIN AUTH (sin middleware JWT / sin autenticación)
+@baseUrl = http://localhost:4000
+@id = 1
+
+# @name updateVaccineBatchPut
+PUT {{baseUrl}}/api/lotes-vacunas/{{id}}
+Content-Type: application/json
+
+{
+  "vaccine_id": 1,
+  "name": "Lote A-2026-001 Actualizado",
+  "description": "Lote verificado",
+  "is_active": true
+}
+
+###
+
+# @name updateVaccineBatchPatch
+PATCH {{baseUrl}}/api/lotes-vacunas/{{id}}
+Content-Type: application/json
+
+{
+  "description": "Descripción parcial"
+}

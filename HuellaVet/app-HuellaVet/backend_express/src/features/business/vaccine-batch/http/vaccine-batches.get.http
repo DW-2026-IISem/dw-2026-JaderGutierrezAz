@@ -1,0 +1,12 @@
+### Feature VaccineBatch — GET ALL / GET ONE
+### Leyenda: SIN AUTH (sin middleware JWT / sin autenticación)
+@baseUrl = http://localhost:4000
+@id = 1
+
+# @name getAllVaccineBatches
+GET {{baseUrl}}/api/lotes-vacunas
+
+###
+
+# @name getOneVaccineBatch
+GET {{baseUrl}}/api/lotes-vacunas/{{id}}

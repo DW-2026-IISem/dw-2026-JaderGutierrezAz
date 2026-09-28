@@ -4596,3 +4596,81 @@ EOF
 ![](images/clipboard-3763005801.png)
 
 ![](images/clipboard-908693365.png)
+
+# 16. ISS-11 — Feature Vaccine Batch (Lote de Vacunas)
+
+## 16.1 Modelo Vaccine Batch
+
+![](images/clipboard-335514669.png)
+
+## 16.2 Controller + routes (CRUD completo)
+
+![](images/clipboard-681635282.png)
+
+![](images/clipboard-3204335019.png)
+
+## 16.3 HTTP (REST Client)
+
+### Get
+
+![](images/clipboard-3327366466.png)
+
+### Create
+
+![](images/clipboard-2345758405.png)
+
+### Update
+
+![](images/clipboard-3508362961.png)
+
+### Delete
+
+![](images/clipboard-3661781637.png)
+
+## 16.4 Cableado Routes + Config
+
+**PARCHE** — `src/routes/index.ts`
+
+![](images/clipboard-218117866.png)
+
+**PARCHE** — `src/config/index.ts`
+
+![](images/clipboard-1982595672.png)
+
+![](images/clipboard-1037598709.png)
+
+## 16.5 Relación Vaccine ↔ VaccineBatch 
+
+![](images/clipboard-3595960141.png)
+
+**PARCHE** — `src/config/index.ts`
+
+![](images/clipboard-3539668870.png)
+
+### Verificación
+
+![](images/clipboard-2074171878.png)
+
+## 16.6 Seeder + Swagger VaccineBatch
+
+![](images/clipboard-2886005926.png)
+
+**PARCHE** — `src/database/seeders/counts.ts`
+
+![](images/clipboard-1715207200.png)
+
+**PARCHE** — `src/database/seeders/index.ts`
+
+![](images/clipboard-4089688287.png)
+
+![](images/clipboard-896022439.png)
+
+**PARCHE** — `src/swagger/index.ts`
+
+![](images/clipboard-815801480.png)
+
+### Cierre del ISSUE-11
+
+![](images/clipboard-4250160437.png)
+
+![![](images/clipboard-1638859058.png)](images/clipboard-3178558948.png)
