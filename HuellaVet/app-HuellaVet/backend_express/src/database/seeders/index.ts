@@ -8,11 +8,13 @@ import "../../features/business/appointment/appointment.model";
 import "../../features/business/appointment/appointment.associations";
 import "../../features/business/consultation/consultation.model";
 import "../../features/business/consultation/consultation.associations";
+import "../../features/business/vaccine/vaccine.model";
 import { seedOwners } from "../../features/business/owner/owner.seeder";
 import { seedPets } from "../../features/business/pet/pet.seeder";
 import { seedVeterinarians } from "../../features/business/veterinarian/veterinarian.seeder";
 import { seedAppointments } from "../../features/business/appointment/appointment.seeder";
 import { seedConsultations } from "../../features/business/consultation/consultation.seeder";
+import { seedVaccines } from "../../features/business/vaccine/vaccine.seeder";
 import { resolveSeedCounts } from "./counts";
 
 dotenv.config();
@@ -35,6 +37,7 @@ export async function runAllSeeders(): Promise<void> {
   await seedVeterinarians(counts.veterinarians);
   await seedAppointments(counts.appointments);
   await seedConsultations(counts.consultations);
+  await seedVaccines(counts.vaccines);
 
   console.log("🌱 SeedersRunner finalizado");
 }

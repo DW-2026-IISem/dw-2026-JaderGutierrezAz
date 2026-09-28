@@ -4140,3 +4140,459 @@ npm run dev
 ![![](images/clipboard-1716395817.png)](images/clipboard-3628658065.png)
 
 ![](images/clipboard-745291202.png)
+
+# 15. ISS-10 — Feature Vaccine (Vacunas)
+
+## 15.1 Modelo Vaccine
+
+```         
+: > src/features/business/product/product.model.ts
+cat >> src/features/business/product/product.model.ts << 'EOF'
+import { DataTypes, Model } from "sequelize";
+import { sequelize } from "../../../database/db";
+
+export interface ProductI {
+  id?: number;
+  name: string;
+  brand: string;
+  price: number;
+  min_stock: number;
+  quantity: number;
+  product_type_id: number;
+  status: "active" | "inactive";
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
+export class Product extends Model {
+  public id!: number;
+  public name!: string;
+  public brand!: string;
+  public price!: number;
+  public min_stock!: number;
+  public quantity!: number;
+  public product_type_id!: number;
+  public status!: "active" | "inactive";
+  public readonly createdAt!: Date;
+  public readonly updatedAt!: Date;
+}
+
+Product.init(
+  {
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    brand: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    price: {
+      type: DataTypes.DECIMAL(12, 2),
+      allowNull: false,
+    },
+    min_stock: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0,
+    },
+    quantity: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0,
+    },
+    product_type_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    status: {
+      type: DataTypes.ENUM("active", "inactive"),
+      defaultValue: "inactive",
+      allowNull: false,
+    },
+  },
+  {
+    sequelize,
+    modelName: "Product",
+    tableName: "products",
+    timestamps: true,
+  }
+);
+EOF
+```
+
+![](images/clipboard-2922208799.png)
+
+### 15.2 Controller + routes (CRUD completo)
+
+```         
+: > src/features/business/product/product.controller.ts
+cat >> src/features/business/product/product.controller.ts << 'EOF'
+import { Request, Response } from "express";
+import { Product, ProductI } from "./product.model";
+import { ProductType } from "../product-type/product-type.model";
+
+function paramId(req: Request): number {
+  const raw = req.params.id;
+  const value = Array.isArray(raw) ? raw[0] : raw;
+  return Number(value);
+}
+
+async function assertActiveProductType(product_type_id: number): Promise<{ ok: true } | { ok: false; status: number; error: string }> {
+  const productType = await ProductType.findByPk(product_type_id);
+  if (!productType) {
+    return { ok: false, status: 404, error: "Product type not found" };
+  }
+  if (productType.status !== "active") {
+    return { ok: false, status: 400, error: "Product type must be active" };
+  }
+  return { ok: true };
+}
+
+export class ProductController {
+  // ================== READ ==================
+  public async getAll(req: Request, res: Response) {
+    try {
+      const products = await Product.findAll({
+        where: { status: "active" },
+      });
+      res.status(200).json({ products });
+    } catch (error) {
+      res.status(500).json({ error: "Error fetching products", detail: String(error) });
+    }
+  }
+
+  public async getOne(req: Request, res: Response) {
+    try {
+      const id = paramId(req);
+      const product = await Product.findByPk(id);
+      if (!product) {
+        res.status(404).json({ error: "Product not found" });
+        return;
+      }
+      res.status(200).json({ product });
+    } catch (error) {
+      res.status(500).json({ error: "Error fetching product", detail: String(error) });
+    }
+  }
+
+  // ================== CREATE ==================
+  public async create(req: Request, res: Response) {
+    try {
+      const body = req.body as ProductI;
+      const check = await assertActiveProductType(Number(body.product_type_id));
+      if (!check.ok) {
+        res.status(check.status).json({ error: check.error });
+        return;
+      }
+
+      const product = await Product.create({
+        name: body.name,
+        brand: body.brand,
+        price: body.price,
+        min_stock: body.min_stock,
+        quantity: body.quantity,
+        product_type_id: body.product_type_id,
+        status: body.status ?? "active",
+      });
+      res.status(201).json({ product });
+    } catch (error) {
+      res.status(500).json({ error: "Error creating product", detail: String(error) });
+    }
+  }
+
+  // ================== UPDATE ==================
+  public async updatePut(req: Request, res: Response) {
+    try {
+      const id = paramId(req);
+      const body = req.body as ProductI;
+      const product = await Product.findByPk(id);
+      if (!product) {
+        res.status(404).json({ error: "Product not found" });
+        return;
+      }
+
+      const check = await assertActiveProductType(Number(body.product_type_id));
+      if (!check.ok) {
+        res.status(check.status).json({ error: check.error });
+        return;
+      }
+
+      await product.update({
+        name: body.name,
+        brand: body.brand,
+        price: body.price,
+        min_stock: body.min_stock,
+        quantity: body.quantity,
+        product_type_id: body.product_type_id,
+        status: body.status ?? product.status,
+      });
+
+      res.status(200).json({ product });
+    } catch (error) {
+      res.status(500).json({ error: "Error updating product (PUT)", detail: String(error) });
+    }
+  }
+
+  public async updatePatch(req: Request, res: Response) {
+    try {
+      const id = paramId(req);
+      const body = req.body as Partial<ProductI>;
+      const product = await Product.findByPk(id);
+      if (!product) {
+        res.status(404).json({ error: "Product not found" });
+        return;
+      }
+
+      if (body.product_type_id !== undefined) {
+        const check = await assertActiveProductType(Number(body.product_type_id));
+        if (!check.ok) {
+          res.status(check.status).json({ error: check.error });
+          return;
+        }
+      }
+
+      await product.update(body);
+      res.status(200).json({ product });
+    } catch (error) {
+      res.status(500).json({ error: "Error updating product (PATCH)", detail: String(error) });
+    }
+  }
+
+  // ================== DELETE ==================
+  /** Eliminación física */
+  public async deletePhysical(req: Request, res: Response) {
+    try {
+      const id = paramId(req);
+      const product = await Product.findByPk(id);
+      if (!product) {
+        res.status(404).json({ error: "Product not found" });
+        return;
+      }
+      await product.destroy();
+      res.status(200).json({ message: "Product permanently deleted", id });
+    } catch (error) {
+      res.status(500).json({ error: "Error deleting product", detail: String(error) });
+    }
+  }
+
+  /** Eliminación lógica → status = inactive */
+  public async deleteLogical(req: Request, res: Response) {
+    try {
+      const id = paramId(req);
+      const product = await Product.findByPk(id);
+      if (!product) {
+        res.status(404).json({ error: "Product not found" });
+        return;
+      }
+      await product.update({ status: "inactive" });
+      res.status(200).json({
+        message: "Product deactivated (logical delete)",
+        product,
+      });
+    } catch (error) {
+      res.status(500).json({ error: "Error deactivating product", detail: String(error) });
+    }
+  }
+}
+EOF
+```
+
+![](images/clipboard-3220879920.png)
+
+```         
+: > src/features/business/product/product.routes.ts
+cat >> src/features/business/product/product.routes.ts << 'EOF'
+import { Application } from "express";
+import { ProductController } from "./product.controller";
+
+export class ProductRoutes {
+  public productController: ProductController = new ProductController();
+
+  public routes(app: Application): void {
+    // ================== RUTAS SIN AUTENTICACIÓN / SIN MIDDLEWARE JWT ==================
+
+    // getAll
+    app
+      .route("/api/productos")
+      .get(this.productController.getAll.bind(this.productController));
+
+    // getOne
+    app
+      .route("/api/productos/:id")
+      .get(this.productController.getOne.bind(this.productController));
+
+    // create
+    app
+      .route("/api/productos")
+      .post(this.productController.create.bind(this.productController));
+
+    // update (PUT / PATCH)
+    app
+      .route("/api/productos/:id")
+      .put(this.productController.updatePut.bind(this.productController))
+      .patch(this.productController.updatePatch.bind(this.productController));
+
+    // delete físico
+    app
+      .route("/api/productos/:id")
+      .delete(this.productController.deletePhysical.bind(this.productController));
+
+    // delete lógico
+    app
+      .route("/api/productos/:id/deactivate")
+      .patch(this.productController.deleteLogical.bind(this.productController));
+  }
+}
+EOF
+```
+
+![](images/clipboard-2168067102.png)
+
+## 15.3 HTTP (REST Client)
+
+```         
+: > src/features/business/product/http/products.get.http
+cat >> src/features/business/product/http/products.get.http << 'EOF'
+### Feature Product — GET ALL / GET ONE
+### Leyenda: SIN AUTH (sin middleware JWT / sin autenticación)
+@baseUrl = http://localhost:4000
+@id = 1
+
+# @name getAllProducts
+GET {{baseUrl}}/api/productos
+
+###
+
+# @name getOneProduct
+GET {{baseUrl}}/api/productos/{{id}}
+EOF
+```
+
+![](images/clipboard-3238286084.png)
+
+```         
+: > src/features/business/product/http/products.create.http
+cat >> src/features/business/product/http/products.create.http << 'EOF'
+### Feature Product — CREATE
+### Leyenda: SIN AUTH (sin middleware JWT / sin autenticación)
+@baseUrl = http://localhost:4000
+
+# @name createProduct
+POST {{baseUrl}}/api/productos
+Content-Type: application/json
+
+{
+  "name": "Laptop Pro",
+  "brand": "TechBrand",
+  "price": 1299.99,
+  "min_stock": 5,
+  "quantity": 50,
+  "product_type_id": 1,
+  "status": "active"
+}
+EOF
+```
+
+![](images/clipboard-587618455.png)
+
+```         
+: > src/features/business/product/http/products.update.http
+cat >> src/features/business/product/http/products.update.http << 'EOF'
+### Feature Product — UPDATE (PUT) / UPDATE (PATCH)
+### Leyenda: SIN AUTH (sin middleware JWT / sin autenticación)
+@baseUrl = http://localhost:4000
+@id = 1
+
+# @name updateProductPut
+PUT {{baseUrl}}/api/productos/{{id}}
+Content-Type: application/json
+
+{
+  "name": "Laptop Pro Max",
+  "brand": "TechBrand",
+  "price": 1499.99,
+  "min_stock": 5,
+  "quantity": 40,
+  "product_type_id": 1,
+  "status": "active"
+}
+
+###
+
+# @name updateProductPatch
+PATCH {{baseUrl}}/api/productos/{{id}}
+Content-Type: application/json
+
+{
+  "price": 1399.99,
+  "quantity": 45
+}
+EOF
+```
+
+![](images/clipboard-3490908816.png)
+
+```         
+: > src/features/business/product/http/products.delete.http
+cat >> src/features/business/product/http/products.delete.http << 'EOF'
+### Feature Product — DELETE físico / DELETE lógico (status = inactive)
+### Leyenda: SIN AUTH (sin middleware JWT / sin autenticación)
+@baseUrl = http://localhost:4000
+@id = 1
+
+# @name deleteProductPhysical
+DELETE {{baseUrl}}/api/productos/{{id}}
+
+###
+
+# @name deleteProductLogical
+PATCH {{baseUrl}}/api/productos/{{id}}/deactivate
+EOF
+```
+
+![](images/clipboard-2788511513.png)
+
+### 15.4 Cableado Routes + Config
+
+**PARCHE** — `src/routes/index.ts`
+
+![](images/clipboard-4273037211.png)
+
+**PARCHE** — `src/config/index.ts`
+
+![](images/clipboard-3764428209.png)
+
+![](images/clipboard-3650883310.png)
+
+### Verificación
+
+![![](images/clipboard-2815427976.png)](images/clipboard-2670534646.png)
+
+## 15.5 Seeder Vaccine
+
+![](images/clipboard-3458498450.png)
+
+**PARCHE** — `src/database/seeders/counts.ts`
+
+![](images/clipboard-4031266418.png)
+
+**PARCHE** — `src/database/seeders/index.ts`
+
+![](images/clipboard-3854479578.png)
+
+## 11.6 Swagger Vaccine
+
+![](images/clipboard-1242118650.png)
+
+**PARCHE** — `src/swagger/index.ts`
+
+![](images/clipboard-1583384998.png)
+
+### Cierre del ISSUE-10
+
+![](images/clipboard-3860788738.png)
+
+![](images/clipboard-3763005801.png)
+
+![](images/clipboard-908693365.png)

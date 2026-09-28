@@ -1,0 +1,24 @@
+### Feature Vaccine — UPDATE (PUT) / UPDATE (PATCH)
+### Leyenda: SIN AUTH (sin middleware JWT / sin autenticación)
+@baseUrl = http://localhost:4000
+@id = 1
+
+# @name updateVaccinePut
+PUT {{baseUrl}}/api/vacunas/{{id}}
+Content-Type: application/json
+
+{
+  "name": "Antirrábica Actualizada",
+  "description": "Vacuna contra la rabia, refuerzo",
+  "is_active": true
+}
+
+###
+
+# @name updateVaccinePatch
+PATCH {{baseUrl}}/api/vacunas/{{id}}
+Content-Type: application/json
+
+{
+  "description": "Descripción parcial"
+}
