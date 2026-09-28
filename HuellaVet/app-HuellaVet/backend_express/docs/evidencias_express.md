@@ -4673,4 +4673,86 @@ EOF
 
 ![](images/clipboard-4250160437.png)
 
-![![](images/clipboard-1638859058.png)](images/clipboard-3178558948.png)
+![](images/clipboard-3178558948.png)
+
+![](images/clipboard-457724080.png)
+
+# 17. ISS-12 — Feature Recipe (Receta)
+
+## 17.1 Modelo Recipe
+
+![](images/clipboard-2046944931.png)
+
+## 17.2 Controller + routes (CRUD completo)
+
+![](images/clipboard-2193715437.png)
+
+![](images/clipboard-4133511687.png)
+
+## 17.3 HTTP (REST Client)
+
+### Get
+
+![](images/clipboard-262891378.png)
+
+### Create
+
+![](images/clipboard-3957279786.png)
+
+### Update
+
+![](images/clipboard-1666323264.png)
+
+### Delete
+
+![](images/clipboard-3394155296.png)
+
+## 17.4 Cableado Routes + Config
+
+**PARCHE** — `src/routes/index.ts`
+
+![](images/clipboard-2810682448.png)
+
+**PARCHE** — `src/config/index.ts`:
+
+![](images/clipboard-2591528421.png)
+
+![](images/clipboard-2966714906.png)
+
+### Verificación
+
+![](images/clipboard-1738010616.png)
+
+## 17.5 Relación Consultation ↔ Recipe 
+
+![](images/clipboard-75185003.png)
+
+**PARCHE** — `src/config/index.ts` **ya existe**.
+
+![](images/clipboard-4257495726.png)
+
+## 17.6 Seeder + Swagger Recipe
+
+![](images/clipboard-4236694600.png)
+
+**PARCHE** — `src/database/seeders/counts.ts`
+
+![](images/clipboard-2660358169.png)
+
+**PARCHE** — `src/database/seeders/index.ts`
+
+![](images/clipboard-1642366473.png)
+
+![](images/clipboard-3371347942.png)
+
+**PARCHE** — `src/swagger/index.ts`
+
+![](images/clipboard-2329161866.png)
+
+### Cierre del ISSUE-12
+
+![](images/clipboard-849734320.png)
+
+![](images/clipboard-1061385506.png)
+
+![](images/clipboard-2364310941.png)

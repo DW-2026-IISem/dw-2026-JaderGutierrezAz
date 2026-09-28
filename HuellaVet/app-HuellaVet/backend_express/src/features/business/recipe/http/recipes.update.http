@@ -1,0 +1,25 @@
+### Feature Recipe — UPDATE (PUT) / UPDATE (PATCH)
+### Leyenda: SIN AUTH (sin middleware JWT / sin autenticación)
+@baseUrl = http://localhost:4000
+@id = 1
+
+# @name updateRecipePut
+PUT {{baseUrl}}/api/recetas/{{id}}
+Content-Type: application/json
+
+{
+  "consultation_id": 1,
+  "name": "Antiinflamatorio Actualizado",
+  "description": "Una tableta cada 8 horas por 3 días",
+  "is_active": true
+}
+
+###
+
+# @name updateRecipePatch
+PATCH {{baseUrl}}/api/recetas/{{id}}
+Content-Type: application/json
+
+{
+  "description": "Descripción parcial"
+}

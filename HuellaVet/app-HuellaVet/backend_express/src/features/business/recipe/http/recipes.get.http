@@ -1,0 +1,12 @@
+### Feature Recipe — GET ALL / GET ONE
+### Leyenda: SIN AUTH (sin middleware JWT / sin autenticación)
+@baseUrl = http://localhost:4000
+@id = 1
+
+# @name getAllRecipes
+GET {{baseUrl}}/api/recetas
+
+###
+
+# @name getOneRecipe
+GET {{baseUrl}}/api/recetas/{{id}}

@@ -1,0 +1,14 @@
+### Feature Recipe — CREATE
+### Leyenda: SIN AUTH (sin middleware JWT / sin autenticación)
+@baseUrl = http://localhost:4000
+
+# @name createRecipe
+POST {{baseUrl}}/api/recetas
+Content-Type: application/json
+
+{
+  "consultation_id": 1,
+  "name": "Antiinflamatorio",
+  "description": "Una tableta cada 12 horas por 5 días",
+  "is_active": true
+}

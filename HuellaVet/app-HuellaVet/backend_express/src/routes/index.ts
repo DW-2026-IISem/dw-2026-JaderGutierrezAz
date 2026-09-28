@@ -5,6 +5,7 @@ import { AppointmentRoutes } from "../features/business/appointment/appointment.
 import { ConsultationRoutes } from "../features/business/consultation/consultation.routes";
 import { VaccineRoutes } from "../features/business/vaccine/vaccine.routes";
 import { VaccineBatchRoutes } from "../features/business/vaccine-batch/vaccine-batch.routes";
+import { RecipeRoutes } from "../features/business/recipe/recipe.routes";
 
 export class Routes {
   public ownerRoutes: OwnerRoutes = new OwnerRoutes();
@@ -14,4 +15,5 @@ export class Routes {
   public consultationRoutes: ConsultationRoutes = new ConsultationRoutes();
   public vaccineRoutes: VaccineRoutes = new VaccineRoutes();
   public vaccineBatchRoutes: VaccineBatchRoutes = new VaccineBatchRoutes();
+  public recipeRoutes: RecipeRoutes = new RecipeRoutes();
 }
