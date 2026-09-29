@@ -1,0 +1,15 @@
+### Feature VaccineApplication — CREATE
+### Leyenda: SIN AUTH (sin middleware JWT / sin autenticación)
+@baseUrl = http://localhost:4000
+
+# @name createVaccineApplication
+POST {{baseUrl}}/api/aplicaciones-vacunas
+Content-Type: application/json
+
+{
+  "consultation_id": 1,
+  "vaccine_batch_id": 1,
+  "name": "Aplicación antirrábica",
+  "description": "Dosis anual aplicada en consulta",
+  "is_active": true
+}

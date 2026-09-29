@@ -13,6 +13,8 @@ import "../../features/business/vaccine-batch/vaccine-batch.model";
 import "../../features/business/vaccine-batch/vaccine-batch.associations";
 import "../../features/business/recipe/recipe.model";
 import "../../features/business/recipe/recipe.associations";
+import "../../features/business/vaccine-application/vaccine-application.model";
+import "../../features/business/vaccine-application/vaccine-application.associations";
 import { seedOwners } from "../../features/business/owner/owner.seeder";
 import { seedPets } from "../../features/business/pet/pet.seeder";
 import { seedVeterinarians } from "../../features/business/veterinarian/veterinarian.seeder";
@@ -21,6 +23,7 @@ import { seedConsultations } from "../../features/business/consultation/consulta
 import { seedVaccines } from "../../features/business/vaccine/vaccine.seeder";
 import { seedVaccineBatches } from "../../features/business/vaccine-batch/vaccine-batch.seeder";
 import { seedRecipes } from "../../features/business/recipe/recipe.seeder";
+import { seedVaccineApplications } from "../../features/business/vaccine-application/vaccine-application.seeder";
 import { resolveSeedCounts } from "./counts";
 
 dotenv.config();
@@ -46,6 +49,7 @@ export async function runAllSeeders(): Promise<void> {
   await seedVaccines(counts.vaccines);
   await seedVaccineBatches(counts.vaccineBatches);
   await seedRecipes(counts.recipes);
+  await seedVaccineApplications(counts.vaccineApplications);
 
   console.log("🌱 SeedersRunner finalizado");
 }

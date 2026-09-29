@@ -355,7 +355,7 @@ npm run dev
 
 ![](images/clipboard-1136565286.png)
 
-# 4. ISS-03-A — Feature Owner —  (modelo, esqueleto, HTTP, cableado)
+# 4. ISS-03-A — Feature Owner — (modelo, esqueleto, HTTP, cableado)
 
 ## 4.1 Modelo Owner
 
@@ -3148,7 +3148,7 @@ EOF
 
 ![](images/clipboard-3775292350.png)
 
-## 13.5 Relación Pet, Appointment y Veterinarian 
+## 13.5 Relación Pet, Appointment y Veterinarian
 
 ```         
 : > src/features/business/sale/sale.associations.ts
@@ -3825,7 +3825,7 @@ EOF
 
 ![](images/clipboard-2467958430.png)
 
-## 14.5 Relación Appointment ↔ Consultation 
+## 14.5 Relación Appointment ↔ Consultation
 
 ![](images/clipboard-1843647064.png)
 
@@ -4639,7 +4639,7 @@ EOF
 
 ![](images/clipboard-1037598709.png)
 
-## 16.5 Relación Vaccine ↔ VaccineBatch 
+## 16.5 Relación Vaccine ↔ VaccineBatch
 
 ![](images/clipboard-3595960141.png)
 
@@ -4723,7 +4723,7 @@ EOF
 
 ![](images/clipboard-1738010616.png)
 
-## 17.5 Relación Consultation ↔ Recipe 
+## 17.5 Relación Consultation ↔ Recipe
 
 ![](images/clipboard-75185003.png)
 
@@ -4756,3 +4756,87 @@ EOF
 ![](images/clipboard-1061385506.png)
 
 ![](images/clipboard-2364310941.png)
+
+# 18. ISS-13 — Feature Vaccine Application
+
+## 18.1 Modelo VaccineApplication
+
+![](images/clipboard-3505346876.png)
+
+## 18.2 Controller + routes (CRUD completo)
+
+![](images/clipboard-1648733103.png)
+
+![](images/clipboard-1950197462.png)
+
+## 18.3 HTTP (REST Client)
+
+### Get
+
+![](images/clipboard-657301602.png)
+
+### Create
+
+![](images/clipboard-172691237.png)
+
+### Update
+
+![](images/clipboard-754704193.png)
+
+### Delete
+
+![](images/clipboard-2698482207.png)
+
+## 18.4 Cableado Routes + Config
+
+**PARCHE** — `src/routes/index.ts` **ya existe**.
+
+![](images/clipboard-862735151.png)
+
+**PARCHE** — `src/config/index.ts` **ya existe**.
+
+![](images/clipboard-223990526.png)
+
+![](images/clipboard-2619845260.png)
+
+### Verificación
+
+![](images/clipboard-1925911224.png)
+
+![](images/clipboard-154626393.png)
+
+## 18.5 Relación Consultation ↔ VaccineApplication ↔ VaccineBatch 
+
+![](images/clipboard-3469457537.png)
+
+**PARCHE** — `src/config/index.ts`
+
+![](images/clipboard-2348243291.png)
+
+## 18.6 Seeder VaccineApplication
+
+![](images/clipboard-1263590159.png)
+
+**PARCHE** — `src/database/seeders/counts.ts`
+
+![](images/clipboard-2692048024.png)
+
+**PARCHE** — `src/database/seeders/index.ts`
+
+![](images/clipboard-293207605.png)
+
+## 18.7 Swagger VaccineApplication
+
+![](images/clipboard-2009437.png)
+
+**PARCHE** — `src/swagger/index.ts`
+
+![](images/clipboard-1137841685.png)
+
+### Cierre del ISSUE-13
+
+![](images/clipboard-1039926034.png)
+
+![](images/clipboard-76233482.png)
+
+![](images/clipboard-2999077173.png)
