@@ -1,0 +1,16 @@
+### Feature Pay — CREATE (referencia polimórfica: reference_type + reference_id)
+### Leyenda: SIN AUTH (sin middleware JWT / sin autenticación)
+@baseUrl = http://localhost:4000
+
+# @name createPay
+POST {{baseUrl}}/api/pagos
+Content-Type: application/json
+
+{
+  "reference_type": "appointment",
+  "reference_id": 1,
+  "method": "Tarjeta de crédito",
+  "amount": 85000.00,
+  "date": "2026-10-05T09:35:00.000Z",
+  "state": "pending"
+}

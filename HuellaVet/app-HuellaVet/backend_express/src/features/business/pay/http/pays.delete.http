@@ -1,0 +1,12 @@
+### Feature Pay — DELETE físico / DELETE lógico (state = cancelled)
+### Leyenda: SIN AUTH (sin middleware JWT / sin autenticación)
+@baseUrl = http://localhost:4000
+@id = 1
+
+# @name deletePayPhysical
+DELETE {{baseUrl}}/api/pagos/{{id}}
+
+###
+
+# @name deletePayLogical
+PATCH {{baseUrl}}/api/pagos/{{id}}/deactivate

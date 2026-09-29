@@ -1,0 +1,27 @@
+### Feature Pay — UPDATE (PUT) / UPDATE (PATCH)
+### Leyenda: SIN AUTH (sin middleware JWT / sin autenticación)
+@baseUrl = http://localhost:4000
+@id = 1
+
+# @name updatePayPut
+PUT {{baseUrl}}/api/pagos/{{id}}
+Content-Type: application/json
+
+{
+  "reference_type": "appointment",
+  "reference_id": 1,
+  "method": "Efectivo",
+  "amount": 90000.00,
+  "date": "2026-10-05T10:00:00.000Z",
+  "state": "paid"
+}
+
+###
+
+# @name updatePayPatch
+PATCH {{baseUrl}}/api/pagos/{{id}}
+Content-Type: application/json
+
+{
+  "state": "paid"
+}

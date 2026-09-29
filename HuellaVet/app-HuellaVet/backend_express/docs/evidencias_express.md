@@ -4840,3 +4840,79 @@ EOF
 ![](images/clipboard-76233482.png)
 
 ![](images/clipboard-2999077173.png)
+
+# 19. ISS-14 — Feature Pay
+
+## 19.1 Modelo Pay
+
+![](images/clipboard-1218652864.png)
+
+## 19.2 Controller + routes (CRUD completo)
+
+![](images/clipboard-3996228418.png)
+
+![](images/clipboard-1768167308.png)
+
+## 19.3 HTTP (REST Client)
+
+### Get
+
+![](images/clipboard-706970670.png)
+
+### Create
+
+![](images/clipboard-2334378584.png)
+
+### Update
+
+![](images/clipboard-1523425293.png)
+
+### Delete
+
+![](images/clipboard-4203820201.png)
+
+## 19.4 Cableado Routes + Config
+
+![](images/clipboard-1473106379.png)
+
+En `src/config/index.ts`, PARCHE:
+
+![](images/clipboard-4252129329.png)
+
+![](images/clipboard-2012716896.png)
+
+### Verificación
+
+![](images/clipboard-2852003077.png)
+
+![](images/clipboard-2310445423.png)
+
+## 19.6 Seeder Feature Pay
+
+![](images/clipboard-2459795497.png)
+
+**PARCHE** — `src/database/seeders/counts.ts`
+
+![](images/clipboard-1129121361.png)
+
+**PARCHE** — `src/database/seeders/index.ts`
+
+![](images/clipboard-1330998266.png)
+
+![](images/clipboard-954647926.png)
+
+## 19.7 Swagger Feature Pay
+
+![](images/clipboard-4057827480.png)
+
+**PARCHE** — `src/swagger/index.ts`
+
+![](images/clipboard-2427009335.png)
+
+### Cierre del ISSUE-14
+
+![](images/clipboard-4055333708.png)
+
+![](images/clipboard-173631118.png)
+
+![](images/clipboard-883474891.png)
