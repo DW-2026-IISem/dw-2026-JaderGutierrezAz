@@ -16,6 +16,13 @@ import "../../features/business/recipe/recipe.associations";
 import "../../features/business/vaccine-application/vaccine-application.model";
 import "../../features/business/vaccine-application/vaccine-application.associations";
 import "../../features/business/pay/pay.model";
+import "../../features/auth/users/user.model";
+import "../../features/auth/roles/role.model";
+import "../../features/auth/resources/resource.model";
+import "../../features/auth/role-users/role-user.model";
+import "../../features/auth/resource-roles/resource-role.model";
+import "../../features/auth/refresh-tokens/refresh-token.model";
+import "../../features/auth/rbac.associations";
 import { seedOwners } from "../../features/business/owner/owner.seeder";
 import { seedPets } from "../../features/business/pet/pet.seeder";
 import { seedVeterinarians } from "../../features/business/veterinarian/veterinarian.seeder";
@@ -42,7 +49,6 @@ export async function runAllSeeders(): Promise<void> {
 
   await sequelize.sync({ force: false, alter: true });
 
-  // Orden: business (padres → hijos)
   await seedOwners(counts.owners);
   await seedPets(counts.pets);
   await seedVeterinarians(counts.veterinarians);
@@ -53,6 +59,8 @@ export async function runAllSeeders(): Promise<void> {
   await seedRecipes(counts.recipes);
   await seedVaccineApplications(counts.vaccineApplications);
   await seedPays(counts.pays);
+
+  // Fase II — Auth: los seeders de users/roles/etc. se añaden en ISS-10+
 
   console.log("🌱 SeedersRunner finalizado");
 }
