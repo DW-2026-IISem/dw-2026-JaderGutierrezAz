@@ -6,7 +6,7 @@ export interface VaccineApplicationI {
   consultation_id: number;
   vaccine_batch_id: number;
   name: string;
-  description?: string | null;
+  description: string | null;
   is_active: boolean;
   createdAt?: Date;
   updatedAt?: Date;

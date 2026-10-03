@@ -5,7 +5,7 @@ export interface ConsultationI {
   id?: number;
   appointment_id: number;
   name: string;
-  description?: string | null;
+  description: string | null;
   is_active: boolean;
   createdAt?: Date;
   updatedAt?: Date;

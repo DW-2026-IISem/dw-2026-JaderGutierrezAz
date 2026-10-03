@@ -1,130 +1,64 @@
 import { Request, Response } from "express";
-import { Owner, OwnerI } from "./owner.model";
+import { BaseController } from "../../../shared/http/base-controller";
+import { CreateOwnerDto, UpdateOwnerDto, PatchOwnerDto } from "./dto";
+import { OwnerService } from "./owner.service";
 
-function paramId(req: Request): number {
-  const raw = req.params.id;
-  const value = Array.isArray(raw) ? raw[0] : raw;
-  return Number(value);
-}
-
-export class OwnerController {
-  // ================== READ ==================
-  public async getAll(req: Request, res: Response) {
-    try {
-      const owners = await Owner.findAll({
-        where: { is_active: true },
-      });
-      res.status(200).json({ owners });
-    } catch (error) {
-      res.status(500).json({ error: "Error fetching owners", detail: String(error) });
-    }
+export class OwnerController extends BaseController {
+  public constructor(private readonly service: OwnerService = new OwnerService()) {
+    super();
   }
 
-  public async getOne(req: Request, res: Response) {
-    try {
-      const id = paramId(req);
-      const owner = await Owner.findByPk(id);
-      if (!owner) {
-        res.status(404).json({ error: "Owner not found" });
-        return;
-      }
+  // ================== READ ==================
+  public async getAll(_req: Request, res: Response): Promise<void> {
+    await this.run(res, async () => {
+      const owners = await this.service.getAll();
+      res.status(200).json({ owners });
+    });
+  }
+
+  public async getOne(req: Request, res: Response): Promise<void> {
+    await this.run(res, async () => {
+      const owner = await this.service.getOne(this.paramId(req));
       res.status(200).json({ owner });
-    } catch (error) {
-      res.status(500).json({ error: "Error fetching owner", detail: String(error) });
-    }
+    });
   }
 
   // ================== CREATE ==================
-  public async create(req: Request, res: Response) {
-    try {
-      const body = req.body as OwnerI;
-      const owner = await Owner.create({
-        document_type: body.document_type,
-        document_number: body.document_number,
-        name: body.name,
-        phone: body.phone,
-        email: body.email,
-        is_active: body.is_active ?? true,
-      });
+  public async create(req: Request, res: Response): Promise<void> {
+    await this.run(res, async () => {
+      const owner = await this.service.create(req.body as CreateOwnerDto);
       res.status(201).json({ owner });
-    } catch (error) {
-      res.status(500).json({ error: "Error creating owner", detail: String(error) });
-    }
+    });
   }
 
   // ================== UPDATE ==================
-  public async updatePut(req: Request, res: Response) {
-    try {
-      const id = paramId(req);
-      const body = req.body as OwnerI;
-      const owner = await Owner.findByPk(id);
-      if (!owner) {
-        res.status(404).json({ error: "Owner not found" });
-        return;
-      }
-
-      await owner.update({
-        document_type: body.document_type,
-        document_number: body.document_number,
-        name: body.name,
-        phone: body.phone,
-        email: body.email,
-        is_active: body.is_active ?? owner.is_active,
-      });
-
+  public async updatePut(req: Request, res: Response): Promise<void> {
+    await this.run(res, async () => {
+      const owner = await this.service.updatePut(this.paramId(req), req.body as UpdateOwnerDto);
       res.status(200).json({ owner });
-    } catch (error) {
-      res.status(500).json({ error: "Error updating owner (PUT)", detail: String(error) });
-    }
+    });
   }
 
-  public async updatePatch(req: Request, res: Response) {
-    try {
-      const id = paramId(req);
-      const body = req.body as Partial<OwnerI>;
-      const owner = await Owner.findByPk(id);
-      if (!owner) {
-        res.status(404).json({ error: "Owner not found" });
-        return;
-      }
-
-      await owner.update(body);
+  public async updatePatch(req: Request, res: Response): Promise<void> {
+    await this.run(res, async () => {
+      const owner = await this.service.updatePatch(this.paramId(req), req.body as PatchOwnerDto);
       res.status(200).json({ owner });
-    } catch (error) {
-      res.status(500).json({ error: "Error updating owner (PATCH)", detail: String(error) });
-    }
+    });
   }
 
   // ================== DELETE ==================
-  /** Eliminación física */
-  public async deletePhysical(req: Request, res: Response) {
-    try {
-      const id = paramId(req);
-      const owner = await Owner.findByPk(id);
-      if (!owner) {
-        res.status(404).json({ error: "Owner not found" });
-        return;
-      }
-      await owner.destroy();
+  public async deletePhysical(req: Request, res: Response): Promise<void> {
+    await this.run(res, async () => {
+      const id = this.paramId(req);
+      await this.service.deletePhysical(id);
       res.status(200).json({ message: "Owner permanently deleted", id });
-    } catch (error) {
-      res.status(500).json({ error: "Error deleting owner", detail: String(error) });
-    }
+    });
   }
 
-  /** Eliminación lógica → is_active = false */
-  public async deleteLogical(req: Request, res: Response) {
-    try {
-      const id = paramId(req);
-      const owner = await Owner.findByPk(id);
-      if (!owner) {
-        res.status(404).json({ error: "Owner not found" });
-        return;
-      }
-      await owner.update({ is_active: false });
+  public async deleteLogical(req: Request, res: Response): Promise<void> {
+    await this.run(res, async () => {
+      const owner = await this.service.deleteLogical(this.paramId(req));
       res.status(200).json({ message: "Owner deactivated (logical delete)", owner });
-    } catch (error) {
-      res.status(500).json({ error: "Error deactivating owner", detail: String(error) });
-    }
+    });
   }
 }

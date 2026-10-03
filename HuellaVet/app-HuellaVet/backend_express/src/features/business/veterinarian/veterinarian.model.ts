@@ -4,7 +4,7 @@ import { sequelize } from "../../../database/db";
 export interface VeterinarianI {
   id?: number;
   name: string;
-  description?: string | null;
+  description: string | null;
   is_active: boolean;
   createdAt?: Date;
   updatedAt?: Date;

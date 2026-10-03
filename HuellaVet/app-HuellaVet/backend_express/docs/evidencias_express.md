@@ -629,7 +629,9 @@ curl -s -X PUT http://localhost:4000/api/clientes/1 -H 'Content-Type: applicatio
 npm run dev
 ```
 
-![![](images/clipboard-1692548297.png)](images/clipboard-2140658122.png)
+![](images/clipboard-2140658122.png)
+
+![](images/clipboard-496898790.png)
 
 # 8.ISS-03-E — Feature Owner: Eliminar (físico y lógico)
 
@@ -4805,7 +4807,7 @@ EOF
 
 ![](images/clipboard-154626393.png)
 
-## 18.5 Relación Consultation ↔ VaccineApplication ↔ VaccineBatch 
+## 18.5 Relación Consultation ↔ VaccineApplication ↔ VaccineBatch
 
 ![](images/clipboard-3469457537.png)
 
@@ -4916,3 +4918,309 @@ En `src/config/index.ts`, PARCHE:
 ![](images/clipboard-173631118.png)
 
 ![](images/clipboard-883474891.png)
+
+# 20. ISS-08-BIS — Refactor a arquitectura en capas
+
+## Paso 0.1 — `AppError`
+
+![](images/clipboard-265433609.png)
+
+## Paso 0.2 — `BaseController`
+
+![](images/clipboard-726254034.png)
+
+## Paso 0.3 — `with-transaction`
+
+![](images/clipboard-1543272829.png)
+
+## Paso 0.4 — `swagger-security`
+
+![](images/clipboard-3264913236.png)
+
+## Verificación
+
+![](images/clipboard-4269250444.png)
+
+## 1. Refactor de `owner`
+
+### 1.1 DTOs
+
+![](images/clipboard-4166255107.png)
+
+![](images/clipboard-2034438327.png)
+
+![](images/clipboard-2628893572.png)
+
+![](images/clipboard-2874409597.png)
+
+![](images/clipboard-2960026130.png)
+
+### 1.2 Repository
+
+![](images/clipboard-3893700622.png)
+
+### 1.3 Service
+
+![](images/clipboard-534082499.png)
+
+### 1.4. Controller (reescrito)
+
+![](images/clipboard-1528838957.png)
+
+## 2.Refactor de `pet`
+
+### 2.1DTOs
+
+![](images/clipboard-3511652907.png)
+
+![](images/clipboard-1754282714.png)
+
+![](images/clipboard-1801932717.png)
+
+![](images/clipboard-775530520.png)
+
+![](images/clipboard-912020265.png)
+
+### 2.2 Modelo 
+
+![](images/clipboard-3637028568.png)
+
+### 2.3 Repository
+
+![](images/clipboard-3582033140.png)
+
+### 2.4 Service
+
+![](images/clipboard-3040029060.png)
+
+### 2.5 Controller (reescrito)
+
+![](images/clipboard-69980659.png)
+
+## 3.Refactor de `pet`
+
+### 3.1 DTOs
+
+![](images/clipboard-3610201828.png)
+
+![](images/clipboard-1814991993.png)
+
+![](images/clipboard-497518221.png)
+
+![](images/clipboard-563760304.png)
+
+![](images/clipboard-3325161589.png)
+
+### 3.2 Modelo
+
+![](images/clipboard-2842473627.png)
+
+### 3.3 Repository
+
+![](images/clipboard-53318004.png)
+
+### 3.4 Service
+
+![](images/clipboard-2865997427.png)
+
+### 3.5. Controller (reescrito)
+
+![](images/clipboard-3548405293.png)
+
+## 4. Refactor de `Appointment`
+
+### 4.1 DTOs
+
+![](images/clipboard-3367533265.png)
+
+![](images/clipboard-877892380.png)
+
+![](images/clipboard-1401941901.png)
+
+![](images/clipboard-1700272830.png)
+
+![](images/clipboard-395409116.png)
+
+### 4.2 Repository
+
+![](images/clipboard-473234150.png)
+
+### 4.3 Service 
+
+![](images/clipboard-329601958.png)
+
+### 4.4. Controller (reescrito)
+
+![](images/clipboard-3487014056.png)
+
+## 5. Refactor de `Consultation` 
+
+### 5.1 DTOs
+
+![](images/clipboard-2703912893.png)
+
+![](images/clipboard-121542317.png)
+
+![](images/clipboard-3069891884.png)
+
+![](images/clipboard-2572755937.png)
+
+![](images/clipboard-1230532823.png)
+
+### 5.2 Modelo
+
+![](images/clipboard-3928179340.png)
+
+### 5.3 Repository
+
+![](images/clipboard-2600796546.png)
+
+### 5.4 Service
+
+![](images/clipboard-1950372298.png)
+
+### 5.5 Controller (reescrito)
+
+![](images/clipboard-3229667852.png)
+
+## 6. Refactor de `Vaccine` 
+
+### 6.1 DTOs
+
+![](images/clipboard-1375685086.png)
+
+![](images/clipboard-3428640032.png)
+
+![](images/clipboard-1009939691.png)
+
+![](images/clipboard-1807181406.png)
+
+![](images/clipboard-2465370392.png)
+
+### 6.2 Modelo
+
+![](images/clipboard-3389550109.png)
+
+### 6.3 Repository
+
+![](images/clipboard-3622063016.png)
+
+### 6.4 Service
+
+![](images/clipboard-131600912.png)
+
+### 6.5 Controller (reescrito)
+
+![](images/clipboard-2877282749.png)
+
+## 7. Refactor de `Vaccine-batch` 
+
+### 7.1 DTOs
+
+![](images/clipboard-1398619841.png)
+
+![](images/clipboard-2856369501.png)
+
+![](images/clipboard-728012708.png)
+
+![](images/clipboard-237126747.png)
+
+![](images/clipboard-2715061164.png)
+
+### 7.2 Modelo 
+
+![](images/clipboard-1247640367.png)
+
+### 7.3 Repository
+
+![](images/clipboard-1093136237.png)
+
+### 7.4 Service
+
+![](images/clipboard-86755392.png)
+
+### 7.5 Controller (reescrito)
+
+![](images/clipboard-4275869103.png)
+
+## 8. Refactor de `Recipe` 
+
+#### 8.1 DTOs
+
+![](images/clipboard-1426614501.png)
+
+![](images/clipboard-2584997913.png)
+
+![](images/clipboard-3630641685.png)
+
+![](images/clipboard-4202697980.png)
+
+![](images/clipboard-3026885840.png)
+
+### 8.2 Modelo 
+
+![](images/clipboard-1763870793.png)
+
+### 8.3 Repository
+
+![](images/clipboard-1451454296.png)
+
+### 8.4 Service
+
+![](images/clipboard-2164303304.png)
+
+### 8.5 Controller (reescrito)
+
+![](images/clipboard-4018099649.png)
+
+## 9. Refactor de `Vaccine-application` 
+
+### 9.1 DTOs
+
+![](images/clipboard-2246609062.png)
+
+![](images/clipboard-3106387477.png)
+
+![](images/clipboard-1428199777.png)
+
+![](images/clipboard-2539532614.png)
+
+![](images/clipboard-1930815097.png)
+
+### 9.2 Modelo
+
+![](images/clipboard-1435199073.png)
+
+### 9.3 Repository
+
+![](images/clipboard-1131166727.png)
+
+### 9.4 Service
+
+![](images/clipboard-2204923758.png)
+
+### 9.5 Controller (reescrito)
+
+![](images/clipboard-1359903027.png)
+
+## 10. Refactor de `Pay` 
+
+### 10.1. DTOs
+
+![](images/clipboard-1194129298.png)
+
+![](images/clipboard-3782991227.png)
+
+![](images/clipboard-2992262596.png)
+
+### 10.2 Repository
+
+![](images/clipboard-759518905.png)
+
+### 10.3 Service
+
+![](images/clipboard-1774210213.png)
+
+### 10.4. Controller (reescrito)
+
+![](images/clipboard-3321762182.png)

@@ -1,127 +1,64 @@
 import { Request, Response } from "express";
-import { Vaccine, VaccineI } from "./vaccine.model";
+import { BaseController } from "../../../shared/http/base-controller";
+import { CreateVaccineDto, UpdateVaccineDto, PatchVaccineDto } from "./dto";
+import { VaccineService } from "./vaccine.service";
 
-function paramId(req: Request): number {
-  const raw = req.params.id;
-  const value = Array.isArray(raw) ? raw[0] : raw;
-  return Number(value);
-}
-
-export class VaccineController {
-  // ================== READ ==================
-  public async getAll(req: Request, res: Response) {
-    try {
-      const vaccines = await Vaccine.findAll({
-        where: { is_active: true },
-      });
-      res.status(200).json({ vaccines });
-    } catch (error) {
-      res.status(500).json({ error: "Error fetching vaccines", detail: String(error) });
-    }
+export class VaccineController extends BaseController {
+  public constructor(private readonly service: VaccineService = new VaccineService()) {
+    super();
   }
 
-  public async getOne(req: Request, res: Response) {
-    try {
-      const id = paramId(req);
-      const vaccine = await Vaccine.findByPk(id);
-      if (!vaccine) {
-        res.status(404).json({ error: "Vaccine not found" });
-        return;
-      }
+  // ================== READ ==================
+  public async getAll(_req: Request, res: Response): Promise<void> {
+    await this.run(res, async () => {
+      const vaccines = await this.service.getAll();
+      res.status(200).json({ vaccines });
+    });
+  }
+
+  public async getOne(req: Request, res: Response): Promise<void> {
+    await this.run(res, async () => {
+      const vaccine = await this.service.getOne(this.paramId(req));
       res.status(200).json({ vaccine });
-    } catch (error) {
-      res.status(500).json({ error: "Error fetching vaccine", detail: String(error) });
-    }
+    });
   }
 
   // ================== CREATE ==================
-  public async create(req: Request, res: Response) {
-    try {
-      const body = req.body as VaccineI;
-      const vaccine = await Vaccine.create({
-        name: body.name,
-        description: body.description ?? null,
-        is_active: body.is_active ?? true,
-      });
+  public async create(req: Request, res: Response): Promise<void> {
+    await this.run(res, async () => {
+      const vaccine = await this.service.create(req.body as CreateVaccineDto);
       res.status(201).json({ vaccine });
-    } catch (error) {
-      res.status(500).json({ error: "Error creating vaccine", detail: String(error) });
-    }
+    });
   }
 
   // ================== UPDATE ==================
-  public async updatePut(req: Request, res: Response) {
-    try {
-      const id = paramId(req);
-      const body = req.body as VaccineI;
-      const vaccine = await Vaccine.findByPk(id);
-      if (!vaccine) {
-        res.status(404).json({ error: "Vaccine not found" });
-        return;
-      }
-
-      await vaccine.update({
-        name: body.name,
-        description: body.description ?? null,
-        is_active: body.is_active ?? vaccine.is_active,
-      });
-
+  public async updatePut(req: Request, res: Response): Promise<void> {
+    await this.run(res, async () => {
+      const vaccine = await this.service.updatePut(this.paramId(req), req.body as UpdateVaccineDto);
       res.status(200).json({ vaccine });
-    } catch (error) {
-      res.status(500).json({ error: "Error updating vaccine (PUT)", detail: String(error) });
-    }
+    });
   }
 
-  public async updatePatch(req: Request, res: Response) {
-    try {
-      const id = paramId(req);
-      const body = req.body as Partial<VaccineI>;
-      const vaccine = await Vaccine.findByPk(id);
-      if (!vaccine) {
-        res.status(404).json({ error: "Vaccine not found" });
-        return;
-      }
-
-      await vaccine.update(body);
+  public async updatePatch(req: Request, res: Response): Promise<void> {
+    await this.run(res, async () => {
+      const vaccine = await this.service.updatePatch(this.paramId(req), req.body as PatchVaccineDto);
       res.status(200).json({ vaccine });
-    } catch (error) {
-      res.status(500).json({ error: "Error updating vaccine (PATCH)", detail: String(error) });
-    }
+    });
   }
 
   // ================== DELETE ==================
-  /** Eliminación física */
-  public async deletePhysical(req: Request, res: Response) {
-    try {
-      const id = paramId(req);
-      const vaccine = await Vaccine.findByPk(id);
-      if (!vaccine) {
-        res.status(404).json({ error: "Vaccine not found" });
-        return;
-      }
-      await vaccine.destroy();
+  public async deletePhysical(req: Request, res: Response): Promise<void> {
+    await this.run(res, async () => {
+      const id = this.paramId(req);
+      await this.service.deletePhysical(id);
       res.status(200).json({ message: "Vaccine permanently deleted", id });
-    } catch (error) {
-      res.status(500).json({ error: "Error deleting vaccine", detail: String(error) });
-    }
+    });
   }
 
-  /** Eliminación lógica → is_active = false */
-  public async deleteLogical(req: Request, res: Response) {
-    try {
-      const id = paramId(req);
-      const vaccine = await Vaccine.findByPk(id);
-      if (!vaccine) {
-        res.status(404).json({ error: "Vaccine not found" });
-        return;
-      }
-      await vaccine.update({ is_active: false });
-      res.status(200).json({
-        message: "Vaccine deactivated (logical delete)",
-        vaccine,
-      });
-    } catch (error) {
-      res.status(500).json({ error: "Error deactivating vaccine", detail: String(error) });
-    }
+  public async deleteLogical(req: Request, res: Response): Promise<void> {
+    await this.run(res, async () => {
+      const vaccine = await this.service.deleteLogical(this.paramId(req));
+      res.status(200).json({ message: "Vaccine deactivated (logical delete)", vaccine });
+    });
   }
 }

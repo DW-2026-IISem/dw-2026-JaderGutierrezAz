@@ -5,7 +5,7 @@ export interface PetI {
   id?: number;
   owner_id: number;
   name: string;
-  description: string;
+  description: string | null;
   is_active: boolean;
   createdAt?: Date;
   updatedAt?: Date;
@@ -15,7 +15,7 @@ export class Pet extends Model {
   public id!: number;
   public owner_id!: number;
   public name!: string;
-  public description!: string;
+  public description!: string | null;
   public is_active!: boolean;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;

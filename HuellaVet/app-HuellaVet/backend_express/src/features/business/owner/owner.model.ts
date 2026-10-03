@@ -6,8 +6,8 @@ export interface OwnerI {
   document_type: string;
   document_number: string;
   name: string;
-  phone: string;
-  email: string;
+  phone: string | null;
+  email: string | null;
   is_active: boolean;
   createdAt?: Date;
   updatedAt?: Date;
@@ -18,8 +18,8 @@ export class Owner extends Model {
   public document_type!: string;
   public document_number!: string;
   public name!: string;
-  public phone!: string;
-  public email!: string;
+  public phone!: string | null;
+  public email!: string | null;
   public is_active!: boolean;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
