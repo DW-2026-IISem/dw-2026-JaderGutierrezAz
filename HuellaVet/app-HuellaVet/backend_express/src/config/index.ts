@@ -76,6 +76,7 @@ export class App {
     this.routePrv.payRoutes.routes(this.app);
 
     // Fase II — Auth con RBAC: las rutas de cada feature se añaden en su
+    this.routePrv.usersRoutes.routes(this.app);
     // propio ISS (users en ISS-10, roles/resources en ISS-11, etc.)
   }
 

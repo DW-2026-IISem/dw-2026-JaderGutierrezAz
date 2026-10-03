@@ -1,0 +1,81 @@
+### Feature Users — CREATE / UPDATE / DELETE (modalidad JWT + RBAC)
+### NOTA: requiere login (ISS-15) y matriz de roles (ISS-12/13) para ejecutarse de verdad.
+@baseUrl = http://localhost:4000
+
+# @name loginAdmin
+POST {{baseUrl}}/api/sesion/login
+Content-Type: application/json
+
+{
+  "identifier": "admin",
+  "password": "Admin123!"
+}
+
+@token = {{loginAdmin.response.body.$.access_token}}
+@id = 2
+
+### CREATE — recurso `POST /api/usuarios`. El `password` se hashea (bcrypt, 12 rondas).
+POST {{baseUrl}}/api/usuarios
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "username": "nuevo.usuario",
+  "email": "nuevo.usuario@huellavet.local",
+  "password": "Password123!",
+  "avatar": null
+}
+
+### 409 — username/email ya en uso
+POST {{baseUrl}}/api/usuarios
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "email": "otro@huellavet.local",
+  "password": "Password123!"
+}
+
+### UPDATE PUT — reemplazo completo. No cambia `password` ni `status`.
+PUT {{baseUrl}}/api/usuarios/{{id}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "username": "seller",
+  "email": "seller@huellavet.local",
+  "avatar": "https://example.com/avatar.png"
+}
+
+### UPDATE PATCH — parcial
+PATCH {{baseUrl}}/api/usuarios/{{id}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "avatar": null
+}
+
+### CAMBIO DE CONTRASEÑA — recurso `PATCH /api/usuarios/:id/password`.
+### Exige la contraseña ACTUAL (defensa en profundidad, incluso para un admin).
+PATCH {{baseUrl}}/api/usuarios/{{id}}/password
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "current_password": "Seller123!",
+  "new_password": "Seller456!"
+}
+
+### PERMISOS EFECTIVOS del usuario — PENDIENTE (llega en ISS-12 con ResourceRolesService).
+### GET {{baseUrl}}/api/usuarios/{{id}}/permisos
+### Authorization: Bearer {{token}}
+
+### DELETE lógico — `status = inactive`. Efecto inmediato: sus tokens dejan de valer (401).
+PATCH {{baseUrl}}/api/usuarios/{{id}}/deactivate
+Authorization: Bearer {{token}}
+
+### DELETE físico — recurso `DELETE /api/usuarios/:id`
+DELETE {{baseUrl}}/api/usuarios/{{id}}
+Authorization: Bearer {{token}}

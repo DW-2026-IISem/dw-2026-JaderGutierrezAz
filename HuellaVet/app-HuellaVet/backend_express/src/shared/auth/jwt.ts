@@ -1,50 +1,80 @@
-import jwt from "jsonwebtoken";
+import jwt, { JwtPayload } from "jsonwebtoken";
+import { randomUUID } from "node:crypto";
 import { AppError } from "../errors/app-error";
 
 /**
- * Firma y verificación del access token (JWT, HMAC SHA-256).
- *
- * El access token es *stateless*: una vez firmado, el servidor no necesita
- * consultar la base de datos para validarlo dentro de su ventana de vida
- * (por defecto 15 min) — solo verifica la firma y la expiración. Por eso es
- * corto: si un usuario se desactiva, el cambio no se refleja hasta que el
- * token expira (el middleware `authenticate`, en ISS-13, además revalida
- * contra la base para cerrar esa ventana).
+ * Emisión y verificación del access token (JWT firmado, HS256).
+ * RFC 7519 (claims), RFC 8725 (buenas prácticas: algoritmo fijo, iss/aud),
+ * RFC 6750 (Authorization: Bearer <token>).
  */
 
-const JWT_SECRET = process.env.JWT_SECRET ?? "";
-const JWT_ACCESS_TTL = Number(process.env.JWT_ACCESS_TTL ?? 900);
+const ALGORITHM = "HS256";
 
-if (!JWT_SECRET || JWT_SECRET.length < 32) {
-  throw new Error(
-    "JWT_SECRET is missing or too short (minimum 32 characters). Check your .env file."
-  );
-}
+export const TOKEN_ISSUER = "app-huellavet-express";
+export const TOKEN_AUDIENCE = "app-huellavet-api";
 
-/** Contenido mínimo que viaja dentro del access token. */
-export interface AccessTokenPayload {
-  sub: number; // user id
+export const ACCESS_TOKEN_TTL_SECONDS = Number(process.env.JWT_ACCESS_TTL ?? 900);
+
+export interface AccessTokenPayload extends JwtPayload {
+  sub: string;
   username: string;
+  jti: string;
 }
 
-/** Firma un access token para el usuario dado. Expira en JWT_ACCESS_TTL segundos. */
-export function signAccessToken(payload: AccessTokenPayload): string {
-  return jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_ACCESS_TTL });
+function getSecret(): string {
+  const secret = process.env.JWT_SECRET;
+  if (!secret || secret.length < 32) {
+    throw new AppError(500, "JWT_SECRET no configurado (mínimo 32 caracteres). Ver .env");
+  }
+  return secret;
 }
 
-/**
- * Verifica un access token y devuelve su payload.
- * Cualquier fallo (firma inválida, expirado, malformado) se traduce a
- * `AppError(401)` para que el middleware responda de forma uniforme.
- */
+/** Firma un access token para un usuario. */
+export function signAccessToken(user: { id: number; username: string }): {
+  token: string;
+  expiresIn: number;
+} {
+  const token = jwt.sign({ username: user.username }, getSecret(), {
+    algorithm: ALGORITHM,
+    subject: String(user.id),
+    issuer: TOKEN_ISSUER,
+    audience: TOKEN_AUDIENCE,
+    expiresIn: ACCESS_TOKEN_TTL_SECONDS,
+    jwtid: randomUUID(),
+  });
+  return { token, expiresIn: ACCESS_TOKEN_TTL_SECONDS };
+}
+
+/** Verifica firma y claims; cualquier fallo -> AppError(401). */
 export function verifyAccessToken(token: string): AccessTokenPayload {
+  let payload: JwtPayload;
   try {
-    const decoded = jwt.verify(token, JWT_SECRET);
-    if (typeof decoded === "string") {
-      throw new AppError(401, "Invalid or expired access token");
-    }
-    return decoded as unknown as AccessTokenPayload;
+    payload = jwt.verify(token, getSecret(), {
+      algorithms: [ALGORITHM],
+      issuer: TOKEN_ISSUER,
+      audience: TOKEN_AUDIENCE,
+      clockTolerance: 5,
+    }) as JwtPayload;
   } catch {
     throw new AppError(401, "Invalid or expired access token");
   }
+
+  if (
+    typeof payload.sub !== "string" ||
+    !/^[1-9]\d*$/.test(payload.sub) ||
+    typeof payload.jti !== "string" ||
+    payload.jti.length === 0
+  ) {
+    throw new AppError(401, "Invalid or expired access token");
+  }
+
+  return payload as AccessTokenPayload;
+}
+
+/** Extrae el token de Authorization: Bearer <token> (RFC 6750). */
+export function extractBearerToken(header: string | undefined): string | null {
+  if (!header) return null;
+  const [scheme, value] = header.split(" ");
+  if (!scheme || !value || scheme.toLowerCase() !== "bearer") return null;
+  return value;
 }
