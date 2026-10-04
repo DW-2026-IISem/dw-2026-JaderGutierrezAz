@@ -24,6 +24,8 @@ import "../../features/auth/resource-roles/resource-role.model";
 import "../../features/auth/refresh-tokens/refresh-token.model";
 import "../../features/auth/rbac.associations";
 import { seedUsers } from "../../features/auth/users/users.seeder";
+import { seedRoles } from "../../features/auth/roles/roles.seeder";
+import { seedResources } from "../../features/auth/resources/resources.seeder";
 import { seedOwners } from "../../features/business/owner/owner.seeder";
 import { seedPets } from "../../features/business/pet/pet.seeder";
 import { seedVeterinarians } from "../../features/business/veterinarian/veterinarian.seeder";
@@ -62,7 +64,9 @@ export async function runAllSeeders(): Promise<void> {
   await seedPays(counts.pays);
 
   // Fase II — Auth: los seeders de users/roles/etc. se añaden en ISS-10+
-
+  await seedUsers(counts.users);
+  await seedRoles();
+  await seedResources();
   console.log("🌱 SeedersRunner finalizado");
 }
 

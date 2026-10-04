@@ -32,6 +32,8 @@ import "../features/auth/role-users/role-user.model";
 import "../features/auth/resource-roles/resource-role.model";
 import "../features/auth/refresh-tokens/refresh-token.model";
 import "../features/auth/rbac.associations";
+import "../features/auth/roles/role.model";
+import "../features/auth/resources/resource.model";
 
 import { Routes } from "../routes/index";
 import { setupSwagger } from "../swagger/index";
@@ -77,6 +79,8 @@ export class App {
 
     // Fase II — Auth con RBAC: las rutas de cada feature se añaden en su
     this.routePrv.usersRoutes.routes(this.app);
+    this.routePrv.rolesRoutes.routes(this.app);
+    this.routePrv.resourcesRoutes.routes(this.app);
     // propio ISS (users en ISS-10, roles/resources en ISS-11, etc.)
   }
 

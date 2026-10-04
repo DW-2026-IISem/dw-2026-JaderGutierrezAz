@@ -9,6 +9,8 @@ import { RecipeRoutes } from "../features/business/recipe/recipe.routes";
 import { VaccineApplicationRoutes } from "../features/business/vaccine-application/vaccine-application.routes";
 import { PayRoutes } from "../features/business/pay/pay.routes";
 import { UsersRoutes } from "../features/auth/users/users.routes";
+import { RolesRoutes } from "../features/auth/roles/roles.routes";
+import { ResourcesRoutes } from "../features/auth/resources/resources.routes";
 
 export class Routes {
   public ownerRoutes: OwnerRoutes = new OwnerRoutes();
@@ -22,4 +24,6 @@ export class Routes {
   public vaccineApplicationRoutes: VaccineApplicationRoutes = new VaccineApplicationRoutes();
   public payRoutes: PayRoutes = new PayRoutes();
   public usersRoutes: UsersRoutes = new UsersRoutes();
+  public rolesRoutes: RolesRoutes = new RolesRoutes();
+  public resourcesRoutes: ResourcesRoutes = new ResourcesRoutes();
 }

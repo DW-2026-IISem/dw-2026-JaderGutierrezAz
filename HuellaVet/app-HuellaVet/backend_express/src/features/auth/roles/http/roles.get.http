@@ -1,0 +1,48 @@
+### Feature Roles — CRUD (JWT + RBAC)
+### NOTA: requiere login (ISS-15) y matriz (ISS-12/13) para dar 200/403 reales.
+@baseUrl = http://localhost:4000
+
+# @name loginAdmin
+POST {{baseUrl}}/api/sesion/login
+Content-Type: application/json
+
+{ "identifier": "admin", "password": "Admin123!" }
+
+@token = {{loginAdmin.response.body.$.access_token}}
+
+### getAll
+GET {{baseUrl}}/api/roles
+Authorization: Bearer {{token}}
+
+### getOne
+GET {{baseUrl}}/api/roles/1
+Authorization: Bearer {{token}}
+
+### CREATE — nace SIN permisos
+POST {{baseUrl}}/api/roles
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{ "name": "AUDITOR", "description": "Solo lectura de catálogo" }
+
+### UPDATE PUT
+PUT {{baseUrl}}/api/roles/3
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{ "name": "AUDITOR", "description": "Solo lectura de catálogo y citas" }
+
+### UPDATE PATCH
+PATCH {{baseUrl}}/api/roles/3
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{ "description": "Auditoría operativa" }
+
+### DELETE lógico
+PATCH {{baseUrl}}/api/roles/3/deactivate
+Authorization: Bearer {{token}}
+
+### DELETE físico
+DELETE {{baseUrl}}/api/roles/3
+Authorization: Bearer {{token}}
