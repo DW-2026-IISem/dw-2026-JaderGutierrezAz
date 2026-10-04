@@ -84,6 +84,7 @@ export class App {
     this.routePrv.roleUsersRoutes.routes(this.app);
     this.routePrv.resourceRolesRoutes.routes(this.app);
     this.routePrv.refreshTokensRoutes.routes(this.app);
+    this.routePrv.sessionRoutes.routes(this.app);
     // propio ISS (users en ISS-10, roles/resources en ISS-11, etc.)
   }
 

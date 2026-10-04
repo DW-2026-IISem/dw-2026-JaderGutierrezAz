@@ -1,0 +1,31 @@
+### Feature Session — LOGOUT y PERFIL
+@baseUrl = http://localhost:4000
+
+# @name loginSeller
+POST {{baseUrl}}/api/sesion/login
+Content-Type: application/json
+
+{ "identifier": "seller", "password": "Seller123!" }
+
+### PERFIL — JWT
+GET {{baseUrl}}/api/sesion/perfil
+Authorization: Bearer {{loginSeller.response.body.$.access_token}}
+
+### MIS PERMISOS — seller (RECEPCIONISTA) -> 9 permisos; admin -> 103
+GET {{baseUrl}}/api/permisos
+Authorization: Bearer {{loginSeller.response.body.$.access_token}}
+
+### Sin token -> 401
+GET {{baseUrl}}/api/sesion/perfil
+
+### LOGOUT — idempotente
+POST {{baseUrl}}/api/sesion/logout
+Content-Type: application/json
+
+{ "refresh_token": "{{loginSeller.response.body.$.refresh_token}}" }
+
+### Ya no se puede renovar -> 401
+POST {{baseUrl}}/api/sesion/refresh
+Content-Type: application/json
+
+{ "refresh_token": "{{loginSeller.response.body.$.refresh_token}}" }

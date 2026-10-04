@@ -1,0 +1,31 @@
+### Feature Session — REFRESH (OPEN con credencial de sesión)
+@baseUrl = http://localhost:4000
+
+# @name loginAdmin
+POST {{baseUrl}}/api/sesion/login
+Content-Type: application/json
+
+{ "identifier": "admin", "password": "Admin123!" }
+
+### Refresh: access_token nuevo + refresh_token ROTADO
+# @name refresh
+POST {{baseUrl}}/api/sesion/refresh
+Content-Type: application/json
+
+{ "refresh_token": "{{loginAdmin.response.body.$.refresh_token}}" }
+
+### El access token nuevo sirve en una ruta JWT
+GET {{baseUrl}}/api/sesion/perfil
+Authorization: Bearer {{refresh.response.body.$.access_token}}
+
+### REUSE — reenviar el token viejo -> 401 y la familia queda revocada
+POST {{baseUrl}}/api/sesion/refresh
+Content-Type: application/json
+
+{ "refresh_token": "{{loginAdmin.response.body.$.refresh_token}}" }
+
+### Consecuencia: el rotado (paso anterior) tampoco sirve ya -> 401
+POST {{baseUrl}}/api/sesion/refresh
+Content-Type: application/json
+
+{ "refresh_token": "{{refresh.response.body.$.refresh_token}}" }
