@@ -10642,3 +10642,124 @@ SELECT COUNT(*) FROM resource_roles;  -- 65 (ADMIN 58 + SELLER 7)
 ![](images/clipboard-1433052271.png){width="387"}
 
 ![](images/clipboard-3107835111.png){width="389"}
+
+# 24.ISS-19 · Middlewares de acceso y las 3 modalidades
+
+## 24.1 `authenticate` — modalidad JWT
+
+```         
+: > src/features/auth/access/authenticate.middleware.ts
+cat >> src/features/auth/access/authenticate.middleware.ts << 'EOF'
+import { NextFunction, Request, Response } from "express";
+import { AppError } from "../../../shared/errors/app-error";
+import { sendError } from "../../../shared/http/error-response";
+import { extractBearerToken, verifyAccessToken } from "../../../shared/auth/jwt";
+import { UsersRepository } from "../users/users.repository";
+
+/**
+ * **MODALIDAD 2 — JWT (identidad).** Middleware de autenticación.
+ *
+ * Responde únicamente a la pregunta **¿quién eres?**:
+ *
+ *  1. Lee el token de `Authorization: Bearer <token>` (RFC 6750).
+ *  2. Verifica firma, algoritmo, `iss`, `aud`, `exp` (RFC 8725).
+ *  3. **Revalida contra la base de datos** que el usuario sigue existiendo y con
+ *     `status = active`. Un token firmado sigue siendo válido después de
+ *     desactivar la cuenta; esta revalidación hace que la desactivación tenga
+ *     efecto inmediato.
+ *
+ * NO consulta la matriz de permisos: eso es responsabilidad de `authorize`.
+ * Si todo va bien, deja la identidad en `req.auth` y cede el paso.
+ *
+ * Cualquier fallo se responde con **401 (no autenticado)**.
+ */
+const usersRepository = new UsersRepository();
+
+export async function authenticate(
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> {
+  try {
+    const token = extractBearerToken(req.headers.authorization);
+    if (!token) {
+      throw new AppError(401, "Missing Bearer token");
+    }
+
+    const payload = verifyAccessToken(token);
+
+    // Defensa en profundidad: `verifyAccessToken` ya garantiza que `sub` es un
+    // entero positivo. Se vuelve a comprobar para que ningún cambio futuro en la
+    // verificación pueda enviar un `NaN` al repositorio (500 en vez de 401).
+    const userId = Number(payload.sub);
+    if (!Number.isInteger(userId) || userId < 1) {
+      throw new AppError(401, "Invalid or expired access token");
+    }
+
+    const user = await usersRepository.findById(userId);
+
+    if (!user || user.status !== "active") {
+      throw new AppError(401, "User is not active");
+    }
+
+    req.auth = {
+      id: user.id,
+      username: user.username,
+      email: user.email,
+      tokenId: payload.jti,
+    };
+    next();
+  } catch (error) {
+    sendError(res, error);
+  }
+}
+EOF
+```
+
+![](images/clipboard-1294307216.png)
+
+## 24.4 PARCHE: las 10 rutas de negocio pasan a JWT + RBAC
+
+![](images/clipboard-689890624.png)
+
+![](images/clipboard-4123381970.png)
+
+![](images/clipboard-2780859666.png)
+
+![](images/clipboard-1888605201.png)
+
+![](images/clipboard-1821167171.png)
+
+![](images/clipboard-3712147609.png)
+
+![](images/clipboard-3193978054.png)
+
+![](images/clipboard-1968099919.png)
+
+![](images/clipboard-520253557.png)
+
+![](images/clipboard-3347993054.png)
+
+## 24.5 Las tres modalidades (referencia, adaptada a tu dominio)
+
+| Modalidad | Middleware | Exige | Sin cumplir |
+|------------------|------------------|------------------|------------------|
+| OPEN | — | nada | — |
+| JWT | `authenticate` | token válido y usuario activo | 401 |
+| JWT + RBAC | `authenticate, authorize` | token válido **y** concesión activa | 401 (sin token) / 403 (sin permiso) |
+
+| Petición | Resultado |
+|------------------------------------|------------------------------------|
+| `GET /api/propietarios` sin `Authorization` | 401 |
+| `GET /api/propietarios` con token de `seller` (RECEPCIONISTA) | 200 |
+| `POST /api/propietarios` con token de `seller` | 403 (no tiene esa concesión) |
+| `POST /api/propietarios` con token de `admin` | 201 (ADMIN tiene las 103) |
+| `GET /api/propietarios/abc` con token válido | 400 (`paramId`) |
+
+## 24.6 Verificación de 401, 403,200 y 201
+
+```         
+npm run dev
+```
+
+![](images/clipboard-1354535638.png)
