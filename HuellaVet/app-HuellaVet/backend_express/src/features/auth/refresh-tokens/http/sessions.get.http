@@ -1,0 +1,34 @@
+### Feature RefreshTokens — SESIONES PROPIAS (modalidad JWT, sin RBAC)
+### NOTA: requiere login real (ISS-15) para tener una sesión que listar/revocar.
+@baseUrl = http://localhost:4000
+
+# @name loginSeller
+POST {{baseUrl}}/api/sesion/login
+Content-Type: application/json
+
+{ "identifier": "seller", "password": "Seller123!" }
+
+@token = {{loginSeller.response.body.$.access_token}}
+
+### Listar mis sesiones activas
+GET {{baseUrl}}/api/sesiones
+Authorization: Bearer {{token}}
+
+### Consultar una sesión propia
+GET {{baseUrl}}/api/sesiones/1
+Authorization: Bearer {{token}}
+
+### Revocar TODAS mis sesiones (ruta literal)
+PATCH {{baseUrl}}/api/sesiones/deactivate-all
+Authorization: Bearer {{token}}
+
+### Revocar una sesión concreta
+PATCH {{baseUrl}}/api/sesiones/1/deactivate
+Authorization: Bearer {{token}}
+
+### Purgar mis sesiones revocadas/expiradas
+DELETE {{baseUrl}}/api/sesiones
+Authorization: Bearer {{token}}
+
+### Modalidad JWT: sin token -> 401
+GET {{baseUrl}}/api/sesiones

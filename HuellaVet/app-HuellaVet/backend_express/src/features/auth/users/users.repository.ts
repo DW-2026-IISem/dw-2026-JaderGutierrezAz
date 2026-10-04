@@ -1,9 +1,9 @@
-import { CreationAttributes, Op } from "sequelize";
+import { CreationAttributes, Op, Transaction } from "sequelize";
 import { User } from "./user.model";
 
 /**
  * Capa Repository del feature Users. Única que habla con Sequelize.
- * Las lecturas normales excluyen password; solo dos métodos con nombre
+ * Las lecturas normales excluyen password; solo tres métodos con nombre
  * explícito (...WithPassword) lo incluyen.
  */
 export class UsersRepository {
@@ -16,8 +16,8 @@ export class UsersRepository {
     });
   }
 
-  public async findById(id: number): Promise<User | null> {
-    return User.findByPk(id, { attributes: UsersRepository.WITHOUT_PASSWORD });
+  public async findById(id: number, transaction?: Transaction): Promise<User | null> {
+    return User.findByPk(id, { attributes: UsersRepository.WITHOUT_PASSWORD, transaction });
   }
 
   /** Un usuario por PK CON su hash. Uso exclusivo: cambio de contraseña. */
@@ -25,7 +25,16 @@ export class UsersRepository {
     return User.findByPk(id);
   }
 
-  /** Busca por username o email (sin password) para detectar duplicados. */
+  /**
+   * Un usuario por username o email, CON su hash.
+   * Uso exclusivo: validación de credenciales en el login (única operación
+   * que lee la credencial). Normaliza a minúsculas para casar con lo guardado.
+   */
+  public async findByIdentifierWithPassword(identifier: string): Promise<User | null> {
+    const value = identifier.trim().toLowerCase();
+    return User.findOne({ where: { [Op.or]: [{ username: value }, { email: value }] } });
+  }
+
   public async findConflicts(username: string, email: string): Promise<User[]> {
     return User.findAll({
       where: {
