@@ -26,6 +26,8 @@ import "../../features/auth/rbac.associations";
 import { seedUsers } from "../../features/auth/users/users.seeder";
 import { seedRoles } from "../../features/auth/roles/roles.seeder";
 import { seedResources } from "../../features/auth/resources/resources.seeder";
+import { seedRoleUsers } from "../../features/auth/role-users/role-users.seeder";
+import { seedResourceRoles } from "../../features/auth/resource-roles/resource-roles.seeder";
 import { seedOwners } from "../../features/business/owner/owner.seeder";
 import { seedPets } from "../../features/business/pet/pet.seeder";
 import { seedVeterinarians } from "../../features/business/veterinarian/veterinarian.seeder";
@@ -67,6 +69,8 @@ export async function runAllSeeders(): Promise<void> {
   await seedUsers(counts.users);
   await seedRoles();
   await seedResources();
+  await seedRoleUsers();
+  await seedResourceRoles();
   console.log("🌱 SeedersRunner finalizado");
 }
 

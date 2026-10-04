@@ -81,6 +81,8 @@ export class App {
     this.routePrv.usersRoutes.routes(this.app);
     this.routePrv.rolesRoutes.routes(this.app);
     this.routePrv.resourcesRoutes.routes(this.app);
+    this.routePrv.roleUsersRoutes.routes(this.app);
+    this.routePrv.resourceRolesRoutes.routes(this.app);
     // propio ISS (users en ISS-10, roles/resources en ISS-11, etc.)
   }
 

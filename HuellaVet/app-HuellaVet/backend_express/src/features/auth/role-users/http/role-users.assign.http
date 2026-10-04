@@ -1,0 +1,55 @@
+### Feature RoleUsers — ASIGNAR ROL A USUARIO (JWT + RBAC)
+### NOTA: requiere login (ISS-15) para dar 200/201 reales.
+@baseUrl = http://localhost:4000
+
+# @name loginAdmin
+POST {{baseUrl}}/api/sesion/login
+Content-Type: application/json
+
+{ "identifier": "admin", "password": "Admin123!" }
+
+@token = {{loginAdmin.response.body.$.access_token}}
+
+### getAll
+GET {{baseUrl}}/api/asignaciones-rol
+Authorization: Bearer {{token}}
+
+### getOne
+GET {{baseUrl}}/api/asignaciones-rol/1
+Authorization: Bearer {{token}}
+
+### ASIGNAR — seller recibe también ADMIN (role_id 1), no lo tiene -> 201
+# @name assignCreate
+POST {{baseUrl}}/api/asignaciones-rol
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{ "user_id": 2, "role_id": 1 }
+
+@assignmentId = {{assignCreate.response.body.$.assignment.id}}
+
+### 409 — ya asignado
+POST {{baseUrl}}/api/asignaciones-rol
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{ "user_id": 2, "role_id": 1 }
+
+### 404 — usuario/rol inexistente
+POST {{baseUrl}}/api/asignaciones-rol
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{ "user_id": 9999, "role_id": 2 }
+
+### RETIRAR (borrado lógico) — pierde los permisos de ese rol de inmediato
+PATCH {{baseUrl}}/api/asignaciones-rol/{{assignmentId}}/deactivate
+Authorization: Bearer {{token}}
+
+### Comprobación: permisos efectivos (sin reiniciar nada)
+GET {{baseUrl}}/api/usuarios/2/permisos
+Authorization: Bearer {{token}}
+
+### REACTIVAR
+PATCH {{baseUrl}}/api/asignaciones-rol/{{assignmentId}}/reactivate
+Authorization: Bearer {{token}}

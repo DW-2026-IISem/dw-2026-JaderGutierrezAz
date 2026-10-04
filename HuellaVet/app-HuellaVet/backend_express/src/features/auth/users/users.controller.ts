@@ -70,4 +70,12 @@ export class UsersController extends BaseController {
       res.status(200).json({ message: "Password updated", id });
     });
   }
+
+  /** Permisos efectivos del usuario (cadena RBAC completa). */
+  public async getPermissions(req: Request, res: Response): Promise<void> {
+    await this.run(res, async () => {
+      const permissions = await this.service.getEffectivePermissions(this.paramId(req));
+      res.status(200).json({ permissions });
+    });
+  }
 }

@@ -34,5 +34,9 @@ export class UsersRoutes {
     app
       .route("/api/usuarios/:id/password")
       .patch(authenticate, authorize, this.usersController.changePassword.bind(this.usersController));
+
+    app
+      .route("/api/usuarios/:id/permisos")
+      .get(authenticate, authorize, this.usersController.getPermissions.bind(this.usersController));  
   }
 }

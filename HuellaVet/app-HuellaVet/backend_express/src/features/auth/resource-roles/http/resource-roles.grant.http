@@ -1,0 +1,50 @@
+### Feature ResourceRoles — CONCEDER / RETIRAR PERMISOS (JWT + RBAC)
+### No existe entidad Permission: el permiso es (rol, recurso) en resource_roles.
+### NOTA: la parte que demuestra el efecto inmediato sobre rutas de negocio
+### (seller 403 -> grant -> 201) requiere que esas rutas ya usen authenticate+
+### authorize REAL, cosa que llega en ISS-13. Por ahora solo probamos el CRUD
+### de concesiones en sí.
+@baseUrl = http://localhost:4000
+
+# @name loginAdmin
+POST {{baseUrl}}/api/sesion/login
+Content-Type: application/json
+
+{ "identifier": "admin", "password": "Admin123!" }
+
+@token = {{loginAdmin.response.body.$.access_token}}
+@receptionistRoleId = 2
+
+### getAll — concesiones activas (ADMIN 103 + RECEPCIONISTA 9 = 112)
+GET {{baseUrl}}/api/concesiones-rol
+Authorization: Bearer {{token}}
+
+### Filtro: permisos de un rol
+GET {{baseUrl}}/api/concesiones-rol?role_id={{receptionistRoleId}}
+Authorization: Bearer {{token}}
+
+### Filtro inverso: qué roles conceden un recurso
+GET {{baseUrl}}/api/concesiones-rol?resource_id=1
+Authorization: Bearer {{token}}
+
+### getOne
+GET {{baseUrl}}/api/concesiones-rol/1
+Authorization: Bearer {{token}}
+
+### CONCEDER — ej: dar a RECEPCIONISTA el POST /api/consultas (resource_id según tu catálogo)
+# @name grantCreate
+POST {{baseUrl}}/api/concesiones-rol
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{ "role_id": 2, "resource_id": 31 }
+
+@grantId = {{grantCreate.response.body.$.grant.id}}
+
+### RETIRAR (borrado lógico)
+PATCH {{baseUrl}}/api/concesiones-rol/{{grantId}}/deactivate
+Authorization: Bearer {{token}}
+
+### REACTIVAR
+PATCH {{baseUrl}}/api/concesiones-rol/{{grantId}}/reactivate
+Authorization: Bearer {{token}}

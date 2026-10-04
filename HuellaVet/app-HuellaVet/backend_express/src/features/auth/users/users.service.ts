@@ -8,6 +8,8 @@ import {
 } from "./dto";
 import { UsersRepository } from "./users.repository";
 import { User } from "./user.model";
+import { ResourceRolesService } from "../resource-roles/resource-roles.service";
+import { EffectivePermissionDto } from "../resource-roles/dto";
 import { AppError } from "../../../shared/errors/app-error";
 import { comparePassword } from "../../../shared/auth/password";
 
@@ -75,7 +77,7 @@ export class UsersService {
     if (!body.current_password || !body.new_password) {
       throw new AppError(400, "current_password and new_password are required");
     }
-
+    
     const user = await this.repository.findByIdWithPassword(id);
     if (!user || user.status !== "active") {
       throw new AppError(404, "User not found");
@@ -87,6 +89,12 @@ export class UsersService {
     }
 
     await this.repository.update(user, { password: body.new_password });
+  }
+    /** Permisos efectivos del usuario (recorre la cadena RBAC completa). */
+  public async getEffectivePermissions(id: number): Promise<EffectivePermissionDto[]> {
+    await this.findOrFail(id);
+    const resourceRolesService = new ResourceRolesService();
+    return resourceRolesService.findEffectiveForUser(id);
   }
 
   // ================== DELETE ==================
