@@ -10,6 +10,14 @@ import { vaccineBatchSwagger } from "../features/business/vaccine-batch/vaccine-
 import { recipeSwagger } from "../features/business/recipe/recipe.swagger";
 import { vaccineApplicationSwagger } from "../features/business/vaccine-application/vaccine-application.swagger";
 import { paySwagger } from "../features/business/pay/pay.swagger";
+import { usersSwagger } from "../features/auth/users/users.swagger";
+import { rolesSwagger } from "../features/auth/roles/roles.swagger";
+import { resourcesSwagger } from "../features/auth/resources/resources.swagger";
+import { roleUsersSwagger } from "../features/auth/role-users/role-users.swagger";
+import { resourceRolesSwagger } from "../features/auth/resource-roles/resource-roles.swagger";
+import { refreshTokensSwagger } from "../features/auth/refresh-tokens/refresh-tokens.swagger";
+import { sessionSwagger } from "../features/auth/session/session.swagger";
+import { bearerSecurityScheme } from "./../shared/http/swagger-security";
 
 export type FeatureSwaggerModule = {
   tags: unknown[];
@@ -18,6 +26,7 @@ export type FeatureSwaggerModule = {
 };
 
 const featureSwaggerModules: FeatureSwaggerModule[] = [
+  // Fase I — Business
   ownerSwagger,
   petSwagger,
   veterinarianSwagger,
@@ -28,6 +37,14 @@ const featureSwaggerModules: FeatureSwaggerModule[] = [
   recipeSwagger,
   vaccineApplicationSwagger,
   paySwagger,
+  // Fase II — Auth con RBAC
+  sessionSwagger,
+  refreshTokensSwagger,
+  usersSwagger,
+  rolesSwagger,
+  resourcesSwagger,
+  roleUsersSwagger,
+  resourceRolesSwagger,
 ];
 
 export function buildOpenApiDocument() {
@@ -49,14 +66,19 @@ export function buildOpenApiDocument() {
       title: "HuellaVet API",
       version: "1.0.0",
       description:
-        "API HuellaVet (Express + Sequelize). Todas las rutas business son **SIN AUTH** en este lab.",
+        "API HuellaVet (Express + Sequelize). Fase I: negocio. Fase II: JWT + RBAC. " +
+        "Las operaciones OPEN (login/refresh/logout) anulan la seguridad por defecto con security: [].",
     },
     servers: [
       { url: `http://localhost:${process.env.PORT || 4000}`, description: "Local" },
     ],
+    security: [{ bearerAuth: [] }],
     tags,
     paths,
-    components: { schemas },
+    components: {
+      securitySchemes: bearerSecurityScheme,
+      schemas,
+    },
   };
 }
 

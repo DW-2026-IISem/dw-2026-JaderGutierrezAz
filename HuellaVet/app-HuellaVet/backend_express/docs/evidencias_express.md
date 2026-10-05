@@ -12213,3 +12213,17 @@ curl -s -X POST $BASE/api/sesion/refresh -H "Content-Type: application/json" \
 ![](images/clipboard-4064264822.png)
 
 ![](images/clipboard-3630004568.png)
+
+# 27.ISS-22 · CIERRE-AUTH · Cierre Fase II — Auth con RBAC (backend completo)
+
+![](images/clipboard-2879095495.png)
+
+![](images/clipboard-1741995230.png)
+
+![](images/clipboard-1192219818.png)
+
+![](images/clipboard-2393745537.png)
+
+![](images/clipboard-315812038.png)
+
+![](images/clipboard-520021889.png)
