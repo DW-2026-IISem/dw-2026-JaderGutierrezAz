@@ -12228,7 +12228,7 @@ curl -s -X POST $BASE/api/sesion/refresh -H "Content-Type: application/json" \
 
 ![](images/clipboard-520021889.png)
 
-# 28.ISS-23 · Pruebas funcionales (CRUD, autenticación, tokens, usuarios y RBAC)
+# 28.ISS-23 · Pruebas funcionales Completas 
 
 ## 28.1 Preparación
 
@@ -12266,3 +12266,169 @@ npm run dev
 ### A5 - GET /api/permisos Token Seller
 
 ![](images/clipboard-1041049686.png)
+
+## 28.3 Bloque B — Sin Autenticación
+
+### B1 Tabla owners y tabla appointments
+
+![](images/clipboard-658188921.png){width="532"}
+
+![](images/clipboard-2405709034.png){width="522"}
+
+### B2 Tabla Owners
+
+**1.GetAll**
+
+![](images/clipboard-335315019.png){width="447"}
+
+**2.GetOne**
+
+![](images/clipboard-1562243138.png){width="454"}
+
+**3.Create**
+
+![](images/clipboard-2067561225.png){width="457"}
+
+**4.Actualizar (Put)**
+
+![](images/clipboard-417649319.png){width="459"}
+
+**5.Actualizar (Patch)**
+
+![](images/clipboard-3354119655.png){width="448"}
+
+**6.Delete deleteOwnerPhysical**
+
+![](images/clipboard-237378218.png){width="448"}
+
+**7.Delete deleteOwnerLogical**
+
+![](images/clipboard-3368297570.png){width="450"}
+
+### B3 Swagger Tabla Owners
+
+**1.GetAll**
+
+![](images/clipboard-3059931357.png)
+
+**2.GetOne**
+
+![](images/clipboard-3357919140.png)
+
+**3.Create**
+
+![](images/clipboard-1500644180.png)
+
+**4.Actualizar (Put)**
+
+![](images/clipboard-3292726463.png)
+
+**5.Actualizar (Patch)**
+
+![](images/clipboard-2227474583.png)
+
+**6.Delete (Logical)**
+
+![](images/clipboard-4215056901.png)
+
+**7.Delete (Physical)**
+
+![](images/clipboard-3553296761.png)
+
+### B4 Tabla Appointments
+
+**1.GetAll**
+
+![](images/clipboard-3598778171.png){width="454"}
+
+**2.GetOne**
+
+![](images/clipboard-815442531.png){width="445"}
+
+**3.Create**
+
+![](images/clipboard-3915923725.png){width="447"}
+
+**4.Actualizar (Put)**
+
+![](images/clipboard-373727595.png){width="446"}
+
+**5.Actualizar (Patch)**
+
+![](images/clipboard-1928845916.png)
+
+**6.Delete deleteAppointmentPhysical**
+
+![](images/clipboard-3346637096.png){width="494"}
+
+**7.Delete deleteAppointmentLogical**
+
+![](images/clipboard-1157059835.png){width="500"}
+
+### B4 Swagger Tabla Appointments
+
+**1.GetAll**
+
+![](images/clipboard-1901077363.png)
+
+**2.GetOne**
+
+![](images/clipboard-4203959591.png)
+
+**3.Create**
+
+![](images/clipboard-3578216789.png)
+
+**4.Actualizar (Put)**
+
+![](images/clipboard-4183801837.png)
+
+**5.Actualizar (Patch)**
+
+![](images/clipboard-2184319009.png)
+
+**6.Delete (Logical)**
+
+![](images/clipboard-3134649077.png)
+
+**7.Delete (Physical)**
+
+![](images/clipboard-3512636840.png)
+
+## 28.4 Bloque C — Con Autenticación
+
+## C1.En codigo/Terminal
+
+**Owners**
+
+![](images/clipboard-3296152118.png)
+
+**Appointments**
+
+![](images/clipboard-410939277.png)
+
+**Sin Tokkens**
+
+![](images/clipboard-3623898498.png)
+
+![](images/clipboard-140589497.png)
+
+**Con Tokkens**
+
+![](images/clipboard-4245333686.png)
+
+![](images/clipboard-1872480916.png)
+
+## C2- En Swagger
+
+**Sin Tokkens**
+
+![](images/clipboard-32581361.png)
+
+![](images/clipboard-3834072204.png)
+
+**Con Tokkens**
+
+![](images/clipboard-395571447.png)
+
+![](images/clipboard-2512429539.png)

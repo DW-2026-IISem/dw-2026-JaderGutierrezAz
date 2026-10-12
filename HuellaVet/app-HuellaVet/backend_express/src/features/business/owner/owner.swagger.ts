@@ -2,14 +2,14 @@
  * Documentación OpenAPI del feature Owner.
  * Se agrega desde `src/swagger` (registry externo), no se monta aquí.
  *
- * Leyenda: endpoints documentados como SIN AUTH (sin middleware JWT).
+ * Leyenda: endpoints documentados como JWT + RBAC (sin middleware JWT).
  */
 
 export const ownerSwagger = {
   tags: [
     {
       name: "Propietarios",
-      description: "CRUD de propietarios de mascotas — **SIN AUTH** (sin middleware JWT)",
+      description: "CRUD de propietarios de mascotas — **JWT + RBAC** (sin middleware JWT)",
     },
   ],
   paths: {
@@ -17,8 +17,8 @@ export const ownerSwagger = {
       get: {
         tags: ["Propietarios"],
         summary: "Listar propietarios activos",
-        description: "SIN AUTH — retorna propietarios con is_active=true",
-        security: [],
+        description: "JWT + RBAC — retorna propietarios con is_active=true",
+        security: [{ bearerAuth: [] }],
         responses: {
           "200": {
             description: "Lista de propietarios",
@@ -41,8 +41,8 @@ export const ownerSwagger = {
       post: {
         tags: ["Propietarios"],
         summary: "Crear propietario",
-        description: "SIN AUTH",
-        security: [],
+        description: "JWT + RBAC",
+        security: [{ bearerAuth: [] }],
         requestBody: {
           required: true,
           content: {
@@ -72,8 +72,8 @@ export const ownerSwagger = {
       get: {
         tags: ["Propietarios"],
         summary: "Obtener propietario por id",
-        description: "SIN AUTH",
-        security: [],
+        description: "JWT + RBAC",
+        security: [{ bearerAuth: [] }],
         parameters: [
           { name: "id", in: "path", required: true, schema: { type: "integer" } },
         ],
@@ -97,8 +97,8 @@ export const ownerSwagger = {
       put: {
         tags: ["Propietarios"],
         summary: "Actualizar propietario (PUT — reemplazo)",
-        description: "SIN AUTH",
-        security: [],
+        description: "JWT + RBAC",
+        security: [{ bearerAuth: [] }],
         parameters: [
           { name: "id", in: "path", required: true, schema: { type: "integer" } },
         ],
@@ -118,8 +118,8 @@ export const ownerSwagger = {
       patch: {
         tags: ["Propietarios"],
         summary: "Actualizar propietario (PATCH — parcial)",
-        description: "SIN AUTH",
-        security: [],
+        description: "JWT + RBAC",
+        security: [{ bearerAuth: [] }],
         parameters: [
           { name: "id", in: "path", required: true, schema: { type: "integer" } },
         ],
@@ -139,8 +139,8 @@ export const ownerSwagger = {
       delete: {
         tags: ["Propietarios"],
         summary: "Eliminar propietario (físico)",
-        description: "SIN AUTH — borra la fila",
-        security: [],
+        description: "JWT + RBAC — borra la fila",
+        security: [{ bearerAuth: [] }],
         parameters: [
           { name: "id", in: "path", required: true, schema: { type: "integer" } },
         ],
@@ -154,8 +154,8 @@ export const ownerSwagger = {
       patch: {
         tags: ["Propietarios"],
         summary: "Eliminar propietario (lógico)",
-        description: "SIN AUTH — is_active = false",
-        security: [],
+        description: "JWT + RBAC — is_active = false",
+        security: [{ bearerAuth: [] }],
         parameters: [
           { name: "id", in: "path", required: true, schema: { type: "integer" } },
         ],

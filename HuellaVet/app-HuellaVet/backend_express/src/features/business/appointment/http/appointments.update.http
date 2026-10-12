@@ -1,7 +1,7 @@
 ### Feature Appointment — UPDATE (PUT) / UPDATE (PATCH)
 ### Leyenda: SIN AUTH (sin middleware JWT / sin autenticación)
 @baseUrl = http://localhost:4000
-@id = 1
+@id = 3
 
 # @name updateAppointmentPut
 PUT {{baseUrl}}/api/citas/{{id}}

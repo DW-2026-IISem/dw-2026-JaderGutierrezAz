@@ -2,14 +2,14 @@
  * Documentación OpenAPI del feature Appointment.
  * Se agrega desde `src/swagger` (registry externo), no se monta aquí.
  *
- * Leyenda: endpoints documentados como SIN AUTH (sin middleware JWT).
+ * Leyenda: endpoints documentados como JWT + RBAC (sin middleware JWT).
  */
 
 export const appointmentSwagger = {
   tags: [
     {
       name: "Citas",
-      description: "CRUD de citas veterinarias — **SIN AUTH** (sin middleware JWT)",
+      description: "CRUD de citas veterinarias — **JWT + RBAC** (sin middleware JWT)",
     },
   ],
   paths: {
@@ -17,8 +17,8 @@ export const appointmentSwagger = {
       get: {
         tags: ["Citas"],
         summary: "Listar citas no canceladas",
-        description: "SIN AUTH — retorna citas con state != cancelled",
-        security: [],
+        description: "JWT + RBAC — retorna citas con state != cancelled",
+        security: [{ bearerAuth: [] }],
         responses: {
           "200": {
             description: "Lista de citas",
@@ -41,8 +41,8 @@ export const appointmentSwagger = {
       post: {
         tags: ["Citas"],
         summary: "Crear cita",
-        description: "SIN AUTH — pet_id y veterinarian_id deben existir y estar activos",
-        security: [],
+        description: "JWT + RBAC — pet_id y veterinarian_id deben existir y estar activos",
+        security: [{ bearerAuth: [] }],
         requestBody: {
           required: true,
           content: { "application/json": { schema: { $ref: "#/components/schemas/AppointmentCreate" } } },
@@ -68,8 +68,8 @@ export const appointmentSwagger = {
       get: {
         tags: ["Citas"],
         summary: "Obtener cita por id",
-        description: "SIN AUTH",
-        security: [],
+        description: "JWT + RBAC",
+        security: [{ bearerAuth: [] }],
         parameters: [{ name: "id", in: "path", required: true, schema: { type: "integer" } }],
         responses: {
           "200": {
@@ -91,8 +91,8 @@ export const appointmentSwagger = {
       put: {
         tags: ["Citas"],
         summary: "Actualizar cita (PUT — reemplazo)",
-        description: "SIN AUTH",
-        security: [],
+        description: "JWT + RBAC",
+        security: [{ bearerAuth: [] }],
         parameters: [{ name: "id", in: "path", required: true, schema: { type: "integer" } }],
         requestBody: {
           required: true,
@@ -106,8 +106,8 @@ export const appointmentSwagger = {
       patch: {
         tags: ["Citas"],
         summary: "Actualizar cita (PATCH — parcial)",
-        description: "SIN AUTH",
-        security: [],
+        description: "JWT + RBAC",
+        security: [{ bearerAuth: [] }],
         parameters: [{ name: "id", in: "path", required: true, schema: { type: "integer" } }],
         requestBody: {
           required: true,
@@ -121,8 +121,8 @@ export const appointmentSwagger = {
       delete: {
         tags: ["Citas"],
         summary: "Eliminar cita (físico)",
-        description: "SIN AUTH — borra la fila",
-        security: [],
+        description: "JWT + RBAC — borra la fila",
+        security: [{ bearerAuth: [] }],
         parameters: [{ name: "id", in: "path", required: true, schema: { type: "integer" } }],
         responses: {
           "200": { description: "Eliminado" },
@@ -134,8 +134,8 @@ export const appointmentSwagger = {
       patch: {
         tags: ["Citas"],
         summary: "Cancelar cita (lógico)",
-        description: "SIN AUTH — state = cancelled",
-        security: [],
+        description: "JWT + RBAC — state = cancelled",
+        security: [{ bearerAuth: [] }],
         parameters: [{ name: "id", in: "path", required: true, schema: { type: "integer" } }],
         responses: {
           "200": { description: "Cancelada" },
