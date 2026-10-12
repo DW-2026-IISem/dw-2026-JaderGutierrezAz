@@ -10764,7 +10764,7 @@ npm run dev
 
 ![](images/clipboard-1354535638.png)
 
-# 25.ISS-20 · Feature RefreshTokens (sesiones) 
+# 25.ISS-20 · Feature RefreshTokens (sesiones)
 
 ## 25.1 DTOs del feature
 
@@ -12227,3 +12227,42 @@ curl -s -X POST $BASE/api/sesion/refresh -H "Content-Type: application/json" \
 ![](images/clipboard-315812038.png)
 
 ![](images/clipboard-520021889.png)
+
+# 28.ISS-23 · Pruebas funcionales (CRUD, autenticación, tokens, usuarios y RBAC)
+
+## 28.1 Preparación
+
+```         
+npm run db:seed
+npm run dev
+```
+
+![](images/clipboard-3320563649.png)
+
+## 28.2 Bloque A — Sesión login y permisos
+
+### A1 — Login admin
+
+### ![](images/clipboard-988630113.png)
+
+![](images/clipboard-2847482655.png)
+
+### A2 — Login Seller
+
+![](images/clipboard-2746014032.png)
+
+![](images/clipboard-2434334558.png)
+
+### A3- GET /api/sesion/perfil
+
+![](images/clipboard-4262461246.png)
+
+![](images/clipboard-2831238500.png)
+
+### A4 - GET /api/permisos Token Admin
+
+![](images/clipboard-151229063.png)
+
+### A5 - GET /api/permisos Token Seller
+
+![](images/clipboard-1041049686.png)
