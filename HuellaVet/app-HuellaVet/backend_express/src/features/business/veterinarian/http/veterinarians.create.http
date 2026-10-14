@@ -3,11 +3,13 @@
 @baseUrl = http://localhost:4000
 
 # @name createVeterinarian
+@token = 
 POST {{baseUrl}}/api/veterinarios
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-  "name": "Dr. Camilo Rojas",
+  "name": "Dr. Camilo Cifuentes",
   "description": "Especialista en medicina interna de pequeñas especies",
   "is_active": true
 }

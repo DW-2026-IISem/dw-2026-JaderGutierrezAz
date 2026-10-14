@@ -3,12 +3,14 @@
 @baseUrl = http://localhost:4000
 
 # @name createPet
+@token = 
 POST {{baseUrl}}/api/mascotas
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-  "owner_id": 1,
-  "name": "Firulais",
+  "owner_id": 16,
+  "name": "Firulais borrar",
   "description": "Labrador color dorado",
   "is_active": true
 }

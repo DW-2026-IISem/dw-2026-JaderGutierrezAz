@@ -2,11 +2,13 @@
 ### Leyenda: SIN AUTH (sin middleware JWT / sin autenticación)
 @baseUrl = http://localhost:4000
 @id = 2
+@token = 
 
 # @name getAllOwners
 GET {{baseUrl}}/api/propietarios
-
+Authorization: Bearer {{token}}
 ###
 
 # @name getOneOwner
 GET {{baseUrl}}/api/propietarios/{{id}}
+Authorization: Bearer {{token}}

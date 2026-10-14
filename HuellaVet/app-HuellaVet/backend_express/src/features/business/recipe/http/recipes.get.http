@@ -2,11 +2,13 @@
 ### Leyenda: SIN AUTH (sin middleware JWT / sin autenticación)
 @baseUrl = http://localhost:4000
 @id = 1
-
+@token = 
 # @name getAllRecipes
 GET {{baseUrl}}/api/recetas
+Authorization: Bearer {{token}}
 
 ###
 
 # @name getOneRecipe
 GET {{baseUrl}}/api/recetas/{{id}}
+Authorization: Bearer {{token}}

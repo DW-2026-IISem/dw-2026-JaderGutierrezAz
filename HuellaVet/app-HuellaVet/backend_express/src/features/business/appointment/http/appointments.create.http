@@ -3,7 +3,9 @@
 @baseUrl = http://localhost:4000
 
 # @name createAppointment
+@token = 
 POST {{baseUrl}}/api/citas
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {

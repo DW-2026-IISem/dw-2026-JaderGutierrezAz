@@ -1,12 +1,14 @@
 ### Feature VaccineApplication — DELETE físico / DELETE lógico (is_active = false)
 ### Leyenda: SIN AUTH (sin middleware JWT / sin autenticación)
 @baseUrl = http://localhost:4000
-@id = 1
-
+@id = 3
+@token = 
 # @name deleteVaccineApplicationPhysical
 DELETE {{baseUrl}}/api/aplicaciones-vacunas/{{id}}
+Authorization: Bearer {{token}}
 
 ###
 
 # @name deleteVaccineApplicationLogical
 PATCH {{baseUrl}}/api/aplicaciones-vacunas/{{id}}/deactivate
+Authorization: Bearer {{token}}

@@ -1,12 +1,15 @@
 ### Feature Owner — DELETE físico / DELETE lógico (is_active = false)
 ### Leyenda: SIN AUTH (sin middleware JWT / sin autenticación)
 @baseUrl = http://localhost:4000
-@id = 18
+@id = 20
+@token =eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzkxOTQ0NzQzLCJleHAiOjE3OTE5NDU2NDMsImF1ZCI6ImFwcC1odWVsbGF2ZXQtYXBpIiwiaXNzIjoiYXBwLWh1ZWxsYXZldC1leHByZXNzIiwic3ViIjoiMSIsImp0aSI6IjYwY2Y4Y2MxLTM1MzItNDM2NS1iZDBjLWJhNjc3YjE2N2EzNSJ9.y59LnFqAwdWfmeT3hBbxPhqvsDkRfSC1I8ZuwhDL3oE
 
 # @name deleteOwnerPhysical
 DELETE {{baseUrl}}/api/propietarios/{{id}}
+Authorization: Bearer {{token}}
 
 ###
 
 # @name deleteOwnerLogical
 PATCH {{baseUrl}}/api/propietarios/{{id}}/deactivate
+Authorization: Bearer {{token}}

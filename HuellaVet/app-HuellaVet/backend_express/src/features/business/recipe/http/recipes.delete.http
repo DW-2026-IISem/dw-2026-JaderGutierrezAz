@@ -1,12 +1,14 @@
 ### Feature Recipe — DELETE físico / DELETE lógico (is_active = false)
 ### Leyenda: SIN AUTH (sin middleware JWT / sin autenticación)
 @baseUrl = http://localhost:4000
-@id = 1
-
+@id = 4
+@token = 
 # @name deleteRecipePhysical
 DELETE {{baseUrl}}/api/recetas/{{id}}
+Authorization: Bearer {{token}}
 
 ###
 
 # @name deleteRecipeLogical
 PATCH {{baseUrl}}/api/recetas/{{id}}/deactivate
+Authorization: Bearer {{token}}

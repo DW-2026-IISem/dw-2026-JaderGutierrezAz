@@ -22,7 +22,7 @@ Authorization: Bearer {{refresh.response.body.$.access_token}}
 POST {{baseUrl}}/api/sesion/refresh
 Content-Type: application/json
 
-{ "refresh_token": "{{loginAdmin.response.body.$.refresh_token}}" }
+{ "refresh_token": "-YvV9uVAGhvi1HxasjKkPKBLxQr9nzBAcJARo6pgbNk4R7i0KQNpHLYCZ0Ef2pxTrfACWCKc52O243Noigmwvg"}
 
 ### Consecuencia: el rotado (paso anterior) tampoco sirve ya -> 401
 POST {{baseUrl}}/api/sesion/refresh

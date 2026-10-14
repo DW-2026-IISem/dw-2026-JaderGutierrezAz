@@ -2,11 +2,13 @@
 ### Leyenda: SIN AUTH (sin middleware JWT / sin autenticación)
 @baseUrl = http://localhost:4000
 @id = 1
-
+@token = 
 # @name deleteVaccinePhysical
 DELETE {{baseUrl}}/api/vacunas/{{id}}
+Authorization: Bearer {{token}}
 
 ###
 
 # @name deleteVaccineLogical
 PATCH {{baseUrl}}/api/vacunas/{{id}}/deactivate
+Authorization: Bearer {{token}}

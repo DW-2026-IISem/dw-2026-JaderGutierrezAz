@@ -12228,7 +12228,7 @@ curl -s -X POST $BASE/api/sesion/refresh -H "Content-Type: application/json" \
 
 ![](images/clipboard-520021889.png)
 
-# 28.ISS-23 · Pruebas funcionales Completas 
+# 28.ISS-23 · Pruebas funcionales Completas
 
 ## 28.1 Preparación
 
@@ -12397,8 +12397,6 @@ npm run dev
 
 ## 28.4 Bloque C — Con Autenticación
 
-## C1.En codigo/Terminal
-
 **Owners**
 
 ![](images/clipboard-3296152118.png)
@@ -12406,6 +12404,8 @@ npm run dev
 **Appointments**
 
 ![](images/clipboard-410939277.png)
+
+## C1.En codigo/Terminal - User Admin
 
 **Sin Tokkens**
 
@@ -12419,7 +12419,7 @@ npm run dev
 
 ![](images/clipboard-1872480916.png)
 
-## C2- En Swagger
+## C2- En Swagger Admin
 
 **Sin Tokkens**
 
@@ -12432,3 +12432,59 @@ npm run dev
 ![](images/clipboard-395571447.png)
 
 ![](images/clipboard-2512429539.png)
+
+## C3.En codigo/Terminal - User Seller (Recepcionista)
+
+**Sin Tokkens**
+
+![](images/clipboard-865124038.png)
+
+![](images/clipboard-2747883879.png)
+
+**Con Tokkens**
+
+![](images/clipboard-3418676376.png)
+
+![](images/clipboard-361038546.png)
+
+## C4- En Swagger Seller (Recepcionista)
+
+**Sin Tokkens**
+
+![](images/clipboard-225902318.png)
+
+![](images/clipboard-1786670540.png)
+
+**Con Tokkens**
+
+![![](images/clipboard-848373567.png)](images/clipboard-351950503.png)
+
+![](images/clipboard-1570526320.png)
+
+## 28.5 Bloque D - Autenticacion y JWT Token + Refresh
+
+![](images/clipboard-1648356944.png)
+
+![](images/clipboard-4000245001.png)
+
+![](images/clipboard-3315729418.png)
+
+![](images/clipboard-1944219430.png)
+
+## 28.6 Bloque E - Autenticacion y RBAC
+
+![](images/clipboard-969351599.png)
+
+![](images/clipboard-3087240564.png)
+
+![](images/clipboard-2071746916.png)
+
+![](images/clipboard-2063973316.png)
+
+![](images/clipboard-2063229666.png)
+
+![](images/clipboard-228631554.png)
+
+![](images/clipboard-515842542.png)
+
+![](images/clipboard-3505597587.png)

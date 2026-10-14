@@ -3,7 +3,9 @@
 @baseUrl = http://localhost:4000
 
 # @name createVaccineBatch
+@token = 
 POST {{baseUrl}}/api/lotes-vacunas
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {

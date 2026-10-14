@@ -2,11 +2,14 @@
 ### Leyenda: SIN AUTH (sin middleware JWT / sin autenticación)
 @baseUrl = http://localhost:4000
 @id = 1
+@token = 
 
 # @name getAllVeterinarians
 GET {{baseUrl}}/api/veterinarios
+Authorization: Bearer {{token}}
 
 ###
 
 # @name getOneVeterinarian
 GET {{baseUrl}}/api/veterinarios/{{id}}
+Authorization: Bearer {{token}}

@@ -2,11 +2,13 @@
 ### Leyenda: SIN AUTH (sin middleware JWT / sin autenticación)
 @baseUrl = http://localhost:4000
 @id = 1
-
+@token = 
 # @name getAllVaccineApplications
 GET {{baseUrl}}/api/aplicaciones-vacunas
+Authorization: Bearer {{token}}
 
 ###
 
 # @name getOneVaccineApplication
 GET {{baseUrl}}/api/aplicaciones-vacunas/{{id}}
+Authorization: Bearer {{token}}

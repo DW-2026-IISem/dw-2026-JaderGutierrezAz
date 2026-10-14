@@ -1,16 +1,18 @@
 ### Feature Owner — UPDATE (PUT) / UPDATE (PATCH)
 ### Leyenda: SIN AUTH (sin middleware JWT / sin autenticación)
 @baseUrl = http://localhost:4000
-@id = 17
+@id = 16
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzkxOTQ0NzQzLCJleHAiOjE3OTE5NDU2NDMsImF1ZCI6ImFwcC1odWVsbGF2ZXQtYXBpIiwiaXNzIjoiYXBwLWh1ZWxsYXZldC1leHByZXNzIiwic3ViIjoiMSIsImp0aSI6IjYwY2Y4Y2MxLTM1MzItNDM2NS1iZDBjLWJhNjc3YjE2N2EzNSJ9.y59LnFqAwdWfmeT3hBbxPhqvsDkRfSC1I8ZuwhDL3oE
 
 # @name updateOwnerPut
 PUT {{baseUrl}}/api/propietarios/{{id}}
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
   "document_type": "CC",
   "document_number": "1234567890",
-  "name": "James Rodriguez Actualizado",
+  "name": "Harol Actualizado",
   "phone": "3009876543",
   "email": "James.Rodriguez@example.com",
   "is_active": true
@@ -20,8 +22,9 @@ Content-Type: application/json
 
 # @name updateOwnerPatch
 PATCH {{baseUrl}}/api/propietarios/{{id}}
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-  "phone": "3011112233"
+  "phone": "366611112233"
 }

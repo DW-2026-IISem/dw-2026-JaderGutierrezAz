@@ -1,10 +1,11 @@
 ### Feature VaccineApplication — UPDATE (PUT) / UPDATE (PATCH)
 ### Leyenda: SIN AUTH (sin middleware JWT / sin autenticación)
 @baseUrl = http://localhost:4000
-@id = 1
-
+@id = 3
+@token = 
 # @name updateVaccineApplicationPut
 PUT {{baseUrl}}/api/aplicaciones-vacunas/{{id}}
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
@@ -19,6 +20,7 @@ Content-Type: application/json
 
 # @name updateVaccineApplicationPatch
 PATCH {{baseUrl}}/api/aplicaciones-vacunas/{{id}}
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {

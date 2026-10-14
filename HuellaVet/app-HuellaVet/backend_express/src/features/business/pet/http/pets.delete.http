@@ -1,12 +1,14 @@
 ### Feature Pet — DELETE físico / DELETE lógico (is_active = false)
 ### Leyenda: SIN AUTH (sin middleware JWT / sin autenticación)
 @baseUrl = http://localhost:4000
-@id = 1
-
+@id = 5
+@token = 
 # @name deletePetPhysical
 DELETE {{baseUrl}}/api/mascotas/{{id}}
+Authorization: Bearer {{token}}
 
 ###
 
 # @name deletePetLogical
 PATCH {{baseUrl}}/api/mascotas/{{id}}/deactivate
+Authorization: Bearer {{token}}
