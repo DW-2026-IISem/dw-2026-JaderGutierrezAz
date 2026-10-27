@@ -10743,13 +10743,13 @@ EOF
 ## 24.5 Las tres modalidades (referencia, adaptada a tu dominio)
 
 | Modalidad | Middleware | Exige | Sin cumplir |
-|------------------|------------------|------------------|------------------|
+|----|----|----|----|
 | OPEN | — | nada | — |
 | JWT | `authenticate` | token válido y usuario activo | 401 |
 | JWT + RBAC | `authenticate, authorize` | token válido **y** concesión activa | 401 (sin token) / 403 (sin permiso) |
 
 | Petición | Resultado |
-|------------------------------------|------------------------------------|
+|----|----|
 | `GET /api/propietarios` sin `Authorization` | 401 |
 | `GET /api/propietarios` con token de `seller` (RECEPCIONISTA) | 200 |
 | `POST /api/propietarios` con token de `seller` | 403 (no tiene esa concesión) |

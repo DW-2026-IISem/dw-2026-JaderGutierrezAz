@@ -41,7 +41,7 @@ POST {{baseUrl}}/api/concesiones-rol
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
-{ "role_id": 2, "resource_id": 31 }
+{ "role_id": 2, "resource_id": 36 }
 
 ###
 @grantId = {{grantCreate.response.body.$.grant.id}}
