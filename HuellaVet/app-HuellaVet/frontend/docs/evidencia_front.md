@@ -113,3 +113,39 @@ ng version
 ![](images/clipboard-992940194.png)
 
 # 1.1 Fase I: Frontend — ISS-01A — Esqueleto Header / Aside / contenido / Footer
+
+## 1.1 Qué es un componente y por qué el padre debe importarlo
+
+| Campo de `@Component` | Pregunta que responde                       |
+|-----------------------|---------------------------------------------|
+| `selector`            | ¿Con qué etiqueta se usa en otra plantilla? |
+| `imports`             | ¿Qué usa **su** plantilla?                  |
+| `templateUrl`         | ¿Dónde está el HTML?                        |
+| `styleUrl`            | ¿Dónde están los estilos privados?          |
+| `host`                | ¿Qué clases lleva el elemento anfitrión?    |
+
+Un componente generado **no se ve** hasta que el padre lo declara en `imports` **y** escribe su etiqueta. Son dos pasos.
+
+## 1.2 Generar las tres piezas de `layout/`
+
+![](images/clipboard-3082609312.png)
+
+## 1.3 Contenido de cada componente
+
+![](images/clipboard-2983025876.png)
+
+## 1.4 Componer las cuatro regiones en `App`
+
+![](images/clipboard-3113167584.png)
+
+## 1.5 Comprobar antes de avanzar
+
+![](images/clipboard-1050628033.png)
+
+![](images/clipboard-1160394617.png)
+
+## Verificación del ISS
+
+![](images/clipboard-2810932376.png)
+
+# 1.2 Fase I: Frontend — ISS-01B — Menú PrimeNG y primera interacción
