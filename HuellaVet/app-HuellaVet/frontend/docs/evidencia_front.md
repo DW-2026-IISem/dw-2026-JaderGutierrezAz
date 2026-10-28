@@ -1,0 +1,115 @@
+# **Archivo Evidencia Frontend Express**
+
+**Nombre:** Jader Gutiérrez Areiza
+
+**Asignatura:** Desarrollo Web
+
+**Docente:** Jaider Quintero
+
+Programa Ingeniería en Sistemas - Octavo Semestre
+
+Universidad de La Guajira
+
+# 0. ISS-00 — Requisitos previos
+
+## 0.1 Node, npm y Angular CLI
+
+```         
+node --version
+npm --version
+npm view @angular/cli version engines --json
+npm install -g @angular/cli
+ng version
+```
+
+![](images/clipboard-2601864439.png)
+
+## 0.2 Backend en marcha (preparación para integrar HTTP)
+
+![](images/clipboard-3645159132.png)
+
+## 0.3 Login y permisos
+
+![](images/clipboard-2831144350.png)
+
+![](images/clipboard-1453038873.png)
+
+## 0.4 Credenciales del seeder
+
+![](images/clipboard-1111205433.png)
+
+![](images/clipboard-1539783913.png)
+
+![](images/clipboard-3711797209.png)
+
+![](images/clipboard-3541699336.png)
+
+## 0.5 Navegador y herramientas
+
+![](images/clipboard-2993497294.png)
+
+## 0.6 Estructura de trabajo
+
+![](images/clipboard-1572617194.png)
+
+## Verificación del ISS
+
+![](images/clipboard-1535124403.png)
+
+# 1.ISS-01 · Bootstrap Angular 22 con CLI, Tailwind y PrimeNG
+
+## 1.1 Crear el proyecto en la carpeta actual
+
+![](images/clipboard-1735942850.png)
+
+## 1.2 Instalar PrimeNG compatible con Angular
+
+![](images/clipboard-935188031.png)
+
+## 1.3 Estilos globales
+
+![](images/clipboard-2313812593.png)
+
+## 1.4 Configurar PrimeNG en `app.config.ts`
+
+![](images/clipboard-615952867.png)
+
+### 1.4.1 Licencia de PrimeNG 22 (obligatoria para la entrega limpia)
+
+![](images/clipboard-2924889177.png)
+
+## 1.5 Pantalla de arranque: `App` compone el componente `demo/ejemplo`
+
+![](images/clipboard-2793267300.png)
+
+## 1.6 Personalizar `index.html`
+
+![](images/clipboard-1153530512.png)
+
+## 1.7 Ajustar el presupuesto de build
+
+![](images/clipboard-1600507817.png)
+
+## 1.8 Primera ejecución
+
+![](images/clipboard-3024219608.png)
+
+## 1.9 Anatomía del componente `demo/ejemplo` y signals
+
+### 1.9.1 De `index.html` a la pantalla y 1.9.2 Los cuatro archivos de un componente
+
+![](images/clipboard-3552420393.png)
+
+### 1.9.3 Leer `ejemplo.ts` línea a línea y 1.9.5 Signals
+
+![](images/clipboard-133631362.png)
+
+### 1.9.6 `computed` y `effect`: derivar y reaccionar - 1.9.9 Errores comunes
+
+![](images/clipboard-3710763470.png)
+
+## Verificación del ISS
+
+![](images/clipboard-992940194.png)
+
+# 1.1 Fase I: Frontend — ISS-01A — Esqueleto Header / Aside / contenido / Footer

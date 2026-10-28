@@ -1,0 +1,73 @@
+<div class="flex flex-col gap-6">
+  <p-card header="Objeto servicio">
+    <div class="flex flex-col gap-4">
+      <div class="flex items-start justify-between gap-2">
+        <div>
+          <p class="text-lg font-semibold text-slate-800">{{ servicio().nombre }}</p>
+          <p class="text-2xl font-bold text-slate-900">{{ servicio().precio }}</p>
+          <p class="text-sm text-slate-500">
+            Precio final con IVA (19 %): <strong>{{ precioFinal() }}</strong>
+          </p>
+        </div>
+        <p-tag
+          [value]="estadoTexto()"
+          [severity]="servicio().activo ? 'success' : 'danger'"
+          [rounded]="true"
+        />
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <label for="ejemplo-nombre" class="text-sm font-medium text-slate-700">Nombre</label>
+        <input
+          id="ejemplo-nombre"
+          pInputText
+          class="w-full"
+          [value]="servicio().nombre"
+          (input)="cambiarNombre($event)"
+        />
+        <p class="text-xs text-slate-500">Vista previa: {{ servicio().nombre }}</p>
+      </div>
+
+      @if (servicio().activo) {
+        <p-message severity="success" variant="simple">
+          Servicio activo: la API lo devolvería con <code>is_active: true</code>.
+        </p-message>
+      } @else {
+        <p-message severity="warn" variant="simple">
+          Servicio inactivo: el borrado lógico lo oculta de las listas.
+        </p-message>
+      }
+
+      <div class="flex flex-wrap gap-2">
+        <button pButton type="button" (click)="variarPrecio(1000)">
+          <span pButtonLabel>+1000</span>
+        </button>
+        <button pButton type="button" severity="secondary" outlined (click)="variarPrecio(-1000)">
+          <span pButtonLabel>-1000</span>
+        </button>
+        <button pButton type="button" severity="secondary" outlined (click)="alternarEstado()">
+          <span pButtonLabel>Cambiar estado</span>
+        </button>
+        <button pButton type="button" severity="secondary" text (click)="reiniciar()">
+          <span pButtonLabel>Reiniciar</span>
+        </button>
+      </div>
+    </div>
+  </p-card>
+
+  <p-card header="Cómo se actualiza">
+    <ul class="list-disc space-y-1 pl-5 text-sm text-slate-600">
+      <li><strong>signal</strong>: guarda el objeto y avisa a la vista cuando cambia.</li>
+      <li><strong>computed</strong>: el IVA y el estado se derivan del signal, no se guardan.</li>
+      <li><strong>effect</strong>: escribe una línea en la consola cada vez que el objeto cambia.</li>
+      <li>El objeto se reemplaza (<code>update</code> / <code>set</code>), nunca se muta.</li>
+    </ul>
+  </p-card>
+
+  <p-card header="Estilos">
+    <div class="ejemplo-alcance text-sm text-slate-700">
+      Esta caja usa una clase de <code>ejemplo.css</code>. Angular la encapsula: no afecta a
+      ningún otro componente.
+    </div>
+  </p-card>
+</div>
