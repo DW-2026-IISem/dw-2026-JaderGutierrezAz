@@ -203,3 +203,51 @@ Los tres componentes de `layout/` solo **reciben y avisan**. Únicamente `Constr
 ## Verificación del ISS
 
 ![](images/clipboard-3191134159.png)
+
+# 2.Fase I: Frontend — ISS-02 — Núcleo: environment, modelos, servicios y layout
+
+## 2.1 `environment`: una sola URL para todo el frente
+
+![](images/clipboard-1236535798.png)
+
+### 2.1.1 Licencia PrimeUI (`primeUiLicense`)
+
+![](images/clipboard-1779580375.png)
+
+![](images/clipboard-2060805941.png)
+
+![](images/clipboard-1162659495.png)
+
+## 2.2 Modelos: reflejar el backend, no inventarlo
+
+## 2.3 Servicios HTTP por feature: desenvolver la respuesta
+
+## 2.4 Utilidades transversales: `toApiMessage` y `NotificationService`
+
+![](images/clipboard-351965234.png)
+
+## 2.5 Componentes compartidos: `PageHeader`, `EmptyState`, `StatusTag`
+
+![](images/clipboard-1350301865.png)
+
+![](images/clipboard-2724684826.png)
+
+![](images/clipboard-4845554.png)
+
+## 2.6 `Shell`: conservar el esqueleto al navegar
+
+![](images/clipboard-3815500229.png)
+
+![](images/clipboard-320002556.png)
+
+## 2.7 y 2.8 Comprobar antes de avanzar
+
+![](images/clipboard-4087940908.png)
+
+## Verificación del ISS
+
+![](images/clipboard-849222531.png)
+
+![](images/clipboard-2120877624.png)
+
+# 3. ISS-03 · CRUD de Owners con Signals

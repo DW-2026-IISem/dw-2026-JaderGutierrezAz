@@ -1,3 +1,4 @@
+import { provideHttpClient } from '@angular/common/http';
 import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
 import {
   provideRouter,
@@ -7,6 +8,7 @@ import {
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeuix/themes/aura';
+import { environment } from '../environments/environment';
 
 import { routes } from './app.routes';
 
@@ -20,9 +22,13 @@ export const appConfig: ApplicationConfig = {
       withInMemoryScrolling({ scrollPositionRestoration: 'top' }),
     ),
 
+    // Habilita HttpClient en los servicios `*Api`. Sin interceptores de sesión:
+    // el authInterceptor llega en ISS-08.
+    provideHttpClient(),
+
     // PrimeNG 22: tema Aura. El modo oscuro se activa con la clase .app-dark.
-    // La licencia se enlaza en ISS-02, cuando existe `environment`.
     providePrimeNG({
+      license: environment.primeUiLicense || undefined,
       ripple: true,
       inputVariant: 'outlined',
       theme: {
