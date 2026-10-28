@@ -1,23 +1,17 @@
 import { Component } from '@angular/core';
-import { Header } from './layout/header/header';
-import { Aside } from './layout/aside/aside';
-import { Footer } from './layout/footer/footer';
+import { RouterOutlet } from '@angular/router';
 
 /**
  * Componente principal (`<app-root>`).
  *
- * Compone las cuatro regiones: Header arriba, Aside a la izquierda, el contenido
- * del centro y Footer abajo. El contenido todavía es fijo; en ISS-01B cambia con
- * el menú.
+ * Desde ISS-01B es solo el punto de entrada: el router elige qué componente se
+ * dibuja dentro de `<router-outlet />` según la URL.
  */
 @Component({
   host: { class: 'block' },
   selector: 'app-root',
-  imports: [Header, Aside, Footer],
+  imports: [RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
-export class App {
-  /** Título de la pantalla inicial. */
-  protected readonly title = 'Inicio';
-}
+export class App {}

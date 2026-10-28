@@ -149,3 +149,57 @@ Un componente generado **no se ve** hasta que el padre lo declara en `imports` *
 ![](images/clipboard-2810932376.png)
 
 # 1.2 Fase I: Frontend — ISS-01B — Menú PrimeNG y primera interacción
+
+## 1.1 Los conceptos que se agregan, uno por vez
+
+| Concepto | Qué resuelve | Dónde |
+|----|----|----|
+| `input()` | Dato del padre al hijo | `items` en Aside |
+| `output()` | Aviso del hijo al padre | `menuRequested`, `navigated` |
+| `signal()` | Estado propio | `title`, `mobileOpen` en `Construir` |
+| `[(visible)]` | Ida y vuelta del Drawer | `[(visible)]="mobileOpen"` |
+| `MenuItem[]` | Contrato del menú de PrimeNG | `items` |
+
+Los tres componentes de `layout/` solo **reciben y avisan**. Únicamente `Construir` tiene estado.
+
+**Logo:**
+
+![](images/clipboard-1775106193.png)
+
+## 1.2 El Aside recibe el menú con `input()`
+
+![](images/clipboard-3783538238.png)
+
+## 1.3 El Header avisa al padre con `output()`
+
+![](images/clipboard-2420285669.png)
+
+## 1.4 `features/construir`: estado local y Drawer móvil
+
+![](images/clipboard-1137746153.png)
+
+**El helper que decide el ancho**
+
+![](images/clipboard-4192870632.png)
+
+**Construir**
+
+![](images/clipboard-495043168.png)
+
+**Prueba de la pantalla**
+
+![](images/clipboard-2739767231.png)
+
+## 1.5 `App` pasa a ser punto de entrada con `router-outlet`
+
+![](images/clipboard-272898452.png)
+
+## 1.6 Comprobar antes de avanzar
+
+![](images/clipboard-1525259754.png)
+
+![](images/clipboard-2029826698.png)
+
+## Verificación del ISS
+
+![](images/clipboard-3191134159.png)

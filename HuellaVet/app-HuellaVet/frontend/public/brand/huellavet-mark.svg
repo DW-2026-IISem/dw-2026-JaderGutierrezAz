@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 150" width="150" height="150" role="img" aria-label="HuellaVet">
+  <rect width="150" height="150" rx="28" fill="#0f766e"/>
+  <ellipse cx="75" cy="98" rx="26" ry="22" fill="#ffffff"/>
+  <ellipse cx="42" cy="68" rx="11" ry="15" fill="#ffffff" transform="rotate(-20 42 68)"/>
+  <ellipse cx="64" cy="48" rx="11" ry="16" fill="#ffffff"/>
+  <ellipse cx="86" cy="48" rx="11" ry="16" fill="#ffffff"/>
+  <ellipse cx="108" cy="68" rx="11" ry="15" fill="#ffffff" transform="rotate(20 108 68)"/>
+</svg>
