@@ -24,6 +24,14 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/pets/pet-list/pet-list').then((m) => m.PetList),
       },
+      {
+        path: 'veterinarios',
+        title: 'Veterinarios · HuellaVet',
+        loadComponent: () =>
+          import('./features/veterinarians/veterinarian-list/veterinarian-list').then(
+            (m) => m.VeterinarianList,
+          ),
+      },
     ],
   },
   { path: '**', redirectTo: 'construir' },

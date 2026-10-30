@@ -337,7 +337,7 @@ Los tres componentes de `layout/` solo **reciben y avisan**. Únicamente `Constr
 | Baja física    | `DELETE /api/mascotas/:id`           | `204`              |
 
 | Campo | Tipo | Al crear | Al editar |
-|----|----|----|----|
+|------------------|------------------|------------------|------------------|
 | `owner_id` | número | obligatorio | opcional |
 | `name` | texto | obligatorio | opcional |
 | `description` | texto o `null` | opcional | opcional |
@@ -380,3 +380,69 @@ Ya fué creado en ISS-02
 ![](images/clipboard-2225938143.png)
 
 ![](images/clipboard-2031894931.png)
+
+# 5. ISS-05 · CRUD de Veterinarian (veterinarios) Front
+
+## 5.1 Endpoint y contrato
+
+| Operación | Método y ruta | Respuesta |
+|------------------------|------------------------|------------------------|
+| Listar | `GET /api/veterinarios` | `{ veterinarians: [...] }` |
+| Obtener uno | `GET /api/veterinarios/:id` | `{ veterinarian }` |
+| Crear | `POST /api/veterinarios` | `{ veterinarian }` |
+| Editar parcial | `PATCH /api/veterinarios/:id` | `{ veterinarian }` |
+| Reemplazar | `PUT /api/veterinarios/:id` | `{ veterinarian }` |
+| Baja lógica | `PATCH /api/veterinarios/:id/deactivate` | `{ message, veterinarian }` |
+| Baja física | `DELETE /api/veterinarios/:id` | `204` |
+
+| Campo | Tipo | Al crear | Al editar |
+|------------------|------------------|------------------|------------------|
+| `name` | texto | obligatorio | opcional |
+| `description` | texto o `null` | opcional | opcional |
+| `is_active` | booleano | opcional (por defecto `true`) | **no viaja**, solo `/deactivate` |
+
+**Qué se reutiliza de ISS-03 y ISS-04 y qué cambia**
+
+| Se reutiliza | Cambia |
+|------------------------------------|------------------------------------|
+| `filterRows`, `StatusTag`, `PageHeader`, `EmptyState`, `NotificationService` | Sin relaciones: una sola petición, sin `forkJoin` ni `Map` |
+| `resetKey`, el `effect()` del formulario, los diálogos de confirmación | El formulario solo tiene nombre, descripción y estado |
+| Los verbos `POST`, `PATCH`, `deactivate`, `DELETE` | Columnas de la tabla: veterinario, descripción, estado |
+
+## 5.2 Generar con CLI
+
+![](images/clipboard-433996527.png)
+
+## 5.3 Servicio
+
+Ya fué creado en el ISS-02
+
+![](images/clipboard-2469294899.png)
+
+## 5.4 Formulario
+
+![](images/clipboard-1991158940.png)
+
+## 5.5 Lista
+
+![](images/clipboard-2731758174.png)
+
+## 5.6 Ruta
+
+![](images/clipboard-1449467274.png)
+
+## Pruebas
+
+![](images/clipboard-205412390.png)
+
+## Comprobación
+
+![](images/clipboard-2180758340.png)
+
+![](images/clipboard-841974910.png)
+
+![](images/clipboard-3661978811.png)
+
+![](images/clipboard-2378914894.png)
+
+# 6. ISS-06 · CRUD de Appointment (citas)Front
