@@ -18,6 +18,12 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/owners/owner-list/owner-list').then((m) => m.OwnerList),
       },
+      {
+        path: 'mascotas',
+        title: 'Mascotas · HuellaVet',
+        loadComponent: () =>
+          import('./features/pets/pet-list/pet-list').then((m) => m.PetList),
+      },
     ],
   },
   { path: '**', redirectTo: 'construir' },

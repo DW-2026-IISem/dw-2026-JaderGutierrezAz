@@ -323,3 +323,60 @@ Los tres componentes de `layout/` solo **reciben y avisan**. Únicamente `Constr
 ![](images/clipboard-2311234279.png)
 
 # 4. ISS-04 · CRUD de Pet (Mascotas) Front
+
+## 4.1 Endpoint y contrato
+
+| Operación      | Método y ruta                        | Respuesta          |
+|----------------|--------------------------------------|--------------------|
+| Listar         | `GET /api/mascotas`                  | `{ pets: [...] }`  |
+| Obtener una    | `GET /api/mascotas/:id`              | `{ pet }`          |
+| Crear          | `POST /api/mascotas`                 | `{ pet }`          |
+| Editar parcial | `PATCH /api/mascotas/:id`            | `{ pet }`          |
+| Reemplazar     | `PUT /api/mascotas/:id`              | `{ pet }`          |
+| Baja lógica    | `PATCH /api/mascotas/:id/deactivate` | `{ message, pet }` |
+| Baja física    | `DELETE /api/mascotas/:id`           | `204`              |
+
+| Campo | Tipo | Al crear | Al editar |
+|----|----|----|----|
+| `owner_id` | número | obligatorio | opcional |
+| `name` | texto | obligatorio | opcional |
+| `description` | texto o `null` | opcional | opcional |
+| `is_active` | booleano | opcional (por defecto `true`) | **no viaja**, solo `/deactivate` |
+
+## 4.2 Generar con CLI
+
+![](images/clipboard-1431171637.png)
+
+## 4.3 Servicio
+
+Ya fué creado en ISS-02
+
+![](images/clipboard-2088101561.png)
+
+## 4.4 Formulario
+
+![](images/clipboard-2929056526.png)
+
+## 4.5 Lista
+
+![](images/clipboard-1627124085.png)
+
+**Plantilla (resumen):**
+
+![](images/clipboard-110839102.png)
+
+## 4.6 Ruta
+
+![](images/clipboard-280347924.png)
+
+## Pruebas
+
+![](images/clipboard-886986778.png)
+
+## Comprobación
+
+![](images/clipboard-2283825387.png)
+
+![](images/clipboard-2225938143.png)
+
+![](images/clipboard-2031894931.png)
