@@ -1,0 +1,153 @@
+<app-page-header
+  title="Propietarios"
+  subtitle="Dueños de las mascotas. La baja lógica cambia su estado; la baja física elimina la fila."
+>
+  <p-tag [value]="rows().length + ' propietarios'" severity="info" [rounded]="true" />
+  <button pButton type="button" (click)="openCreate()">
+    <i pButtonIcon class="pi pi-plus"></i>
+    <span pButtonLabel>Nuevo propietario</span>
+  </button>
+</app-page-header>
+
+@if (error()) {
+  <p-message severity="error" styleClass="mb-4 w-full">{{ error() }}</p-message>
+}
+
+<div class="rounded-xl border border-slate-200 bg-white">
+  <p-table
+    [value]="visibleRows()"
+    [loading]="loading()"
+    [paginator]="visibleRows().length > 10"
+    [rows]="10"
+    dataKey="id"
+    tableStyleClass="min-w-3xl"
+  >
+    <ng-template #caption>
+      <div class="flex items-center gap-2">
+        <i class="pi pi-search text-slate-400"></i>
+        <input
+          pInputText
+          type="search"
+          aria-label="Buscar propietarios"
+          placeholder="Buscar por nombre, documento, email o teléfono…"
+          [value]="filter()"
+          (input)="filter.set($any($event.target).value)"
+          class="w-full"
+        />
+      </div>
+      @if (filter()) {
+        <p class="mt-2 text-xs text-slate-500">
+          {{ visibleRows().length }} de {{ rows().length }} coinciden con «{{ filter() }}».
+        </p>
+      }
+    </ng-template>
+
+    <ng-template #header>
+      <tr>
+        <th pSortableColumn="name">
+          <div class="flex items-center gap-1">Propietario <p-sort-icon field="name" /></div>
+        </th>
+        <th pSortableColumn="document_number">
+          <div class="flex items-center gap-1">Documento <p-sort-icon field="document_number" /></div>
+        </th>
+        <th>Contacto</th>
+        <th>Estado</th>
+        <th class="w-40 text-right">Acciones</th>
+      </tr>
+    </ng-template>
+
+    <ng-template #body let-owner>
+      <tr>
+        <td>
+          <p class="font-medium text-slate-800">{{ owner.name }}</p>
+          <p class="text-xs text-slate-400">#{{ owner.id }}</p>
+        </td>
+        <td>
+          <p class="text-sm text-slate-700">{{ owner.document_number }}</p>
+          <p class="text-xs text-slate-400">{{ owner.document_type }}</p>
+        </td>
+        <td>
+          <p class="text-sm text-slate-700">{{ owner.email || '—' }}</p>
+          <p class="text-xs text-slate-400">{{ owner.phone || 'Sin teléfono' }}</p>
+        </td>
+        <td><app-status-tag [active]="owner.is_active" /></td>
+        <td>
+          <div class="flex justify-end gap-1">
+            <!-- Botón Editar -->
+            <button
+              type="button"
+              class="p-2 text-slate-500 hover:text-slate-700 hover:bg-slate-100 rounded-full transition-colors cursor-pointer"
+              aria-label="Editar propietario"
+              pTooltip="Editar"
+              (click)="openEdit(owner)"
+            >
+              <i class="pi pi-pencil"></i>
+            </button>
+
+            <!-- Botón Baja lógica -->
+            <button
+              type="button"
+              class="p-2 text-amber-500 hover:text-amber-700 hover:bg-amber-50 rounded-full transition-colors disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
+              aria-label="Dar de baja al propietario"
+              pTooltip="Baja lógica"
+              [disabled]="!owner.is_active"
+              (click)="deactivate(owner)"
+            >
+              <i class="pi pi-ban"></i>
+            </button>
+
+            <!-- Botón Eliminar -->
+            <button
+              type="button"
+              class="p-2 text-red-500 hover:text-red-700 hover:bg-red-50 rounded-full transition-colors cursor-pointer"
+              aria-label="Eliminar propietario"
+              pTooltip="Eliminar"
+              (click)="remove(owner)"
+            >
+              <i class="pi pi-trash"></i>
+            </button>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+
+    <ng-template #emptymessage>
+      <tr>
+        <td colspan="5">
+          @if (filter()) {
+            <app-empty-state
+              icon="pi pi-search"
+              title="Sin coincidencias"
+              message="Ningún propietario coincide con la búsqueda. Borra el filtro para ver todos."
+            />
+          } @else {
+            <app-empty-state
+              icon="pi pi-users"
+              title="Sin propietarios"
+              message="Crea el primero con el botón «Nuevo propietario» o ejecuta el seeder del backend."
+            />
+          }
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-dialog
+  [visible]="dialogVisible()"
+  (visibleChange)="dialogVisible.set($event)"
+  [header]="title()"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [dismissableMask]="true"
+  styleClass="w-full max-w-2xl mx-4"
+>
+  <app-owner-form
+    [owner]="editing()"
+    [saving]="saving()"
+    [resetKey]="resetKey()"
+    (saved)="save($event)"
+    (cancelled)="dialogVisible.set(false)"
+  />
+</p-dialog>

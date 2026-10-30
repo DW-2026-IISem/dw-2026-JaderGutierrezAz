@@ -10,8 +10,14 @@ export const routes: Routes = [
     path: '',
     loadComponent: () => import('./layout/shell/shell').then((m) => m.Shell),
     children: [
-      // Sin pantallas de negocio todavía: ISS-03 pondrá aquí la primera.
-      { path: '', pathMatch: 'full', redirectTo: '/construir' },
+      // La primera pantalla de negocio es la redirección por defecto.
+      { path: '', pathMatch: 'full', redirectTo: 'propietarios' },
+      {
+        path: 'propietarios',
+        title: 'Propietarios · HuellaVet',
+        loadComponent: () =>
+          import('./features/owners/owner-list/owner-list').then((m) => m.OwnerList),
+      },
     ],
   },
   { path: '**', redirectTo: 'construir' },

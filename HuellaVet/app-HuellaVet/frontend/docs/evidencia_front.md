@@ -220,7 +220,35 @@ Los tres componentes de `layout/` solo **reciben y avisan**. Únicamente `Constr
 
 ## 2.2 Modelos: reflejar el backend, no inventarlo
 
+![](images/clipboard-302932806.png)
+
+![](images/clipboard-3445850305.png)
+
+**Entidades de negocio: Propietarios, mascotas, veterinarios, consultas, vacunas, lotes, aplicaciones y recetas.**
+
+![](images/clipboard-4197825571.png)
+
+![](images/clipboard-2580150759.png)
+
+![](images/clipboard-3501190422.png)
+
+![](images/clipboard-4153436767.png)
+
 ## 2.3 Servicios HTTP por feature: desenvolver la respuesta
+
+![](images/clipboard-3143696782.png)
+
+![](images/clipboard-1079583771.png)
+
+![](images/clipboard-4163780938.png)
+
+![](images/clipboard-2175542042.png)
+
+![](images/clipboard-2349415687.png)
+
+![](images/clipboard-2803783870.png)
+
+![](images/clipboard-3864205379.png)
 
 ## 2.4 Utilidades transversales: `toApiMessage` y `NotificationService`
 
@@ -250,4 +278,48 @@ Los tres componentes de `layout/` solo **reciben y avisan**. Únicamente `Constr
 
 ![](images/clipboard-2120877624.png)
 
-# 3. ISS-03 · CRUD de Owners con Signals
+# 3. ISS-03 · CRUD de Owners (Propietarios) Front
+
+## 3.1 Generar componentes con CLI
+
+![](images/clipboard-766001321.png)
+
+## 3.2 Utilidad de filtro local
+
+![](images/clipboard-1653697435.png)
+
+## 3.3 Formulario reactivo reutilizable
+
+![](images/clipboard-1000273517.png)
+
+## 3.4 Lista con estado en Signals
+
+![](images/clipboard-217815055.png)
+
+## 3.5 Plantilla de la lista
+
+![](images/clipboard-649515064.png)
+
+## 3.6 Baja lógica vs baja física
+
+![](images/clipboard-1969956497.png)
+
+## 3.7 Ruta y menú
+
+![](images/clipboard-2960427627.png)
+
+![](images/clipboard-797538552.png)
+
+## Pruebas
+
+![](images/clipboard-2220488667.png)
+
+## Verificación del ISS
+
+![](images/clipboard-3627853767.png)
+
+![](images/clipboard-2695077674.png)
+
+![](images/clipboard-2311234279.png)
+
+# 4. ISS-04 · CRUD de Pet (Mascotas) Front

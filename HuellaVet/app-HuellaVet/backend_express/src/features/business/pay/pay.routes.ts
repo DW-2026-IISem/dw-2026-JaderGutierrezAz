@@ -9,27 +9,27 @@ export class PayRoutes {
   public routes(app: Application): void {
     app
       .route("/api/pagos")
-      .get(authenticate, authorize, this.payController.getAll.bind(this.payController));
+      .get(this.payController.getAll.bind(this.payController));
 
     app
       .route("/api/pagos/:id")
-      .get(authenticate, authorize, this.payController.getOne.bind(this.payController));
+      .get(this.payController.getOne.bind(this.payController));
 
     app
       .route("/api/pagos")
-      .post(authenticate, authorize, this.payController.create.bind(this.payController));
+      .post(this.payController.create.bind(this.payController));
 
     app
       .route("/api/pagos/:id")
-      .put(authenticate, authorize, this.payController.updatePut.bind(this.payController))
-      .patch(authenticate, authorize, this.payController.updatePatch.bind(this.payController));
+      .put(this.payController.updatePut.bind(this.payController))
+      .patch(this.payController.updatePatch.bind(this.payController));
 
     app
       .route("/api/pagos/:id")
-      .delete(authenticate, authorize, this.payController.deletePhysical.bind(this.payController));
+      .delete(this.payController.deletePhysical.bind(this.payController));
 
     app
       .route("/api/pagos/:id/deactivate")
-      .patch(authenticate, authorize, this.payController.deleteLogical.bind(this.payController));
+      .patch(this.payController.deleteLogical.bind(this.payController));
   }
 }
