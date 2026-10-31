@@ -32,6 +32,14 @@ export const routes: Routes = [
             (m) => m.VeterinarianList,
           ),
       },
+      {
+        path: 'citas',
+        title: 'Citas · HuellaVet',
+        loadComponent: () =>
+          import('./features/appointments/appointment-list/appointment-list').then(
+            (m) => m.AppointmentList,
+          ),
+      },
     ],
   },
   { path: '**', redirectTo: 'construir' },

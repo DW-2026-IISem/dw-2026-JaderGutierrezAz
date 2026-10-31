@@ -1,0 +1,176 @@
+<app-page-header
+  title="Citas"
+  subtitle="Citas entre mascotas y veterinarios. Un veterinario no puede tener dos citas que se solapen."
+>
+  <p-tag [value]="rows().length + ' citas'" severity="info" [rounded]="true" />
+  <button pButton type="button" (click)="openCreate()">
+    <i pButtonIcon class="pi pi-plus"></i>
+    <span pButtonLabel>Nueva cita</span>
+  </button>
+</app-page-header>
+
+@if (error()) {
+  <p-message severity="error" styleClass="mb-4 w-full">{{ error() }}</p-message>
+}
+
+<div class="rounded-xl border border-slate-200 bg-white">
+  <p-table
+    [value]="visibleRows()"
+    [loading]="loading()"
+    [paginator]="visibleRows().length > 10"
+    [rows]="10"
+    dataKey="id"
+    tableStyleClass="min-w-4xl"
+  >
+    <ng-template #caption>
+      <div class="flex items-center gap-2">
+        <i class="pi pi-search text-slate-400"></i>
+        <input
+          pInputText
+          type="search"
+          aria-label="Buscar citas"
+          placeholder="Buscar por mascota, propietario, veterinario, motivo o estado…"
+          [value]="filter()"
+          (input)="filter.set($any($event.target).value)"
+          class="w-full"
+        />
+      </div>
+      @if (filter()) {
+        <p class="mt-2 text-xs text-slate-500">
+          {{ visibleRows().length }} de {{ rows().length }} coinciden con «{{ filter() }}».
+        </p>
+      }
+    </ng-template>
+
+    <ng-template #header>
+      <tr>
+        <th pSortableColumn="start_date">
+          <div class="flex items-center gap-1">Fecha y hora <p-sort-icon field="start_date" /></div>
+        </th>
+        <th>Mascota</th>
+        <th>Veterinario</th>
+        <th>Motivo</th>
+        <th pSortableColumn="state">
+          <div class="flex items-center gap-1">Estado <p-sort-icon field="state" /></div>
+        </th>
+        <th class="w-48 text-right">Acciones</th>
+      </tr>
+    </ng-template>
+
+    <ng-template #body let-appt>
+      <tr>
+        <td>
+          <p class="font-medium text-slate-800">{{ appt.start_date | date: 'dd/MM/yyyy' }}</p>
+          <p class="text-xs text-slate-500">
+            {{ appt.start_date | date: 'HH:mm' }} – {{ appt.end_date | date: 'HH:mm' }}
+            · #{{ appt.id }}
+          </p>
+        </td>
+        <td>
+          <p class="text-sm text-slate-800">{{ petInfo()(appt.pet_id).name }}</p>
+          <p class="text-xs text-slate-400">{{ petInfo()(appt.pet_id).owner }}</p>
+        </td>
+        <td class="text-sm text-slate-700">{{ vetName()(appt.veterinarian_id) }}</td>
+        <td class="text-sm text-slate-600">{{ appt.reason }}</td>
+        <td>
+          <p-tag [value]="stateLabel(appt.state)" [severity]="stateSeverity(appt.state)" [rounded]="true" />
+        </td>
+        <td>
+          <div class="flex justify-end gap-1">
+            <button
+              pButton
+              type="button"
+              text
+              rounded
+              severity="success"
+              aria-label="Completar cita"
+              pTooltip="Completar"
+              [disabled]="appt.state !== 'scheduled'"
+              (click)="complete(appt)"
+            >
+              <i pButtonIcon class="pi pi-check"></i>
+            </button>
+            <button
+              pButton
+              type="button"
+              text
+              rounded
+              severity="secondary"
+              aria-label="Editar cita"
+              pTooltip="Editar"
+              (click)="openEdit(appt)"
+            >
+              <i pButtonIcon class="pi pi-pencil"></i>
+            </button>
+            <button
+              pButton
+              type="button"
+              text
+              rounded
+              severity="warn"
+              aria-label="Cancelar cita"
+              pTooltip="Cancelar cita"
+              [disabled]="appt.state !== 'scheduled'"
+              (click)="cancel(appt)"
+            >
+              <i pButtonIcon class="pi pi-ban"></i>
+            </button>
+            <button
+              pButton
+              type="button"
+              text
+              rounded
+              severity="danger"
+              aria-label="Eliminar cita"
+              pTooltip="Eliminar"
+              (click)="remove(appt)"
+            >
+              <i pButtonIcon class="pi pi-trash"></i>
+            </button>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+
+    <ng-template #emptymessage>
+      <tr>
+        <td colspan="6">
+          @if (filter()) {
+            <app-empty-state
+              icon="pi pi-search"
+              title="Sin coincidencias"
+              message="Ninguna cita coincide con la búsqueda. Borra el filtro para ver todas."
+            />
+          } @else {
+            <app-empty-state
+              icon="pi pi-calendar"
+              title="Sin citas"
+              message="Crea la primera con el botón «Nueva cita» o ejecuta el seeder del backend."
+            />
+          }
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-dialog
+  [visible]="dialogVisible()"
+  (visibleChange)="dialogVisible.set($event)"
+  [header]="title()"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [dismissableMask]="true"
+  styleClass="w-full max-w-2xl mx-4"
+>
+  <app-appointment-form
+    [appointment]="editing()"
+    [petOptions]="petOptions()"
+    [vetOptions]="vetOptions()"
+    [saving]="saving()"
+    [resetKey]="resetKey()"
+    (saved)="save($event)"
+    (cancelled)="dialogVisible.set(false)"
+  />
+</p-dialog>

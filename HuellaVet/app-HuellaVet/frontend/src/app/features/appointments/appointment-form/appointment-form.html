@@ -1,0 +1,153 @@
+<form [formGroup]="form" (ngSubmit)="submit()" class="space-y-4">
+  <div class="grid gap-4 sm:grid-cols-2">
+    <div>
+      <label for="appt-pet" class="mb-1 block text-sm font-medium text-slate-700">
+        Mascota <span class="text-red-500">*</span>
+      </label>
+      <p-select
+        inputId="appt-pet"
+        formControlName="pet_id"
+        [options]="petOptions()"
+        optionLabel="label"
+        optionValue="id"
+        placeholder="Selecciona una mascota activa"
+        [filter]="true"
+        filterBy="label"
+        appendTo="body"
+        [fluid]="true"
+      />
+      @if (form.controls.pet_id.touched && form.controls.pet_id.invalid) {
+        <p-message severity="error" size="small" variant="simple" styleClass="mt-1">
+          Elige la mascota.
+        </p-message>
+      }
+      @if (petOptions().length === 0) {
+        <p class="mt-1 text-xs text-amber-600">No hay mascotas activas. Crea una primero.</p>
+      }
+    </div>
+
+    <div>
+      <label for="appt-vet" class="mb-1 block text-sm font-medium text-slate-700">
+        Veterinario <span class="text-red-500">*</span>
+      </label>
+      <p-select
+        inputId="appt-vet"
+        formControlName="veterinarian_id"
+        [options]="vetOptions()"
+        optionLabel="label"
+        optionValue="id"
+        placeholder="Selecciona un veterinario activo"
+        [filter]="true"
+        filterBy="label"
+        appendTo="body"
+        [fluid]="true"
+      />
+      @if (form.controls.veterinarian_id.touched && form.controls.veterinarian_id.invalid) {
+        <p-message severity="error" size="small" variant="simple" styleClass="mt-1">
+          Elige el veterinario.
+        </p-message>
+      }
+      @if (vetOptions().length === 0) {
+        <p class="mt-1 text-xs text-amber-600">No hay veterinarios activos. Crea uno primero.</p>
+      }
+    </div>
+  </div>
+
+  <div class="grid gap-4 sm:grid-cols-2">
+    <div>
+      <label for="appt-start" class="mb-1 block text-sm font-medium text-slate-700">
+        Inicio <span class="text-red-500">*</span>
+      </label>
+      <p-datepicker
+        inputId="appt-start"
+        formControlName="start_date"
+        [showTime]="true"
+        hourFormat="24"
+        [stepMinute]="15"
+        dateFormat="dd/mm/yy"
+        [showIcon]="true"
+        appendTo="body"
+        [fluid]="true"
+      />
+      @if (form.controls.start_date.touched && form.controls.start_date.invalid) {
+        <p-message severity="error" size="small" variant="simple" styleClass="mt-1">
+          La fecha y hora de inicio son obligatorias.
+        </p-message>
+      }
+    </div>
+
+    <div>
+      <label for="appt-end" class="mb-1 block text-sm font-medium text-slate-700">
+        Fin <span class="text-red-500">*</span>
+      </label>
+      <p-datepicker
+        inputId="appt-end"
+        formControlName="end_date"
+        [showTime]="true"
+        hourFormat="24"
+        [stepMinute]="15"
+        dateFormat="dd/mm/yy"
+        [showIcon]="true"
+        appendTo="body"
+        [fluid]="true"
+      />
+      @if (form.controls.end_date.touched && form.controls.end_date.invalid) {
+        <p-message severity="error" size="small" variant="simple" styleClass="mt-1">
+          La fecha y hora de fin son obligatorias.
+        </p-message>
+      }
+    </div>
+  </div>
+
+  @if (form.hasError('endBeforeStart')) {
+    <p-message severity="error" size="small" variant="simple">
+      La cita debe terminar después de empezar.
+    </p-message>
+  }
+
+  <div>
+    <label for="appt-reason" class="mb-1 block text-sm font-medium text-slate-700">
+      Motivo <span class="text-red-500">*</span>
+    </label>
+    <input
+      id="appt-reason"
+      pInputText
+      formControlName="reason"
+      placeholder="Control anual, vacunación, urgencia…"
+      class="w-full"
+    />
+    @if (form.controls.reason.touched && form.controls.reason.invalid) {
+      <p-message severity="error" size="small" variant="simple" styleClass="mt-1">
+        El motivo es obligatorio (máximo 255 caracteres).
+      </p-message>
+    }
+  </div>
+
+  <div>
+    <label for="appt-state" class="mb-1 block text-sm font-medium text-slate-700">Estado</label>
+    <p-select
+      inputId="appt-state"
+      formControlName="state"
+      [options]="stateOptions"
+      optionLabel="label"
+      optionValue="value"
+      appendTo="body"
+      [fluid]="true"
+    />
+    @if (appointment()) {
+      <p class="mt-1 text-xs text-slate-500">
+        Cambiar a «Completada» marca la cita como atendida.
+      </p>
+    }
+  </div>
+
+  <div class="flex justify-end gap-2 border-t border-slate-100 pt-4">
+    <button pButton type="button" severity="secondary" outlined (click)="cancelled.emit()">
+      <span pButtonLabel>Cancelar</span>
+    </button>
+    <button pButton type="submit" [loading]="saving()">
+      <i pButtonIcon class="pi pi-check"></i>
+      <span pButtonLabel>Guardar</span>
+    </button>
+  </div>
+</form>

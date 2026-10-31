@@ -445,4 +445,60 @@ Ya fué creado en el ISS-02
 
 ![](images/clipboard-2378914894.png)
 
-# 6. ISS-06 · CRUD de Appointment (citas)Front
+# 6. ISS-06 · CRUD de Appointment (citas) Front
+
+## 6.1 Endpoint y contrato
+
+| Operación | Método y ruta | Respuesta |
+|----|----|----|
+| Listar | `GET /api/citas` | `{ appointments: [...] }` |
+| Obtener una | `GET /api/citas/:id` | `{ appointment }` |
+| Crear | `POST /api/citas` | `{ appointment }` |
+| Editar parcial | `PATCH /api/citas/:id` | `{ appointment }` (acepta `state`) |
+| Reemplazar | `PUT /api/citas/:id` | `{ appointment }` (no acepta `state`) |
+| Cancelar | `PATCH /api/citas/:id/deactivate` | `{ message, appointment }` |
+| Baja física | `DELETE /api/citas/:id` | `204` |
+
+| Campo | Tipo | Al crear | Al editar |
+|----|----|----|----|
+| `pet_id` | número | obligatorio | opcional |
+| `veterinarian_id` | número | obligatorio | opcional |
+| `start_date`, `end_date` | texto ISO-8601 | obligatorios | opcionales |
+| `reason` | texto | obligatorio | opcional |
+| `state` | `scheduled` \| `completed` \| `cancelled` | opcional (por defecto `scheduled`) | **sí viaja** en el `PATCH` |
+
+## 6.2 Generar con CLI
+
+![](images/clipboard-1708964829.png)
+
+## 6.3 Servicio y utilidades
+
+![](images/clipboard-3682490368.png)
+
+## 6.4 Formulario
+
+![](images/clipboard-2017856463.png)
+
+## 6.5 Lista
+
+![](images/clipboard-1131025955.png)
+
+## 6.6 Ruta y menú
+
+![](images/clipboard-1518638591.png)
+
+### Pruebas
+
+![](images/clipboard-2939343811.png)
+
+## Comprobación
+
+![](images/clipboard-4191187709.png)
+
+![](images/clipboard-131324014.png)
+
+![](images/clipboard-3184555235.png)
+
+![](images/clipboard-163476141.png)
+
+# 7. ISS-07 · CRUD de Consultation (Consultas) Front
