@@ -553,3 +553,57 @@ Ya fué creado en el ISS-02
 ![](images/clipboard-2240600535.png)
 
 ![](images/clipboard-2615044934.png)
+
+# 8. ISS-08 · CRUD de Vaccines (Vacunas) Front
+
+## 8.1 Endpoint y contrato
+
+| Operación      | Método y ruta                       | Respuesta              |
+|----------------|-------------------------------------|------------------------|
+| Listar         | `GET /api/vacunas`                  | `{ vaccines: [...] }`  |
+| Obtener una    | `GET /api/vacunas/:id`              | `{ vaccine }`          |
+| Crear          | `POST /api/vacunas`                 | `{ vaccine }`          |
+| Editar parcial | `PATCH /api/vacunas/:id`            | `{ vaccine }`          |
+| Reemplazar     | `PUT /api/vacunas/:id`              | `{ vaccine }`          |
+| Baja lógica    | `PATCH /api/vacunas/:id/deactivate` | `{ message, vaccine }` |
+| Baja física    | `DELETE /api/vacunas/:id`           | `204`                  |
+
+| Campo | Tipo | Al crear | Al editar |
+|----|----|----|----|
+| `name` | texto | obligatorio | opcional |
+| `description` | texto o `null` | opcional | opcional |
+| `is_active` | booleano | opcional (por defecto `true`) | **no viaja**, solo `/deactivate` |
+
+## 8.2 Generar con CLI
+
+![](images/clipboard-2362350928.png)
+
+## 8.3 Servicio
+
+![](images/clipboard-3344675300.png)
+
+## 8.4 Formulario
+
+![](images/clipboard-3896982176.png)
+
+## 8.5 Lista
+
+![](images/clipboard-2687600440.png)
+
+## 8.6 Ruta y menú
+
+![](images/clipboard-2869373080.png)
+
+## Pruebas
+
+![](images/clipboard-1220114019.png)
+
+## Comprobación
+
+![](images/clipboard-4154168472.png)
+
+![](images/clipboard-2795140710.png)
+
+![](images/clipboard-1699380555.png)
+
+# 9. ISS-09 · CRUD de Vaccine Batch (Lote de Vacunas) Front

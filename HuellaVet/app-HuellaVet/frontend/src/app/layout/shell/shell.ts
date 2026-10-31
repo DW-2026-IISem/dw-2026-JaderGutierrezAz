@@ -45,6 +45,7 @@ export class Shell {
     { label: 'Veterinarios', icon: 'pi pi-id-card', routerLink: '/veterinarios' },
     { label: 'Citas', icon: 'pi pi-calendar', routerLink: '/citas' },
     { label: 'Consultas', icon: 'pi pi-file', routerLink: '/consultas' },
+    { label: 'Vacunas', icon: 'pi pi-shield', routerLink: '/vacunas' },
     { label: 'Prototipo', icon: 'pi pi-desktop', routerLink: '/construir' },
   ];
 

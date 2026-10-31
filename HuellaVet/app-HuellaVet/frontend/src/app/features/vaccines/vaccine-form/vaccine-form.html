@@ -1,0 +1,65 @@
+<form [formGroup]="form" (ngSubmit)="submit()" class="space-y-4">
+  <div>
+    <label for="vac-name" class="mb-1 block text-sm font-medium text-slate-700">
+      Nombre <span class="text-red-500">*</span>
+    </label>
+    <input
+      id="vac-name"
+      pInputText
+      formControlName="name"
+      placeholder="Nombre de la vacuna"
+      class="w-full"
+    />
+    @if (form.controls.name.touched && form.controls.name.invalid) {
+      <p-message severity="error" size="small" variant="simple" styleClass="mt-1">
+        El nombre es obligatorio (máximo 255 caracteres).
+      </p-message>
+    }
+  </div>
+
+  <div>
+    <label for="vac-description" class="mb-1 block text-sm font-medium text-slate-700">
+      Descripción
+    </label>
+    <textarea
+      id="vac-description"
+      pTextarea
+      formControlName="description"
+      rows="3"
+      placeholder="Especie a la que se aplica, refuerzos, observaciones…"
+      class="w-full"
+    ></textarea>
+    @if (form.controls.description.touched && form.controls.description.invalid) {
+      <p-message severity="error" size="small" variant="simple" styleClass="mt-1">
+        La descripción admite como máximo 255 caracteres.
+      </p-message>
+    }
+  </div>
+
+  <div>
+    <label for="vac-state" class="mb-1 block text-sm font-medium text-slate-700">Estado</label>
+    <p-select
+      inputId="vac-state"
+      formControlName="is_active"
+      [options]="stateOptions"
+      optionLabel="label"
+      optionValue="value"
+      [fluid]="true"
+    />
+    @if (vaccine()) {
+      <p class="mt-1 text-xs text-slate-500">
+        El estado de una vacuna existente solo cambia con la baja lógica.
+      </p>
+    }
+  </div>
+
+  <div class="flex justify-end gap-2 border-t border-slate-100 pt-4">
+    <button pButton type="button" severity="secondary" outlined (click)="cancelled.emit()">
+      <span pButtonLabel>Cancelar</span>
+    </button>
+    <button pButton type="submit" [loading]="saving()">
+      <i pButtonIcon class="pi pi-check"></i>
+      <span pButtonLabel>Guardar</span>
+    </button>
+  </div>
+</form>

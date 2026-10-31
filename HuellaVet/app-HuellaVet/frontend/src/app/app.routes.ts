@@ -48,6 +48,12 @@ export const routes: Routes = [
             (m) => m.ConsultationList,
           ),
       },
+      {
+        path: 'vacunas',
+        title: 'Vacunas · HuellaVet',
+        loadComponent: () =>
+          import('./features/vaccines/vaccine-list/vaccine-list').then((m) => m.VaccineList),
+      },
     ],
   },
   { path: '**', redirectTo: 'construir' },
