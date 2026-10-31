@@ -450,7 +450,7 @@ Ya fué creado en el ISS-02
 ## 6.1 Endpoint y contrato
 
 | Operación | Método y ruta | Respuesta |
-|----|----|----|
+|------------------------|------------------------|------------------------|
 | Listar | `GET /api/citas` | `{ appointments: [...] }` |
 | Obtener una | `GET /api/citas/:id` | `{ appointment }` |
 | Crear | `POST /api/citas` | `{ appointment }` |
@@ -460,7 +460,7 @@ Ya fué creado en el ISS-02
 | Baja física | `DELETE /api/citas/:id` | `204` |
 
 | Campo | Tipo | Al crear | Al editar |
-|----|----|----|----|
+|------------------|------------------|------------------|------------------|
 | `pet_id` | número | obligatorio | opcional |
 | `veterinarian_id` | número | obligatorio | opcional |
 | `start_date`, `end_date` | texto ISO-8601 | obligatorios | opcionales |
@@ -502,3 +502,54 @@ Ya fué creado en el ISS-02
 ![](images/clipboard-163476141.png)
 
 # 7. ISS-07 · CRUD de Consultation (Consultas) Front
+
+## 7.1 Endpoint y contrato
+
+| Operación | Método y ruta | Respuesta |
+|------------------------|------------------------|------------------------|
+| Listar | `GET /api/consultas` | `{ consultations: [...] }` |
+| Obtener una | `GET /api/consultas/:id` | `{ consultation }` |
+| Crear | `POST /api/consultas` | `{ consultation }` |
+| Editar parcial | `PATCH /api/consultas/:id` | `{ consultation }` |
+| Reemplazar | `PUT /api/consultas/:id` | `{ consultation }` |
+| Baja lógica | `PATCH /api/consultas/:id/deactivate` | `{ message, consultation }` |
+| Baja física | `DELETE /api/consultas/:id` | `204` |
+
+| Campo | Tipo | Al crear | Al editar |
+|------------------|------------------|------------------|------------------|
+| `appointment_id` | número (único) | obligatorio | opcional |
+| `name` | texto | obligatorio | opcional |
+| `description` | texto o `null` | opcional | opcional |
+| `is_active` | booleano | opcional (por defecto `true`) | **no viaja**, solo `/deactivate` |
+
+## 7.2 Generar con CLI
+
+![](images/clipboard-3655965467.png)
+
+## 7.3 Servicio
+
+![](images/clipboard-3844386682.png)
+
+## 7.4 Formulario
+
+![](images/clipboard-4153465333.png)
+
+## 7.5 Lista
+
+![](images/clipboard-123913495.png)
+
+## 7.6 Ruta y menú
+
+![](images/clipboard-2389666856.png)
+
+## Pruebas
+
+![](images/clipboard-669629231.png)
+
+## Comprobación
+
+![](images/clipboard-1057092374.png)
+
+![](images/clipboard-2240600535.png)
+
+![](images/clipboard-2615044934.png)

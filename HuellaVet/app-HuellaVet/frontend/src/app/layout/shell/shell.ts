@@ -44,6 +44,7 @@ export class Shell {
     { label: 'Mascotas', icon: 'pi pi-heart', routerLink: '/mascotas' },
     { label: 'Veterinarios', icon: 'pi pi-id-card', routerLink: '/veterinarios' },
     { label: 'Citas', icon: 'pi pi-calendar', routerLink: '/citas' },
+    { label: 'Consultas', icon: 'pi pi-file', routerLink: '/consultas' },
     { label: 'Prototipo', icon: 'pi pi-desktop', routerLink: '/construir' },
   ];
 

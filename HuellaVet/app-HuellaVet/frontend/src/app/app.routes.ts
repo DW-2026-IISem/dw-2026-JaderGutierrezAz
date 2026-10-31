@@ -40,6 +40,14 @@ export const routes: Routes = [
             (m) => m.AppointmentList,
           ),
       },
+      {
+        path: 'consultas',
+        title: 'Consultas · HuellaVet',
+        loadComponent: () =>
+          import('./features/consultations/consultation-list/consultation-list').then(
+            (m) => m.ConsultationList,
+          ),
+      },
     ],
   },
   { path: '**', redirectTo: 'construir' },

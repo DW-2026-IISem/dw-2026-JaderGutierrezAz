@@ -1,0 +1,96 @@
+<form [formGroup]="form" (ngSubmit)="submit()" class="space-y-4">
+  <div>
+    <label for="cons-appointment" class="mb-1 block text-sm font-medium text-slate-700">
+      Cita <span class="text-red-500">*</span>
+    </label>
+    <p-select
+      inputId="cons-appointment"
+      formControlName="appointment_id"
+      [options]="appointmentOptions()"
+      optionLabel="label"
+      optionValue="id"
+      placeholder="Selecciona una cita sin consulta"
+      [filter]="true"
+      filterBy="label"
+      appendTo="body"
+      [fluid]="true"
+    />
+    @if (form.controls.appointment_id.touched && form.controls.appointment_id.invalid) {
+      <p-message severity="error" size="small" variant="simple" styleClass="mt-1">
+        Elige la cita a la que pertenece la consulta.
+      </p-message>
+    }
+    @if (appointmentOptions().length === 0) {
+      <p class="mt-1 text-xs text-amber-600">
+        No hay citas disponibles: todas ya tienen consulta o están canceladas. Crea una cita en
+        «Citas».
+      </p>
+    } @else {
+      <p class="mt-1 text-xs text-slate-500">Una cita tiene como máximo una consulta.</p>
+    }
+  </div>
+
+  <div>
+    <label for="cons-name" class="mb-1 block text-sm font-medium text-slate-700">
+      Nombre <span class="text-red-500">*</span>
+    </label>
+    <input
+      id="cons-name"
+      pInputText
+      formControlName="name"
+      placeholder="Consulta general, urgencia, control…"
+      class="w-full"
+    />
+    @if (form.controls.name.touched && form.controls.name.invalid) {
+      <p-message severity="error" size="small" variant="simple" styleClass="mt-1">
+        El nombre es obligatorio (máximo 255 caracteres).
+      </p-message>
+    }
+  </div>
+
+  <div>
+    <label for="cons-description" class="mb-1 block text-sm font-medium text-slate-700">
+      Descripción
+    </label>
+    <textarea
+      id="cons-description"
+      pTextarea
+      formControlName="description"
+      rows="3"
+      placeholder="Hallazgos, diagnóstico, indicaciones…"
+      class="w-full"
+    ></textarea>
+    @if (form.controls.description.touched && form.controls.description.invalid) {
+      <p-message severity="error" size="small" variant="simple" styleClass="mt-1">
+        La descripción admite como máximo 255 caracteres.
+      </p-message>
+    }
+  </div>
+
+  <div>
+    <label for="cons-state" class="mb-1 block text-sm font-medium text-slate-700">Estado</label>
+    <p-select
+      inputId="cons-state"
+      formControlName="is_active"
+      [options]="stateOptions"
+      optionLabel="label"
+      optionValue="value"
+      [fluid]="true"
+    />
+    @if (consultation()) {
+      <p class="mt-1 text-xs text-slate-500">
+        El estado de una consulta existente solo cambia con la baja lógica.
+      </p>
+    }
+  </div>
+
+  <div class="flex justify-end gap-2 border-t border-slate-100 pt-4">
+    <button pButton type="button" severity="secondary" outlined (click)="cancelled.emit()">
+      <span pButtonLabel>Cancelar</span>
+    </button>
+    <button pButton type="submit" [loading]="saving()">
+      <i pButtonIcon class="pi pi-check"></i>
+      <span pButtonLabel>Guardar</span>
+    </button>
+  </div>
+</form>
