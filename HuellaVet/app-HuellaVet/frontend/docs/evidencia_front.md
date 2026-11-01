@@ -713,6 +713,57 @@ Ya fué creado en el ISS-02
 
 ![](images/clipboard-836766052.png)
 
-# 11. ISS-11 · CRUD de  Recipe (Receta) Front
+# 11. ISS-11 · CRUD de Recipe (Receta) Front
+
+## 11.1 Endpoint y contrato
+
+| Operación      | Método y ruta                       | Respuesta             |
+|----------------|-------------------------------------|-----------------------|
+| Listar         | `GET /api/recetas`                  | `{ recipes: [...] }`  |
+| Obtener una    | `GET /api/recetas/:id`              | `{ recipe }`          |
+| Crear          | `POST /api/recetas`                 | `{ recipe }`          |
+| Editar parcial | `PATCH /api/recetas/:id`            | `{ recipe }`          |
+| Reemplazar     | `PUT /api/recetas/:id`              | `{ recipe }`          |
+| Baja lógica    | `PATCH /api/recetas/:id/deactivate` | `{ message, recipe }` |
+| Baja física    | `DELETE /api/recetas/:id`           | `204`                 |
+
+| Campo | Tipo | Al crear | Al editar |
+|----|----|----|----|
+| `consultation_id` | número | obligatorio | opcional |
+| `name` | texto | obligatorio | opcional |
+| `description` | texto o `null` | opcional | opcional |
+| `is_active` | booleano | opcional (por defecto `true`) | **no viaja**, solo `/deactivate` |
+
+## 11.2 Generar con CLI
+
+![](images/clipboard-3502423075.png)
+
+## 11.3 Servicio
+
+![](images/clipboard-3304959734.png)
+
+## 11.4 Formulario
+
+![](images/clipboard-4025523342.png)
+
+## 11.5 Lista
+
+![](images/clipboard-2083153486.png)
+
+## 11.6 Ruta y menú
+
+![](images/clipboard-3514738023.png)
+
+## Pruebas
+
+![](images/clipboard-663660273.png)
+
+## Comprobación
+
+![](images/clipboard-1082763891.png)
+
+![](images/clipboard-1182363378.png)
+
+![](images/clipboard-1854385491.png)
 
 # 12. ISS-12 · CRUD de Pay (Pagos) Front

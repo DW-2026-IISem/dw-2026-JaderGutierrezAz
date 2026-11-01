@@ -70,6 +70,12 @@ export const routes: Routes = [
             './features/vaccine-applications/vaccine-application-list/vaccine-application-list'
           ).then((m) => m.VaccineApplicationList),
       },
+      {
+        path: 'recetas',
+        title: 'Recetas · HuellaVet',
+        loadComponent: () =>
+          import('./features/recipes/recipe-list/recipe-list').then((m) => m.RecipeList),
+      },
     ],
   },
   { path: '**', redirectTo: 'construir' },
