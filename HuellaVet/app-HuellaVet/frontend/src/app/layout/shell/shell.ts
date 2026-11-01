@@ -49,6 +49,7 @@ export class Shell {
     { label: 'Lotes de vacunas', icon: 'pi pi-box', routerLink: '/lotes-vacunas' },
     { label: 'Aplicaciones de vacuna', icon: 'pi pi-check-circle', routerLink: '/aplicaciones-vacunas' },
     { label: 'Recetas', icon: 'pi pi-file-edit', routerLink: '/recetas' },
+    { label: 'Pagos', icon: 'pi pi-wallet', routerLink: '/pagos' },
     { label: 'Prototipo', icon: 'pi pi-desktop', routerLink: '/construir' },
   ];
 

@@ -767,3 +767,58 @@ Ya fué creado en el ISS-02
 ![](images/clipboard-1854385491.png)
 
 # 12. ISS-12 · CRUD de Pay (Pagos) Front
+
+## 12.1 Endpoint y contrato
+
+| Operación | Método y ruta | Respuesta |
+|:---|:---|:---|
+| Listar | `GET /api/pagos` | `{ pays: [...] }` |
+| Obtener uno | `GET /api/pagos/:id` | `{ pay }` |
+| Crear | `POST /api/pagos` | `201` `{ pay }` |
+| Editar parcial | `PATCH /api/pagos/:id` | `{ pay }` |
+| Reemplazar | `PUT /api/pagos/:id` | `{ pay }` |
+| Cancelar (baja lógica) | `PATCH /api/pagos/:id/deactivate` | `{ message, pay }` con `state: "cancelled"` |
+| Baja física | `DELETE /api/pagos/:id` | `200` `{ message, id }` |
+
+| Campo | Tipo | Al crear | Al editar |
+|:---|:---|:---|:---|
+| `reference_type` | `'appointment'` | fijo | fijo |
+| `reference_id` | número | obligatorio | opcional |
+| `method` | texto | obligatorio | opcional |
+| `amount` | número (llega como string) | obligatorio, entre 0 y 99999999.99 | opcional |
+| `date` | fecha ISO | obligatoria | opcional |
+| `state` | `pending` \| `paid` \| `cancelled` | opcional (por defecto `pending`) | solo por `PATCH`, con acción propia |
+
+## 12.2 Generar con CLI
+
+![](images/clipboard-516867457.png)
+
+## 12.3 Servicio
+
+![](images/clipboard-3090333997.png)
+
+## 12.4 Formulario
+
+![](images/clipboard-425764628.png)
+
+## 12.5 Lista
+
+![](images/clipboard-1065333818.png)
+
+## 12.6 Ruta y menú
+
+![](images/clipboard-183378590.png)
+
+![](images/clipboard-1512518384.png)
+
+## Pruebas
+
+![](images/clipboard-1872055404.png)
+
+## Comprobación
+
+![](images/clipboard-2012900586.png)
+
+![](images/clipboard-645948386.png)
+
+![](images/clipboard-4171891657.png)

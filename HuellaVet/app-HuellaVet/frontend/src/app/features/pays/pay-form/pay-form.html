@@ -1,0 +1,122 @@
+<form [formGroup]="form" (ngSubmit)="submit()" class="space-y-4">
+  <div>
+    <label for="pay-appointment" class="mb-1 block text-sm font-medium text-slate-700">
+      Cita <span class="text-red-500">*</span>
+    </label>
+    <p-select
+      inputId="pay-appointment"
+      formControlName="reference_id"
+      [options]="appointmentOptions()"
+      optionLabel="label"
+      optionValue="id"
+      placeholder="Selecciona la cita que se paga"
+      [filter]="true"
+      filterBy="label"
+      appendTo="body"
+      [fluid]="true"
+    />
+    @if (form.controls.reference_id.touched && form.controls.reference_id.invalid) {
+      <p-message severity="error" size="small" variant="simple" styleClass="mt-1">
+        Elige la cita a la que corresponde el pago.
+      </p-message>
+    }
+    @if (appointmentOptions().length === 0) {
+      <p class="mt-1 text-xs text-amber-600">
+        No hay citas disponibles. Crea una primero en «Citas».
+      </p>
+    }
+  </div>
+
+  <div class="grid gap-4 sm:grid-cols-2">
+    <div>
+      <label for="pay-method" class="mb-1 block text-sm font-medium text-slate-700">
+        Método <span class="text-red-500">*</span>
+      </label>
+      <input
+        id="pay-method"
+        pInputText
+        formControlName="method"
+        placeholder="Efectivo"
+        class="w-full"
+      />
+      @if (form.controls.method.touched && form.controls.method.invalid) {
+        <p-message severity="error" size="small" variant="simple" styleClass="mt-1">
+          El método es obligatorio (máximo 255 caracteres).
+        </p-message>
+      }
+    </div>
+
+    <div>
+      <label for="pay-amount" class="mb-1 block text-sm font-medium text-slate-700">
+        Monto <span class="text-red-500">*</span>
+      </label>
+      <p-inputnumber
+        inputId="pay-amount"
+        formControlName="amount"
+        mode="currency"
+        currency="COP"
+        locale="es-CO"
+        [min]="0"
+        [max]="99999999.99"
+        [minFractionDigits]="0"
+        [maxFractionDigits]="2"
+        [fluid]="true"
+      />
+      @if (form.controls.amount.touched && form.controls.amount.invalid) {
+        <p-message severity="error" size="small" variant="simple" styleClass="mt-1">
+          El monto es obligatorio y debe estar entre 0 y 99.999.999,99.
+        </p-message>
+      }
+    </div>
+  </div>
+
+  <div class="grid gap-4 sm:grid-cols-2">
+    <div>
+      <label for="pay-date" class="mb-1 block text-sm font-medium text-slate-700">
+        Fecha y hora <span class="text-red-500">*</span>
+      </label>
+      <p-datepicker
+        inputId="pay-date"
+        formControlName="date"
+        [showTime]="true"
+        hourFormat="24"
+        dateFormat="dd/mm/yy"
+        appendTo="body"
+        [fluid]="true"
+      />
+      @if (form.controls.date.touched && form.controls.date.invalid) {
+        <p-message severity="error" size="small" variant="simple" styleClass="mt-1">
+          La fecha del pago es obligatoria.
+        </p-message>
+      }
+    </div>
+
+    <div>
+      <label for="pay-state" class="mb-1 block text-sm font-medium text-slate-700">Estado</label>
+      <p-select
+        inputId="pay-state"
+        formControlName="state"
+        [options]="stateOptions"
+        optionLabel="label"
+        optionValue="value"
+        appendTo="body"
+        [fluid]="true"
+      />
+      @if (pay()) {
+        <p class="mt-1 text-xs text-slate-500">
+          El estado de un pago existente solo cambia con «Marcar como pagado» o con la cancelación.
+        </p>
+      }
+    </div>
+  </div>
+
+  <div class="flex justify-end gap-2 border-t border-slate-100 pt-4">
+    <button pButton type="button" severity="secondary" outlined (click)="cancelled.emit()">
+      <span pButtonLabel>Cancelar</span>
+    </button>
+    <button pButton type="submit" [loading]="saving()">
+      <i pButtonIcon class="pi pi-check"></i>
+      <span pButtonLabel>Guardar</span>
+    </button>
+  </div>
+</form>

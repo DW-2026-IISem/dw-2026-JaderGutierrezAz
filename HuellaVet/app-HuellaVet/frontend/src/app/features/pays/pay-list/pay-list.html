@@ -1,0 +1,173 @@
+<app-page-header
+  title="Pagos"
+  subtitle="Cada pago corresponde a una cita. Marcar como pagado cambia su estado; cancelar lo oculta del listado."
+>
+  <p-tag [value]="rows().length + ' pagos'" severity="info" [rounded]="true" />
+  <button pButton type="button" (click)="openCreate()">
+    <i pButtonIcon class="pi pi-plus"></i>
+    <span pButtonLabel>Nuevo pago</span>
+  </button>
+</app-page-header>
+
+@if (error()) {
+  <p-message severity="error" styleClass="mb-4 w-full">{{ error() }}</p-message>
+}
+
+<div class="rounded-xl border border-slate-200 bg-white">
+  <p-table
+    [value]="visibleRows()"
+    [loading]="loading()"
+    [paginator]="visibleRows().length > 10"
+    [rows]="10"
+    dataKey="id"
+    tableStyleClass="min-w-3xl"
+  >
+    <ng-template #caption>
+      <div class="flex items-center gap-2">
+        <i class="pi pi-search text-slate-400"></i>
+        <input
+          pInputText
+          type="search"
+          aria-label="Buscar pagos"
+          placeholder="Buscar por cita, método, monto o estado…"
+          [value]="filter()"
+          (input)="filter.set($any($event.target).value)"
+          class="w-full"
+        />
+      </div>
+      @if (filter()) {
+        <p class="mt-2 text-xs text-slate-500">
+          {{ visibleRows().length }} de {{ rows().length }} coinciden con «{{ filter() }}».
+        </p>
+      }
+    </ng-template>
+
+    <ng-template #header>
+      <tr>
+        <th>Cita</th>
+        <th pSortableColumn="method">
+          <div class="flex items-center gap-1">Método <p-sort-icon field="method" /></div>
+        </th>
+        <th pSortableColumn="amount">
+          <div class="flex items-center gap-1">Monto <p-sort-icon field="amount" /></div>
+        </th>
+        <th pSortableColumn="date">
+          <div class="flex items-center gap-1">Fecha <p-sort-icon field="date" /></div>
+        </th>
+        <th>Estado</th>
+        <th class="w-48 text-center">Acciones</th>
+      </tr>
+    </ng-template>
+
+    <ng-template #body let-pay>
+      <tr>
+        <td>
+          <p class="font-medium text-slate-800">{{ appointmentLabel()(pay.reference_id) }}</p>
+          <p class="text-xs text-slate-400">Pago #{{ pay.id }}</p>
+        </td>
+        <td class="text-sm text-slate-700">{{ pay.method }}</td>
+        <td class="text-sm font-medium text-slate-800">
+          {{ pay.amount | currency: 'COP' : 'symbol-narrow' : '1.0-2' }}
+        </td>
+        <td class="text-sm text-slate-600">{{ pay.date | date: 'dd/MM/yyyy HH:mm' }}</td>
+        <td>
+          <p-tag [value]="stateLabel(pay.state)" [severity]="stateSeverity(pay.state)" [rounded]="true" />
+        </td>
+        <td class="text-center">
+          <div class="flex justify-center gap-1">
+            <button
+              pButton
+              type="button"
+              text
+              rounded
+              severity="success"
+              aria-label="Marcar como pagado"
+              pTooltip="Marcar como pagado"
+              [disabled]="pay.state !== 'pending'"
+              (click)="markPaid(pay)"
+            >
+              <i pButtonIcon class="pi pi-check-circle"></i>
+            </button>
+            <button
+              pButton
+              type="button"
+              text
+              rounded
+              severity="secondary"
+              aria-label="Editar pago"
+              pTooltip="Editar"
+              (click)="openEdit(pay)"
+            >
+              <i pButtonIcon class="pi pi-pencil"></i>
+            </button>
+            <button
+              pButton
+              type="button"
+              text
+              rounded
+              severity="warn"
+              aria-label="Cancelar pago"
+              pTooltip="Cancelar"
+              [disabled]="pay.state === 'cancelled'"
+              (click)="deactivate(pay)"
+            >
+              <i pButtonIcon class="pi pi-ban"></i>
+            </button>
+            <button
+              pButton
+              type="button"
+              text
+              rounded
+              severity="danger"
+              aria-label="Eliminar pago"
+              pTooltip="Eliminar"
+              (click)="remove(pay)"
+            >
+              <i pButtonIcon class="pi pi-trash"></i>
+            </button>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+
+    <ng-template #emptymessage>
+      <tr>
+        <td colspan="6">
+          @if (filter()) {
+            <app-empty-state
+              icon="pi pi-search"
+              title="Sin coincidencias"
+              message="Ningún pago coincide con la búsqueda. Borra el filtro para ver todos."
+            />
+          } @else {
+            <app-empty-state
+              icon="pi pi-wallet"
+              title="Sin pagos"
+              message="Crea el primero con el botón «Nuevo pago» o ejecuta el seeder del backend."
+            />
+          }
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-dialog
+  [visible]="dialogVisible()"
+  (visibleChange)="dialogVisible.set($event)"
+  [header]="title()"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [dismissableMask]="true"
+  styleClass="w-full max-w-2xl mx-4"
+>
+  <app-pay-form
+    [pay]="editing()"
+    [appointments]="formAppointments()"
+    [saving]="saving()"
+    [resetKey]="resetKey()"
+    (saved)="save($event)"
+    (cancelled)="dialogVisible.set(false)"
+  />
+</p-dialog>

@@ -76,6 +76,12 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/recipes/recipe-list/recipe-list').then((m) => m.RecipeList),
       },
+      {
+        path: 'pagos',
+        title: 'Pagos · HuellaVet',
+        loadComponent: () =>
+          import('./features/pays/pay-list/pay-list').then((m) => m.PayList),
+      },
     ],
   },
   { path: '**', redirectTo: 'construir' },
