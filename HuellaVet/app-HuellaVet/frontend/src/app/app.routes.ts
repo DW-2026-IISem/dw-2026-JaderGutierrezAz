@@ -62,6 +62,14 @@ export const routes: Routes = [
             (m) => m.VaccineBatchList,
           ),
       },
+      {
+        path: 'aplicaciones-vacunas',
+        title: 'Aplicaciones de vacuna · HuellaVet',
+        loadComponent: () =>
+          import(
+            './features/vaccine-applications/vaccine-application-list/vaccine-application-list'
+          ).then((m) => m.VaccineApplicationList),
+      },
     ],
   },
   { path: '**', redirectTo: 'construir' },

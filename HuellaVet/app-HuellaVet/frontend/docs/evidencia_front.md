@@ -559,7 +559,7 @@ Ya fué creado en el ISS-02
 ## 8.1 Endpoint y contrato
 
 | Operación      | Método y ruta                       | Respuesta              |
-|-----------------|---------------------------------|----------------------|
+|------------------|--------------------------------|----------------------|
 | Listar         | `GET /api/vacunas`                  | `{ vaccines: [...] }`  |
 | Obtener una    | `GET /api/vacunas/:id`              | `{ vaccine }`          |
 | Crear          | `POST /api/vacunas`                 | `{ vaccine }`          |
@@ -611,7 +611,7 @@ Ya fué creado en el ISS-02
 ## 9.1 Endpoint y contrato
 
 | Operación | Método y ruta | Respuesta |
-|----|----|----|
+|------------------------|------------------------|------------------------|
 | Listar | `GET /api/lotes-vacunas` | `{ vaccineBatches: [...] }` |
 | Obtener uno | `GET /api/lotes-vacunas/:id` | `{ vaccineBatch }` |
 | Crear | `POST /api/lotes-vacunas` | `{ vaccineBatch }` |
@@ -621,7 +621,7 @@ Ya fué creado en el ISS-02
 | Baja física | `DELETE /api/lotes-vacunas/:id` | `204` |
 
 | Campo | Tipo | Al crear | Al editar |
-|----|----|----|----|
+|------------------|------------------|------------------|------------------|
 | `vaccine_id` | número | obligatorio | opcional |
 | `name` | texto | obligatorio | opcional |
 | `description` | texto o `null` | opcional | opcional |
@@ -651,10 +651,68 @@ Ya fué creado en el ISS-02
 
 ![](images/clipboard-2401925874.png)
 
-### Comprobación
+## Comprobación
 
 ![](images/clipboard-149726557.png)
 
 ![](images/clipboard-2863433942.png)
 
 ![](images/clipboard-2228693849.png)
+
+# 10. ISS-10 · CRUD de Vaccine applications (aplicaciones de vacuna) Front
+
+## 10.1 Endpoint y contrato
+
+| Operación | Método y ruta | Respuesta |
+|------------------------|------------------------|------------------------|
+| Listar | `GET /api/aplicaciones-vacunas` | `{ vaccineApplications: [...] }` |
+| Obtener una | `GET /api/aplicaciones-vacunas/:id` | `{ vaccineApplication }` |
+| Crear | `POST /api/aplicaciones-vacunas` | `{ vaccineApplication }` |
+| Editar parcial | `PATCH /api/aplicaciones-vacunas/:id` | `{ vaccineApplication }` |
+| Reemplazar | `PUT /api/aplicaciones-vacunas/:id` | `{ vaccineApplication }` |
+| Baja lógica | `PATCH /api/aplicaciones-vacunas/:id/deactivate` | `{ message, vaccineApplication }` |
+| Baja física | `DELETE /api/aplicaciones-vacunas/:id` | `204` |
+
+| Campo | Tipo | Al crear | Al editar |
+|------------------|------------------|------------------|------------------|
+| `consultation_id` | número | obligatorio | opcional |
+| `vaccine_batch_id` | número | obligatorio | opcional |
+| `name` | texto | obligatorio | opcional |
+| `description` | texto o `null` | opcional | opcional |
+| `is_active` | booleano | opcional (por defecto `true`) | **no viaja**, solo `/deactivate` |
+
+## 10.2 Generar con CLI
+
+![](images/clipboard-931898952.png)
+
+## 10.3 Servicio
+
+![](images/clipboard-3563423660.png)
+
+## 10.4 Formulario
+
+![](images/clipboard-119308445.png)
+
+## 10.5 Lista
+
+![](images/clipboard-431487085.png)
+
+## 10.6 Ruta y menú
+
+![](images/clipboard-1178334562.png)
+
+## Pruebas
+
+![](images/clipboard-3325392298.png)
+
+## Comprobación
+
+![](images/clipboard-4057999733.png)
+
+![](images/clipboard-3050207454.png)
+
+![](images/clipboard-836766052.png)
+
+# 11. ISS-11 · CRUD de  Recipe (Receta) Front
+
+# 12. ISS-12 · CRUD de Pay (Pagos) Front

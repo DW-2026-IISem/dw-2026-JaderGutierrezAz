@@ -49,7 +49,7 @@
         </th>
         <th>Descripción</th>
         <th>Estado</th>
-        <th class="w-40 text-right">Acciones</th>
+        <th class="w-40 text-center">Acciones</th>
       </tr>
     </ng-template>
 
@@ -61,8 +61,8 @@
         </td>
         <td class="text-sm text-slate-600">{{ vet.description || '—' }}</td>
         <td><app-status-tag [active]="vet.is_active" /></td>
-        <td>
-          <div class="flex justify-end gap-1">
+        <td class="text-center">
+          <div class="flex justify-center gap-1">
             <button
               pButton
               type="button"

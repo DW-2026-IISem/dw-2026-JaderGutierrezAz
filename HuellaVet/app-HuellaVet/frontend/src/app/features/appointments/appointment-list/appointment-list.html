@@ -53,7 +53,7 @@
         <th pSortableColumn="state">
           <div class="flex items-center gap-1">Estado <p-sort-icon field="state" /></div>
         </th>
-        <th class="w-48 text-right">Acciones</th>
+        <th class="w-48 text-center">Acciones</th>
       </tr>
     </ng-template>
 
@@ -75,8 +75,8 @@
         <td>
           <p-tag [value]="stateLabel(appt.state)" [severity]="stateSeverity(appt.state)" [rounded]="true" />
         </td>
-        <td>
-          <div class="flex justify-end gap-1">
+        <td class="text-center">
+          <div class="flex justify-center gap-1">
             <button
               pButton
               type="button"

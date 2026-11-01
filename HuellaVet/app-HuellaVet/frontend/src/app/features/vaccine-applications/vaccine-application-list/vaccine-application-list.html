@@ -1,0 +1,160 @@
+<app-page-header
+  title="Aplicaciones de vacuna"
+  subtitle="Vacunas aplicadas durante una consulta, con el lote utilizado. La baja lógica cambia su estado; la baja física elimina la fila."
+>
+  <p-tag [value]="rows().length + ' aplicaciones'" severity="info" [rounded]="true" />
+  <button pButton type="button" (click)="openCreate()">
+    <i pButtonIcon class="pi pi-plus"></i>
+    <span pButtonLabel>Nueva aplicación</span>
+  </button>
+</app-page-header>
+
+@if (error()) {
+  <p-message severity="error" styleClass="mb-4 w-full">{{ error() }}</p-message>
+}
+
+<div class="rounded-xl border border-slate-200 bg-white">
+  <p-table
+    [value]="visibleRows()"
+    [loading]="loading()"
+    [paginator]="visibleRows().length > 10"
+    [rows]="10"
+    dataKey="id"
+    tableStyleClass="min-w-4xl"
+  >
+    <ng-template #caption>
+      <div class="flex items-center gap-2">
+        <i class="pi pi-search text-slate-400"></i>
+        <input
+          pInputText
+          type="search"
+          aria-label="Buscar aplicaciones"
+          placeholder="Buscar por aplicación, consulta, lote o vacuna…"
+          [value]="filter()"
+          (input)="filter.set($any($event.target).value)"
+          class="w-full"
+        />
+      </div>
+      @if (filter()) {
+        <p class="mt-2 text-xs text-slate-500">
+          {{ visibleRows().length }} de {{ rows().length }} coinciden con «{{ filter() }}».
+        </p>
+      }
+    </ng-template>
+
+    <ng-template #header>
+      <tr>
+        <th pSortableColumn="name">
+          <div class="flex items-center gap-1">Aplicación <p-sort-icon field="name" /></div>
+        </th>
+        <th>Consulta</th>
+        <th>Lote</th>
+        <th>Descripción</th>
+        <th>Estado</th>
+        <th class="w-40 text-center">Acciones</th>
+      </tr>
+    </ng-template>
+
+    <ng-template #body let-application>
+      @let lote = batchInfo()(application.vaccine_batch_id);
+      <tr>
+        <td>
+          <p class="font-medium text-slate-800">{{ application.name }}</p>
+          <p class="text-xs text-slate-400">#{{ application.id }}</p>
+        </td>
+        <td>
+          <p class="text-sm text-slate-700">{{ consultationName()(application.consultation_id) }}</p>
+          <p class="text-xs text-slate-400">#{{ application.consultation_id }}</p>
+        </td>
+        <td>
+          <p class="text-sm text-slate-700">{{ lote.batch }}</p>
+          <p class="text-xs text-slate-400">{{ lote.vaccine }}</p>
+        </td>
+        <td class="text-sm text-slate-600">{{ application.description || '—' }}</td>
+        <td><app-status-tag [active]="application.is_active" /></td>
+        <td class="text-center">
+          <div class="flex justify-center gap-1">
+            <button
+              pButton
+              type="button"
+              text
+              rounded
+              severity="secondary"
+              aria-label="Editar aplicación"
+              pTooltip="Editar"
+              (click)="openEdit(application)"
+            >
+              <i pButtonIcon class="pi pi-pencil"></i>
+            </button>
+            <button
+              pButton
+              type="button"
+              text
+              rounded
+              severity="warn"
+              aria-label="Dar de baja la aplicación"
+              pTooltip="Baja lógica"
+              [disabled]="!application.is_active"
+              (click)="deactivate(application)"
+            >
+              <i pButtonIcon class="pi pi-ban"></i>
+            </button>
+            <button
+              pButton
+              type="button"
+              text
+              rounded
+              severity="danger"
+              aria-label="Eliminar aplicación"
+              pTooltip="Eliminar"
+              (click)="remove(application)"
+            >
+              <i pButtonIcon class="pi pi-trash"></i>
+            </button>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+
+    <ng-template #emptymessage>
+      <tr>
+        <td colspan="6">
+          @if (filter()) {
+            <app-empty-state
+              icon="pi pi-search"
+              title="Sin coincidencias"
+              message="Ninguna aplicación coincide con la búsqueda. Borra el filtro para ver todas."
+            />
+          } @else {
+            <app-empty-state
+              icon="pi pi-check-circle"
+              title="Sin aplicaciones"
+              message="Crea la primera con el botón «Nueva aplicación» o ejecuta el seeder del backend."
+            />
+          }
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-dialog
+  [visible]="dialogVisible()"
+  (visibleChange)="dialogVisible.set($event)"
+  [header]="title()"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [dismissableMask]="true"
+  styleClass="w-full max-w-2xl mx-4"
+>
+  <app-vaccine-application-form
+    [application]="editing()"
+    [consultationOptions]="consultationOptions()"
+    [batchOptions]="batchOptions()"
+    [saving]="saving()"
+    [resetKey]="resetKey()"
+    (saved)="save($event)"
+    (cancelled)="dialogVisible.set(false)"
+  />
+</p-dialog>

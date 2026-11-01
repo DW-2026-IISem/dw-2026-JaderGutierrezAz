@@ -1,0 +1,119 @@
+<form [formGroup]="form" (ngSubmit)="submit()" class="space-y-4">
+  <div class="grid gap-4 sm:grid-cols-2">
+    <div>
+      <label for="app-consultation" class="mb-1 block text-sm font-medium text-slate-700">
+        Consulta <span class="text-red-500">*</span>
+      </label>
+      <p-select
+        inputId="app-consultation"
+        formControlName="consultation_id"
+        [options]="consultationOptions()"
+        optionLabel="label"
+        optionValue="id"
+        placeholder="Selecciona una consulta activa"
+        [filter]="true"
+        filterBy="label"
+        appendTo="body"
+        [fluid]="true"
+      />
+      @if (form.controls.consultation_id.touched && form.controls.consultation_id.invalid) {
+        <p-message severity="error" size="small" variant="simple" styleClass="mt-1">
+          Elige la consulta.
+        </p-message>
+      }
+      @if (consultationOptions().length === 0) {
+        <p class="mt-1 text-xs text-amber-600">No hay consultas activas. Crea una primero.</p>
+      }
+    </div>
+
+    <div>
+      <label for="app-batch" class="mb-1 block text-sm font-medium text-slate-700">
+        Lote <span class="text-red-500">*</span>
+      </label>
+      <p-select
+        inputId="app-batch"
+        formControlName="vaccine_batch_id"
+        [options]="batchOptions()"
+        optionLabel="label"
+        optionValue="id"
+        placeholder="Selecciona un lote activo"
+        [filter]="true"
+        filterBy="label"
+        appendTo="body"
+        [fluid]="true"
+      />
+      @if (form.controls.vaccine_batch_id.touched && form.controls.vaccine_batch_id.invalid) {
+        <p-message severity="error" size="small" variant="simple" styleClass="mt-1">
+          Elige el lote.
+        </p-message>
+      }
+      @if (batchOptions().length === 0) {
+        <p class="mt-1 text-xs text-amber-600">No hay lotes activos. Crea uno primero.</p>
+      }
+    </div>
+  </div>
+
+  <div>
+    <label for="app-name" class="mb-1 block text-sm font-medium text-slate-700">
+      Nombre <span class="text-red-500">*</span>
+    </label>
+    <input
+      id="app-name"
+      pInputText
+      formControlName="name"
+      placeholder="Primera dosis, refuerzo anual…"
+      class="w-full"
+    />
+    @if (form.controls.name.touched && form.controls.name.invalid) {
+      <p-message severity="error" size="small" variant="simple" styleClass="mt-1">
+        El nombre es obligatorio (máximo 255 caracteres).
+      </p-message>
+    }
+  </div>
+
+  <div>
+    <label for="app-description" class="mb-1 block text-sm font-medium text-slate-700">
+      Descripción
+    </label>
+    <textarea
+      id="app-description"
+      pTextarea
+      formControlName="description"
+      rows="3"
+      placeholder="Dosis, vía de aplicación, reacciones observadas…"
+      class="w-full"
+    ></textarea>
+    @if (form.controls.description.touched && form.controls.description.invalid) {
+      <p-message severity="error" size="small" variant="simple" styleClass="mt-1">
+        La descripción admite como máximo 255 caracteres.
+      </p-message>
+    }
+  </div>
+
+  <div>
+    <label for="app-state" class="mb-1 block text-sm font-medium text-slate-700">Estado</label>
+    <p-select
+      inputId="app-state"
+      formControlName="is_active"
+      [options]="stateOptions"
+      optionLabel="label"
+      optionValue="value"
+      [fluid]="true"
+    />
+    @if (application()) {
+      <p class="mt-1 text-xs text-slate-500">
+        El estado de una aplicación existente solo cambia con la baja lógica.
+      </p>
+    }
+  </div>
+
+  <div class="flex justify-end gap-2 border-t border-slate-100 pt-4">
+    <button pButton type="button" severity="secondary" outlined (click)="cancelled.emit()">
+      <span pButtonLabel>Cancelar</span>
+    </button>
+    <button pButton type="submit" [loading]="saving()">
+      <i pButtonIcon class="pi pi-check"></i>
+      <span pButtonLabel>Guardar</span>
+    </button>
+  </div>
+</form>
