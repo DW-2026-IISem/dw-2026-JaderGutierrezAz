@@ -10,8 +10,14 @@ export const routes: Routes = [
     path: '',
     loadComponent: () => import('./layout/shell/shell').then((m) => m.Shell),
     children: [
-      // La primera pantalla de negocio es la redirección por defecto.
-      { path: '', pathMatch: 'full', redirectTo: 'propietarios' },
+      // La entrada por defecto es el panel.
+      { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
+      {
+        path: 'dashboard',
+        title: 'Panel · HuellaVet',
+        loadComponent: () =>
+          import('./features/dashboard/dashboard').then((m) => m.Dashboard),
+      },
       {
         path: 'propietarios',
         title: 'Propietarios · HuellaVet',

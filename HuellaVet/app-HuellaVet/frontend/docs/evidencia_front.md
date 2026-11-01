@@ -822,3 +822,44 @@ Ya fué creado en el ISS-02
 ![](images/clipboard-645948386.png)
 
 ![](images/clipboard-4171891657.png)
+
+# 13. ISS-13 · dashboard y cierre de Fase I
+
+## 13.1 Endpoints y contrato
+
+| Dato         | Endpoint                | Clave           |
+|:-------------|:------------------------|:----------------|
+| Propietarios | `GET /api/propietarios` | `owners`        |
+| Mascotas     | `GET /api/mascotas`     | `pets`          |
+| Veterinarios | `GET /api/veterinarios` | `veterinarians` |
+| Citas        | `GET /api/citas`        | `appointments`  |
+| Consultas    | `GET /api/consultas`    | `consultations` |
+| Pagos        | `GET /api/pagos`        | `pays`          |
+
+## 13.2 Crear el componente Dashboard 
+
+![](images/clipboard-693396300.png)
+
+## 13.3 Dashboard: cuatro peticiones en paralelo
+
+![](images/clipboard-3865331083.png)
+
+## 13.4 Tarjetas del dashboard
+
+![](images/clipboard-3782981628.png)
+
+## Prueba del dashboard
+
+![](images/clipboard-3132015143.png)
+
+## 13.8 Rutas y menú
+
+![](images/clipboard-2895094067.png)
+
+![](images/clipboard-266610618.png)
+
+## Comprobación de cierre de Fase I
+
+![](images/clipboard-1245154881.png)
+
+![](images/clipboard-220073369.png)

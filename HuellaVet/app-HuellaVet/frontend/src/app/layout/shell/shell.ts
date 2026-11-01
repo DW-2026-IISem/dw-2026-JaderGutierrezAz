@@ -40,6 +40,7 @@ export class Shell {
    * (`Propietarios` en ISS-03, y así con las demás).
    */
   readonly items: MenuItem[] = [
+    { label: 'Panel', icon: 'pi pi-chart-bar', routerLink: '/dashboard' },
     { label: 'Propietarios', icon: 'pi pi-users', routerLink: '/propietarios' },
     { label: 'Mascotas', icon: 'pi pi-heart', routerLink: '/mascotas' },
     { label: 'Veterinarios', icon: 'pi pi-id-card', routerLink: '/veterinarios' },
