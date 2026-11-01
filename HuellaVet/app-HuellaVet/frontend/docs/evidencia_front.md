@@ -559,7 +559,7 @@ Ya fué creado en el ISS-02
 ## 8.1 Endpoint y contrato
 
 | Operación      | Método y ruta                       | Respuesta              |
-|----------------|-------------------------------------|------------------------|
+|-----------------|---------------------------------|----------------------|
 | Listar         | `GET /api/vacunas`                  | `{ vaccines: [...] }`  |
 | Obtener una    | `GET /api/vacunas/:id`              | `{ vaccine }`          |
 | Crear          | `POST /api/vacunas`                 | `{ vaccine }`          |
@@ -569,7 +569,7 @@ Ya fué creado en el ISS-02
 | Baja física    | `DELETE /api/vacunas/:id`           | `204`                  |
 
 | Campo | Tipo | Al crear | Al editar |
-|----|----|----|----|
+|------------------|------------------|------------------|------------------|
 | `name` | texto | obligatorio | opcional |
 | `description` | texto o `null` | opcional | opcional |
 | `is_active` | booleano | opcional (por defecto `true`) | **no viaja**, solo `/deactivate` |
@@ -607,3 +607,54 @@ Ya fué creado en el ISS-02
 ![](images/clipboard-1699380555.png)
 
 # 9. ISS-09 · CRUD de Vaccine Batch (Lote de Vacunas) Front
+
+## 9.1 Endpoint y contrato
+
+| Operación | Método y ruta | Respuesta |
+|----|----|----|
+| Listar | `GET /api/lotes-vacunas` | `{ vaccineBatches: [...] }` |
+| Obtener uno | `GET /api/lotes-vacunas/:id` | `{ vaccineBatch }` |
+| Crear | `POST /api/lotes-vacunas` | `{ vaccineBatch }` |
+| Editar parcial | `PATCH /api/lotes-vacunas/:id` | `{ vaccineBatch }` |
+| Reemplazar | `PUT /api/lotes-vacunas/:id` | `{ vaccineBatch }` |
+| Baja lógica | `PATCH /api/lotes-vacunas/:id/deactivate` | `{ message, vaccineBatch }` |
+| Baja física | `DELETE /api/lotes-vacunas/:id` | `204` |
+
+| Campo | Tipo | Al crear | Al editar |
+|----|----|----|----|
+| `vaccine_id` | número | obligatorio | opcional |
+| `name` | texto | obligatorio | opcional |
+| `description` | texto o `null` | opcional | opcional |
+| `is_active` | booleano | opcional (por defecto `true`) | **no viaja**, solo `/deactivate` |
+
+## 9.2 Generar con CLI
+
+![](images/clipboard-3628231879.png)
+
+## 9.3 Servicio
+
+![](images/clipboard-1866300264.png)
+
+## 9.4 Formulario
+
+![](images/clipboard-1525162610.png)
+
+## 9.5 Lista
+
+![](images/clipboard-2582618935.png)
+
+## 9.6 Ruta y menú
+
+![](images/clipboard-3145062484.png)
+
+## Pruebas
+
+![](images/clipboard-2401925874.png)
+
+### Comprobación
+
+![](images/clipboard-149726557.png)
+
+![](images/clipboard-2863433942.png)
+
+![](images/clipboard-2228693849.png)

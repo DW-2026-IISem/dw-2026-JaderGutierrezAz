@@ -54,6 +54,14 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/vaccines/vaccine-list/vaccine-list').then((m) => m.VaccineList),
       },
+      {
+        path: 'lotes-vacunas',
+        title: 'Lotes de vacunas · HuellaVet',
+        loadComponent: () =>
+          import('./features/vaccine-batches/vaccine-batch-list/vaccine-batch-list').then(
+            (m) => m.VaccineBatchList,
+          ),
+      },
     ],
   },
   { path: '**', redirectTo: 'construir' },
