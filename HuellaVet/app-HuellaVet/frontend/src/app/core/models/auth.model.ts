@@ -31,12 +31,12 @@ export interface EffectivePermission {
   role_name: string;
 }
 
-/** GET /api/permisos · GET /api/usuarios/:id/permisos */
+/** GET /api/permisos */
 export interface PermissionsPayload {
   permissions: EffectivePermission[];
 }
 
-/** Estado compuesto que mantendrá SessionStore (ISS-08). */
+/** Estado compuesto que mantiene SessionStore. */
 export interface AccessPayload {
   user: User;
   permissions: EffectivePermission[];

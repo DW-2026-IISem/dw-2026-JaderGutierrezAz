@@ -1,5 +1,13 @@
 <div class="flex min-h-screen flex-col bg-slate-100">
-  <app-header (menuRequested)="onMenuToggle()" />
+  <app-header
+    [showSession]="true"
+    [username]="username()"
+    [initials]="initials()"
+    [roleLabel]="roleLabel()"
+    [authEnabled]="authEnabled"
+    [userItems]="userItems"
+    (menuRequested)="onMenuToggle()"
+  />
 
   <div class="flex flex-1">
     <!--
@@ -8,7 +16,15 @@
     -->
     @if (!sidebarCollapsed()) {
       <aside class="hidden w-72 shrink-0 lg:block">
-        <app-aside [items]="items" (navigated)="mobileOpen.set(false)" />
+        <app-aside
+          [items]="items"
+          [showSession]="true"
+          [username]="username()"
+          [roleLabel]="roleLabel()"
+          [permissionCount]="permissionCount()"
+          (navigated)="mobileOpen.set(false)"
+          (logoutRequested)="logout()"
+        />
       </aside>
     }
 
@@ -24,7 +40,15 @@
 
 <!-- Móvil: el mismo Aside, otra disposición. -->
 <p-drawer [(visible)]="mobileOpen" header="Menú" position="left" styleClass="w-72">
-  <app-aside [items]="items" (navigated)="mobileOpen.set(false)" />
+  <app-aside
+    [items]="items"
+    [showSession]="true"
+    [username]="username()"
+    [roleLabel]="roleLabel()"
+    [permissionCount]="permissionCount()"
+    (navigated)="mobileOpen.set(false)"
+    (logoutRequested)="logout()"
+  />
 </p-drawer>
 
 <!-- Anfitriones de los avisos y confirmaciones del CRUD (desde ISS-03). -->

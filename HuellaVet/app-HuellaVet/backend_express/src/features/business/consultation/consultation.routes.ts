@@ -9,34 +9,34 @@ export class ConsultationRoutes {
   public routes(app: Application): void {
     app
       .route("/api/consultas")
-      .get(this.consultationController.getAll.bind(this.consultationController));
+      .get(authenticate, authorize, this.consultationController.getAll.bind(this.consultationController));
 
     app
       .route("/api/consultas/:id")
-      .get(this.consultationController.getOne.bind(this.consultationController));
+      .get(authenticate, authorize, this.consultationController.getOne.bind(this.consultationController));
 
     app
       .route("/api/consultas")
-      .post(this.consultationController.create.bind(this.consultationController));
+      .post(authenticate, authorize, this.consultationController.create.bind(this.consultationController));
 
     app
       .route("/api/consultas/:id")
-      .put(
+      .put(authenticate, authorize,
         this.consultationController.updatePut.bind(this.consultationController)
       )
-      .patch(
+      .patch(authenticate, authorize,
         this.consultationController.updatePatch.bind(this.consultationController)
       );
 
     app
       .route("/api/consultas/:id")
-      .delete(
+      .delete(authenticate, authorize,
         this.consultationController.deletePhysical.bind(this.consultationController)
       );
 
     app
       .route("/api/consultas/:id/deactivate")
-      .patch(
+      .patch(authenticate, authorize,
         this.consultationController.deleteLogical.bind(this.consultationController)
       );
   }

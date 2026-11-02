@@ -9,34 +9,34 @@ export class VaccineBatchRoutes {
   public routes(app: Application): void {
     app
       .route("/api/lotes-vacunas")
-      .get(this.vaccineBatchController.getAll.bind(this.vaccineBatchController));
+      .get(authenticate, authorize, this.vaccineBatchController.getAll.bind(this.vaccineBatchController));
 
     app
       .route("/api/lotes-vacunas/:id")
-      .get(this.vaccineBatchController.getOne.bind(this.vaccineBatchController));
+      .get(authenticate, authorize, this.vaccineBatchController.getOne.bind(this.vaccineBatchController));
 
     app
       .route("/api/lotes-vacunas")
-      .post(this.vaccineBatchController.create.bind(this.vaccineBatchController));
+      .post(authenticate, authorize, this.vaccineBatchController.create.bind(this.vaccineBatchController));
 
     app
       .route("/api/lotes-vacunas/:id")
-      .put(
+      .put(authenticate, authorize,
         this.vaccineBatchController.updatePut.bind(this.vaccineBatchController)
       )
-      .patch(
+      .patch(authenticate, authorize,
         this.vaccineBatchController.updatePatch.bind(this.vaccineBatchController)
       );
 
     app
       .route("/api/lotes-vacunas/:id")
-      .delete(
+      .delete(authenticate, authorize,
         this.vaccineBatchController.deletePhysical.bind(this.vaccineBatchController)
       );
 
     app
       .route("/api/lotes-vacunas/:id/deactivate")
-      .patch(
+      .patch(authenticate, authorize,
         this.vaccineBatchController.deleteLogical.bind(this.vaccineBatchController)
       );
   }

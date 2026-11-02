@@ -9,27 +9,27 @@ export class RecipeRoutes {
   public routes(app: Application): void {
     app
       .route("/api/recetas")
-      .get(this.recipeController.getAll.bind(this.recipeController));
+      .get(authenticate, authorize, this.recipeController.getAll.bind(this.recipeController));
 
     app
       .route("/api/recetas/:id")
-      .get(this.recipeController.getOne.bind(this.recipeController));
+      .get(authenticate, authorize, this.recipeController.getOne.bind(this.recipeController));
 
     app
       .route("/api/recetas")
-      .post(this.recipeController.create.bind(this.recipeController));
+      .post(authenticate, authorize, this.recipeController.create.bind(this.recipeController));
 
     app
       .route("/api/recetas/:id")
-      .put(this.recipeController.updatePut.bind(this.recipeController))
-      .patch(this.recipeController.updatePatch.bind(this.recipeController));
+      .put(authenticate, authorize, this.recipeController.updatePut.bind(this.recipeController))
+      .patch(authenticate, authorize, this.recipeController.updatePatch.bind(this.recipeController));
 
     app
       .route("/api/recetas/:id")
-      .delete(this.recipeController.deletePhysical.bind(this.recipeController));
+      .delete(authenticate, authorize, this.recipeController.deletePhysical.bind(this.recipeController));
 
     app
       .route("/api/recetas/:id/deactivate")
-      .patch(this.recipeController.deleteLogical.bind(this.recipeController));
+      .patch(authenticate, authorize, this.recipeController.deleteLogical.bind(this.recipeController));
   }
 }

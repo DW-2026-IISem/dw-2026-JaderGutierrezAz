@@ -27,6 +27,7 @@ export class Header {
   readonly initials = input('IN');
   readonly roleLabel = input('Sin rol');
   readonly showSession = input(false);
+  readonly authEnabled = input(false);
   readonly userItems = input<MenuItem[]>([]);
 
   /** Aviso al padre: el botón de menú se pulsó. */

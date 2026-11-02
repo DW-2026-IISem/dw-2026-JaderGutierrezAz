@@ -1,0 +1,81 @@
+<app-page-header title="Mi sesión" subtitle="Usuario, roles y permisos efectivos devueltos por la API.">
+  <button pButton type="button" severity="secondary" outlined [loading]="refreshing()" (click)="refresh()">
+    <i pButtonIcon class="pi pi-refresh"></i>
+    <span pButtonLabel>Actualizar permisos</span>
+  </button>
+  <button pButton type="button" severity="danger" (click)="logout()">
+    <i pButtonIcon class="pi pi-sign-out"></i>
+    <span pButtonLabel>Cerrar sesión</span>
+  </button>
+</app-page-header>
+
+<p-card>
+  @if (user(); as u) {
+    <dl class="grid gap-4 text-sm sm:grid-cols-2">
+      <div>
+        <dt class="text-slate-500">Usuario</dt>
+        <dd class="font-medium text-slate-800">{{ u.username }}</dd>
+      </div>
+      <div>
+        <dt class="text-slate-500">Correo</dt>
+        <dd class="font-medium text-slate-800">{{ u.email }}</dd>
+      </div>
+      <div>
+        <dt class="text-slate-500">Roles</dt>
+        <dd class="mt-1 flex flex-wrap gap-2">
+          @for (role of roleNames(); track role) {
+            <p-tag [value]="role" severity="info" [rounded]="true" />
+          } @empty {
+            <span class="text-slate-500">Sin rol asignado</span>
+          }
+        </dd>
+      </div>
+      <div>
+        <dt class="text-slate-500">Permisos efectivos</dt>
+        <dd class="font-medium text-slate-800">{{ permissionCount() }}</dd>
+      </div>
+    </dl>
+  } @else {
+    <p class="text-sm text-slate-500">No hay una sesión cargada.</p>
+  }
+</p-card>
+
+<div class="mt-6 rounded-xl border border-slate-200 bg-white">
+  <p-table
+    [value]="permissions()"
+    [paginator]="permissions().length > 10"
+    [rows]="10"
+    dataKey="resource_id"
+    tableStyleClass="min-w-3xl"
+  >
+    <ng-template #header>
+      <tr>
+        <th>Método</th>
+        <th>Ruta</th>
+        <th>Descripción</th>
+        <th>Rol</th>
+      </tr>
+    </ng-template>
+    <ng-template #body let-permission>
+      <tr>
+        <td>
+          <p-tag
+            [value]="permission.method"
+            [severity]="methodSeverity(permission.method)"
+            [rounded]="true"
+          />
+        </td>
+        <td><code class="text-xs">{{ permission.path }}</code></td>
+        <td class="text-sm text-slate-600">{{ permission.description || '—' }}</td>
+        <td class="text-sm text-slate-600">{{ permission.role_name }}</td>
+      </tr>
+    </ng-template>
+    <ng-template #emptymessage>
+      <tr>
+        <td colspan="4" class="text-center text-sm text-slate-500">
+          Esta sesión no tiene permisos efectivos.
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

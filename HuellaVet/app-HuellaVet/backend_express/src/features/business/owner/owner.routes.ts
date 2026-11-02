@@ -9,27 +9,27 @@ export class OwnerRoutes {
   public routes(app: Application): void {
     app
       .route("/api/propietarios")
-      .get(this.ownerController.getAll.bind(this.ownerController));
+      .get(authenticate, authorize, this.ownerController.getAll.bind(this.ownerController));
 
     app
       .route("/api/propietarios/:id")
-      .get(this.ownerController.getOne.bind(this.ownerController));
+      .get(authenticate, authorize, this.ownerController.getOne.bind(this.ownerController));
 
     app
       .route("/api/propietarios")
-      .post(this.ownerController.create.bind(this.ownerController));
+      .post(authenticate, authorize, this.ownerController.create.bind(this.ownerController));
 
     app
       .route("/api/propietarios/:id")
-      .put(this.ownerController.updatePut.bind(this.ownerController))
-      .patch(this.ownerController.updatePatch.bind(this.ownerController));
+      .put(authenticate, authorize, this.ownerController.updatePut.bind(this.ownerController))
+      .patch(authenticate, authorize, this.ownerController.updatePatch.bind(this.ownerController));
 
     app
       .route("/api/propietarios/:id")
-      .delete(this.ownerController.deletePhysical.bind(this.ownerController));
+      .delete(authenticate, authorize, this.ownerController.deletePhysical.bind(this.ownerController));
 
     app
       .route("/api/propietarios/:id/deactivate")
-      .patch(this.ownerController.deleteLogical.bind(this.ownerController));
+      .patch(authenticate, authorize, this.ownerController.deleteLogical.bind(this.ownerController));
   }
 }

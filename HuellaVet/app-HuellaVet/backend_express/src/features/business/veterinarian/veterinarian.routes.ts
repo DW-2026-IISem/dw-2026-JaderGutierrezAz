@@ -9,34 +9,34 @@ export class VeterinarianRoutes {
   public routes(app: Application): void {
     app
       .route("/api/veterinarios")
-      .get(this.veterinarianController.getAll.bind(this.veterinarianController));
+      .get(authenticate, authorize, this.veterinarianController.getAll.bind(this.veterinarianController));
 
     app
       .route("/api/veterinarios/:id")
-      .get(this.veterinarianController.getOne.bind(this.veterinarianController));
+      .get(authenticate, authorize, this.veterinarianController.getOne.bind(this.veterinarianController));
 
     app
       .route("/api/veterinarios")
-      .post(this.veterinarianController.create.bind(this.veterinarianController));
+      .post(authenticate, authorize, this.veterinarianController.create.bind(this.veterinarianController));
 
     app
       .route("/api/veterinarios/:id")
-      .put(
+      .put(authenticate, authorize,
         this.veterinarianController.updatePut.bind(this.veterinarianController)
       )
-      .patch(
+      .patch(authenticate, authorize,
         this.veterinarianController.updatePatch.bind(this.veterinarianController)
       );
 
     app
       .route("/api/veterinarios/:id")
-      .delete(
+      .delete(authenticate, authorize,
         this.veterinarianController.deletePhysical.bind(this.veterinarianController)
       );
 
     app
       .route("/api/veterinarios/:id/deactivate")
-      .patch(
+      .patch(authenticate, authorize,
         this.veterinarianController.deleteLogical.bind(this.veterinarianController)
       );
   }

@@ -1,4 +1,4 @@
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
 import {
   provideRouter,
@@ -11,6 +11,8 @@ import Aura from '@primeuix/themes/aura';
 import { environment } from '../environments/environment';
 
 import { routes } from './app.routes';
+import { authInterceptor } from './core/interceptors/auth-interceptor';
+import { errorInterceptor } from './core/interceptors/error-interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -24,7 +26,8 @@ export const appConfig: ApplicationConfig = {
 
     // Habilita HttpClient en los servicios `*Api`. Sin interceptores de sesión:
     // el authInterceptor llega en ISS-08.
-    provideHttpClient(),
+    // El orden importa: auth añade el Bearer y reintenta; error traduce fallos.
+    provideHttpClient(withInterceptors([authInterceptor, errorInterceptor])),
 
     // PrimeNG 22: tema Aura. El modo oscuro se activa con la clase .app-dark.
     providePrimeNG({

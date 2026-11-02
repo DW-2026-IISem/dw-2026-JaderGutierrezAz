@@ -9,32 +9,32 @@ export class AppointmentRoutes {
   public routes(app: Application): void {
     app
       .route("/api/citas")
-      .get(this.appointmentController.getAll.bind(this.appointmentController));
+      .get(authenticate, authorize, this.appointmentController.getAll.bind(this.appointmentController));
 
     app
       .route("/api/citas/:id")
-      .get(this.appointmentController.getOne.bind(this.appointmentController));
+      .get(authenticate, authorize, this.appointmentController.getOne.bind(this.appointmentController));
 
     app
       .route("/api/citas")
-      .post(this.appointmentController.create.bind(this.appointmentController));
+      .post(authenticate, authorize, this.appointmentController.create.bind(this.appointmentController));
 
     app
       .route("/api/citas/:id")
-      .put(this.appointmentController.updatePut.bind(this.appointmentController))
-      .patch(
+      .put(authenticate, authorize, this.appointmentController.updatePut.bind(this.appointmentController))
+      .patch(authenticate, authorize,
         this.appointmentController.updatePatch.bind(this.appointmentController)
       );
 
     app
       .route("/api/citas/:id")
-      .delete(
+      .delete(authenticate, authorize,
         this.appointmentController.deletePhysical.bind(this.appointmentController)
       );
 
     app
       .route("/api/citas/:id/deactivate")
-      .patch(
+      .patch(authenticate, authorize,
         this.appointmentController.deleteLogical.bind(this.appointmentController)
       );
   }

@@ -718,7 +718,7 @@ Ya fué creado en el ISS-02
 ## 11.1 Endpoint y contrato
 
 | Operación      | Método y ruta                       | Respuesta             |
-|----------------|-------------------------------------|-----------------------|
+|------------------|----------------------------------|---------------------|
 | Listar         | `GET /api/recetas`                  | `{ recipes: [...] }`  |
 | Obtener una    | `GET /api/recetas/:id`              | `{ recipe }`          |
 | Crear          | `POST /api/recetas`                 | `{ recipe }`          |
@@ -728,7 +728,7 @@ Ya fué creado en el ISS-02
 | Baja física    | `DELETE /api/recetas/:id`           | `204`                 |
 
 | Campo | Tipo | Al crear | Al editar |
-|----|----|----|----|
+|------------------|------------------|------------------|------------------|
 | `consultation_id` | número | obligatorio | opcional |
 | `name` | texto | obligatorio | opcional |
 | `description` | texto o `null` | opcional | opcional |
@@ -771,7 +771,7 @@ Ya fué creado en el ISS-02
 ## 12.1 Endpoint y contrato
 
 | Operación | Método y ruta | Respuesta |
-|:---|:---|:---|
+|:-----------------------|:-----------------------|:-----------------------|
 | Listar | `GET /api/pagos` | `{ pays: [...] }` |
 | Obtener uno | `GET /api/pagos/:id` | `{ pay }` |
 | Crear | `POST /api/pagos` | `201` `{ pay }` |
@@ -781,7 +781,7 @@ Ya fué creado en el ISS-02
 | Baja física | `DELETE /api/pagos/:id` | `200` `{ message, id }` |
 
 | Campo | Tipo | Al crear | Al editar |
-|:---|:---|:---|:---|
+|:-----------------|:-----------------|:-----------------|:-----------------|
 | `reference_type` | `'appointment'` | fijo | fijo |
 | `reference_id` | número | obligatorio | opcional |
 | `method` | texto | obligatorio | opcional |
@@ -836,7 +836,7 @@ Ya fué creado en el ISS-02
 | Consultas    | `GET /api/consultas`    | `consultations` |
 | Pagos        | `GET /api/pagos`        | `pays`          |
 
-## 13.2 Crear el componente Dashboard 
+## 13.2 Crear el componente Dashboard
 
 ![](images/clipboard-693396300.png)
 
@@ -863,3 +863,83 @@ Ya fué creado en el ISS-02
 ![](images/clipboard-1245154881.png)
 
 ![](images/clipboard-220073369.png)
+
+# 14. Fase II: Auth con RBAC — ISS-14 — Autenticación JWT, perfil y permisos efectivos
+
+## 8.1 El contrato real
+
+| Endpoint | Modalidad | Respuesta |
+|:---|:---|:---|
+| `POST /api/sesion/login` | OPEN | `{ access_token, token_type, expires_in: 900, refresh_token, refresh_expires_in: 604799 }` |
+| `GET /api/sesion/perfil` | JWT | `{ user: { id, username, email, avatar, status } }` |
+| `GET /api/permisos` | JWT | `{ permissions: [{ resource_id, method, path, description, role_id, role_name }] }` |
+| `POST /api/sesion/refresh` | OPEN (refresh en el cuerpo) | tokens rotados |
+| `POST /api/sesion/logout` | OPEN (refresh en el cuerpo) | `{ message }` |
+
+## 8.2 Activar Fase II
+
+![](images/clipboard-2675813193.png)
+
+![](images/clipboard-2173519675.png)
+
+## 8.3 Modelos de sesión
+
+![](images/clipboard-1807970694.png)
+
+![](images/clipboard-1497260602.png)
+
+## 8.3A Generar interceptores funcionales
+
+![](images/clipboard-3384679686.png)
+
+## 8.4 HttpClient e interceptores
+
+![](images/clipboard-3625353559.png)
+
+## 8.5 `SessionStore`
+
+![](images/clipboard-3650597295.png)
+
+## 8.6 `AuthService`
+
+![](images/clipboard-1663106816.png)
+
+## 8.7 Interceptores
+
+![](images/clipboard-1243832448.png)
+
+![](images/clipboard-3114349706.png)
+
+## 8.8 Login
+
+![](images/clipboard-4186062155.png)
+
+![](images/clipboard-2730714759.png)
+
+## 8.9 Perfil y acceso denegado
+
+![](images/clipboard-76207741.png)
+
+## 8.10 Rutas de Fase II
+
+![](images/clipboard-1059199057.png)
+
+![](images/clipboard-2951940505.png)
+
+## Pruebas
+
+![](images/clipboard-18497525.png)
+
+## Comprobación
+
+![](images/clipboard-1728482695.png)
+
+![](images/clipboard-2450922208.png)
+
+![](images/clipboard-2894249097.png)
+
+![](images/clipboard-1530906534.png)
+
+![](images/clipboard-4024295172.png)
+
+![](images/clipboard-3072960151.png)

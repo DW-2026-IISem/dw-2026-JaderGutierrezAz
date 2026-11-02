@@ -9,27 +9,27 @@ export class PetRoutes {
   public routes(app: Application): void {
     app
       .route("/api/mascotas")
-      .get(this.petController.getAll.bind(this.petController));
+      .get(authenticate, authorize, this.petController.getAll.bind(this.petController));
 
     app
       .route("/api/mascotas/:id")
-      .get(this.petController.getOne.bind(this.petController));
+      .get(authenticate, authorize, this.petController.getOne.bind(this.petController));
 
     app
       .route("/api/mascotas")
-      .post(this.petController.create.bind(this.petController));
+      .post(authenticate, authorize, this.petController.create.bind(this.petController));
 
     app
       .route("/api/mascotas/:id")
-      .put(this.petController.updatePut.bind(this.petController))
-      .patch(this.petController.updatePatch.bind(this.petController));
+      .put(authenticate, authorize, this.petController.updatePut.bind(this.petController))
+      .patch(authenticate, authorize, this.petController.updatePatch.bind(this.petController));
 
     app
       .route("/api/mascotas/:id")
-      .delete(this.petController.deletePhysical.bind(this.petController));
+      .delete(authenticate, authorize, this.petController.deletePhysical.bind(this.petController));
 
     app
       .route("/api/mascotas/:id/deactivate")
-      .patch(this.petController.deleteLogical.bind(this.petController));
+      .patch(authenticate, authorize, this.petController.deleteLogical.bind(this.petController));
   }
 }

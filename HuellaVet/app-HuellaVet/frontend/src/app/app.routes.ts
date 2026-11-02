@@ -1,4 +1,6 @@
 import { Routes } from '@angular/router';
+import { authGuard } from './core/guards/auth-guard';
+import { guestGuard } from './core/guards/guest-guard';
 
 export const routes: Routes = [
   {
@@ -7,7 +9,14 @@ export const routes: Routes = [
       import('./features/construir/construir').then((m) => m.Construir),
   },
   {
+    path: 'login',
+    title: 'Iniciar sesión · HuellaVet',
+    canActivate: [guestGuard],
+    loadComponent: () => import('./features/auth/login/login').then((m) => m.Login),
+  },
+  {
     path: '',
+    canActivate: [authGuard],
     loadComponent: () => import('./layout/shell/shell').then((m) => m.Shell),
     children: [
       // La entrada por defecto es el panel.
@@ -87,6 +96,19 @@ export const routes: Routes = [
         title: 'Pagos · HuellaVet',
         loadComponent: () =>
           import('./features/pays/pay-list/pay-list').then((m) => m.PayList),
+      },
+      // Sesión: todo usuario autenticado debe poder verla (sin permissionGuard).
+      {
+        path: 'perfil',
+        title: 'Mi sesión · HuellaVet',
+        loadComponent: () =>
+          import('./features/auth/profile/profile').then((m) => m.Profile),
+      },
+      {
+        path: 'forbidden',
+        title: 'Acceso denegado · HuellaVet',
+        loadComponent: () =>
+          import('./features/auth/forbidden/forbidden').then((m) => m.Forbidden),
       },
     ],
   },

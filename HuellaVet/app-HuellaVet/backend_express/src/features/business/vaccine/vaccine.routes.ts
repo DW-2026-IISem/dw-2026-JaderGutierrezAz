@@ -9,27 +9,27 @@ export class VaccineRoutes {
   public routes(app: Application): void {
     app
       .route("/api/vacunas")
-      .get(this.vaccineController.getAll.bind(this.vaccineController));
+      .get(authenticate, authorize, this.vaccineController.getAll.bind(this.vaccineController));
 
     app
       .route("/api/vacunas/:id")
-      .get(this.vaccineController.getOne.bind(this.vaccineController));
+      .get(authenticate, authorize, this.vaccineController.getOne.bind(this.vaccineController));
 
     app
       .route("/api/vacunas")
-      .post(this.vaccineController.create.bind(this.vaccineController));
+      .post(authenticate, authorize, this.vaccineController.create.bind(this.vaccineController));
 
     app
       .route("/api/vacunas/:id")
-      .put(this.vaccineController.updatePut.bind(this.vaccineController))
-      .patch(this.vaccineController.updatePatch.bind(this.vaccineController));
+      .put(authenticate, authorize, this.vaccineController.updatePut.bind(this.vaccineController))
+      .patch(authenticate, authorize, this.vaccineController.updatePatch.bind(this.vaccineController));
 
     app
       .route("/api/vacunas/:id")
-      .delete(this.vaccineController.deletePhysical.bind(this.vaccineController));
+      .delete(authenticate, authorize, this.vaccineController.deletePhysical.bind(this.vaccineController));
 
     app
       .route("/api/vacunas/:id/deactivate")
-      .patch(this.vaccineController.deleteLogical.bind(this.vaccineController));
+      .patch(authenticate, authorize, this.vaccineController.deleteLogical.bind(this.vaccineController));
   }
 }
