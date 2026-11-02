@@ -12,6 +12,7 @@ import { watchMediaQuery } from '../../core/utils/media-query';
 import { Aside } from '../aside/aside';
 import { Footer } from '../footer/footer';
 import { Header } from '../header/header';
+import { NAV, visibleNav } from './nav.config';
 
 /**
  * Layout persistente de la aplicación.
@@ -20,8 +21,8 @@ import { Header } from '../header/header';
  * central cambia con `<router-outlet />`. Reutilizar el layout evita remontar el
  * menú (y perder el scroll o el foco) al navegar.
  *
- * Desde ISS-08 el Shell conoce la sesión: le pasa a Header y Aside los datos ya
- * calculados. Ellos siguen siendo presentación pura y avisan con `output()`.
+ * El Shell conoce la sesión: le pasa a Header y Aside los datos ya calculados.
+ * Ellos siguen siendo presentación pura y avisan con `output()`.
  */
 @Component({
   host: { class: 'block' },
@@ -52,6 +53,15 @@ export class Shell {
   readonly initials = computed(() => this.username().slice(0, 2).toUpperCase() || 'IN');
   readonly roleLabel = computed(() => this.session.roleNames().join(', ') || 'Sin rol');
 
+  /**
+   * Menú visible según los permisos efectivos. `canPermission` lee el signal
+   * `permissions()`, así que este `computed` se recalcula solo cuando cambian
+   * (por ejemplo tras «Actualizar permisos»), sin recargar la página.
+   */
+  readonly navGroups = computed<MenuItem[]>(() =>
+    visibleNav(NAV, this.session.authEnabled, (permission) => this.session.canPermission(permission)),
+  );
+
   /** Menú del avatar: sesión, sincronizar permisos y salir. */
   readonly userItems: MenuItem[] = [
     { label: 'Mi sesión', icon: 'pi pi-user', routerLink: '/perfil' },
@@ -62,29 +72,6 @@ export class Shell {
     },
     { separator: true },
     { label: 'Cerrar sesión', icon: 'pi pi-sign-out', command: () => this.logout() },
-  ];
-
-  /**
-   * Menú de esta etapa: todas las entradas de negocio, sin filtrar.
-   * El filtrado por permisos llega en ISS-09.
-   */
-  readonly items: MenuItem[] = [
-    { label: 'Panel', icon: 'pi pi-chart-bar', routerLink: '/dashboard' },
-    { label: 'Propietarios', icon: 'pi pi-users', routerLink: '/propietarios' },
-    { label: 'Mascotas', icon: 'pi pi-heart', routerLink: '/mascotas' },
-    { label: 'Veterinarios', icon: 'pi pi-id-card', routerLink: '/veterinarios' },
-    { label: 'Citas', icon: 'pi pi-calendar', routerLink: '/citas' },
-    { label: 'Consultas', icon: 'pi pi-file', routerLink: '/consultas' },
-    { label: 'Vacunas', icon: 'pi pi-shield', routerLink: '/vacunas' },
-    { label: 'Lotes de vacunas', icon: 'pi pi-box', routerLink: '/lotes-vacunas' },
-    {
-      label: 'Aplicaciones de vacuna',
-      icon: 'pi pi-check-circle',
-      routerLink: '/aplicaciones-vacunas',
-    },
-    { label: 'Recetas', icon: 'pi pi-file-edit', routerLink: '/recetas' },
-    { label: 'Pagos', icon: 'pi pi-wallet', routerLink: '/pagos' },
-    { label: 'Prototipo', icon: 'pi pi-desktop', routerLink: '/construir' },
   ];
 
   /**

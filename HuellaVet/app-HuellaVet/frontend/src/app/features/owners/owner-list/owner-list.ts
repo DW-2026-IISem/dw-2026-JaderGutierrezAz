@@ -1,3 +1,4 @@
+import { HasPermission } from '../../../shared/directives/has-permission';
 import { Component, computed, inject, signal } from '@angular/core';
 import { ConfirmationService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
@@ -27,6 +28,7 @@ import { OwnerForm } from '../owner-form/owner-form';
   host: { class: 'block' },
   selector: 'app-owner-list',
   imports: [
+    HasPermission,
     ButtonModule,
     DialogModule,
     EmptyState,

@@ -15,7 +15,7 @@
   </div>
 } @else {
   <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-    <p-card>
+    <p-card *appHasPermission="'GET /api/propietarios'">
       <div class="flex items-center justify-between">
         <div>
           <p class="text-xs font-medium uppercase tracking-wider text-slate-500">Propietarios</p>
@@ -25,7 +25,7 @@
       </div>
     </p-card>
 
-    <p-card>
+    <p-card *appHasPermission="'GET /api/mascotas'">
       <div class="flex items-center justify-between">
         <div>
           <p class="text-xs font-medium uppercase tracking-wider text-slate-500">Mascotas</p>
@@ -35,7 +35,7 @@
       </div>
     </p-card>
 
-    <p-card>
+    <p-card *appHasPermission="'GET /api/citas'">
       <div class="flex items-center justify-between">
         <div>
           <p class="text-xs font-medium uppercase tracking-wider text-slate-500">Citas</p>
@@ -45,7 +45,7 @@
       </div>
     </p-card>
 
-    <p-card>
+    <p-card *appHasPermission="'GET /api/pagos'">
       <div class="flex items-center justify-between">
         <div>
           <p class="text-xs font-medium uppercase tracking-wider text-slate-500">Ingresos</p>
@@ -60,7 +60,7 @@
   </div>
 
   <div class="mt-6 grid gap-6 lg:grid-cols-2">
-    <p-card>
+    <p-card *appHasPermission="'GET /api/pagos'">
       <div class="flex items-center justify-between">
         <h2 class="text-base font-semibold text-slate-900">Pagos pendientes</h2>
         <p-tag [value]="pendingPays().length + ' pendientes'" severity="warn" [rounded]="true" />
@@ -99,7 +99,7 @@
       </a>
     </p-card>
 
-    <p-card>
+    <p-card *appHasPermission="'GET /api/citas'">
       <div class="flex items-center justify-between">
         <h2 class="text-base font-semibold text-slate-900">Últimas citas</h2>
         <p-tag [value]="appointments().length + ' en total'" severity="info" [rounded]="true" />

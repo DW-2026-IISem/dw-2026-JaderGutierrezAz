@@ -3,7 +3,7 @@
   subtitle="Citas entre mascotas y veterinarios. Un veterinario no puede tener dos citas que se solapen."
 >
   <p-tag [value]="rows().length + ' citas'" severity="info" [rounded]="true" />
-  <button pButton type="button" (click)="openCreate()">
+  <button *appHasPermission="'POST /api/citas'" pButton type="button" (click)="openCreate()">
     <i pButtonIcon class="pi pi-plus"></i>
     <span pButtonLabel>Nueva cita</span>
   </button>
@@ -78,6 +78,7 @@
         <td class="text-center">
           <div class="flex justify-center gap-1">
             <button
+              *appHasPermission="'PATCH /api/citas/:id'"
               pButton
               type="button"
               text
@@ -91,6 +92,7 @@
               <i pButtonIcon class="pi pi-check"></i>
             </button>
             <button
+              *appHasPermission="'PATCH /api/citas/:id'"
               pButton
               type="button"
               text
@@ -103,6 +105,7 @@
               <i pButtonIcon class="pi pi-pencil"></i>
             </button>
             <button
+              *appHasPermission="'PATCH /api/citas/:id/deactivate'"
               pButton
               type="button"
               text
@@ -116,6 +119,7 @@
               <i pButtonIcon class="pi pi-ban"></i>
             </button>
             <button
+              *appHasPermission="'DELETE /api/citas/:id'"
               pButton
               type="button"
               text

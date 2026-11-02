@@ -3,7 +3,7 @@
   subtitle="Vacunas aplicadas durante una consulta, con el lote utilizado. La baja lógica cambia su estado; la baja física elimina la fila."
 >
   <p-tag [value]="rows().length + ' aplicaciones'" severity="info" [rounded]="true" />
-  <button pButton type="button" (click)="openCreate()">
+  <button *appHasPermission="'POST /api/aplicaciones-vacunas'" pButton type="button" (click)="openCreate()">
     <i pButtonIcon class="pi pi-plus"></i>
     <span pButtonLabel>Nueva aplicación</span>
   </button>
@@ -75,6 +75,7 @@
         <td class="text-center">
           <div class="flex justify-center gap-1">
             <button
+              *appHasPermission="'PATCH /api/aplicaciones-vacunas/:id'"
               pButton
               type="button"
               text
@@ -87,6 +88,7 @@
               <i pButtonIcon class="pi pi-pencil"></i>
             </button>
             <button
+              *appHasPermission="'PATCH /api/aplicaciones-vacunas/:id/deactivate'"
               pButton
               type="button"
               text
@@ -100,6 +102,7 @@
               <i pButtonIcon class="pi pi-ban"></i>
             </button>
             <button
+              *appHasPermission="'DELETE /api/aplicaciones-vacunas/:id'"
               pButton
               type="button"
               text

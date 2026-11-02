@@ -6,12 +6,14 @@ import { MessageModule } from 'primeng/message';
 import { SkeletonModule } from 'primeng/skeleton';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
-import { forkJoin } from 'rxjs';
+import { forkJoin, of } from 'rxjs';
 import { toNumber } from '../../core/models/api.model';
 import { Appointment } from '../../core/models/appointment.model';
 import { Pay } from '../../core/models/pay.model';
 import { Pet } from '../../core/models/pet.model';
+import { SessionStore } from '../../core/services/session-store';
 import { toApiMessage } from '../../core/utils/api-error';
+import { HasPermission } from '../../shared/directives/has-permission';
 import { EmptyState } from '../../shared/ui/empty-state/empty-state';
 import { PageHeader } from '../../shared/ui/page-header/page-header';
 import { AppointmentApi } from '../appointments/appointment-api';
@@ -39,6 +41,7 @@ const APPOINTMENT_STATES: Record<string, string> = {
     CurrencyPipe,
     DatePipe,
     EmptyState,
+    HasPermission,
     MessageModule,
     PageHeader,
     RouterLink,
@@ -54,6 +57,7 @@ export class Dashboard {
   private readonly petsApi = inject(PetApi);
   private readonly appointmentsApi = inject(AppointmentApi);
   private readonly paysApi = inject(PayApi);
+  private readonly session = inject(SessionStore);
 
   readonly loading = signal(true);
   readonly error = signal<string | null>(null);
@@ -121,11 +125,15 @@ export class Dashboard {
     this.loading.set(true);
     this.error.set(null);
 
+    // Solo se pide lo que el rol puede leer: un 403 en una sola petición haría
+    // fallar el forkJoin completo. Lo que no se pide queda vacío y su tarjeta se oculta.
+    const can = (permission: string) => this.session.canPermission(permission);
+
     forkJoin({
-      owners: this.ownersApi.list(),
-      pets: this.petsApi.list(),
-      appointments: this.appointmentsApi.list(),
-      pays: this.paysApi.list(),
+      owners: can('GET /api/propietarios') ? this.ownersApi.list() : of([]),
+      pets: can('GET /api/mascotas') ? this.petsApi.list() : of([]),
+      appointments: can('GET /api/citas') ? this.appointmentsApi.list() : of([]),
+      pays: can('GET /api/pagos') ? this.paysApi.list() : of([]),
     }).subscribe({
       next: ({ owners, pets, appointments, pays }) => {
         this.ownerCount.set(owners.length);

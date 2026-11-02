@@ -1,3 +1,4 @@
+import { HasPermission } from '../../../shared/directives/has-permission';
 import { Component, computed, inject, signal } from '@angular/core';
 import { ConfirmationService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
@@ -27,6 +28,7 @@ import { VeterinarianForm } from '../veterinarian-form/veterinarian-form';
   host: { class: 'block' },
   selector: 'app-veterinarian-list',
   imports: [
+    HasPermission,
     ButtonModule,
     DialogModule,
     EmptyState,

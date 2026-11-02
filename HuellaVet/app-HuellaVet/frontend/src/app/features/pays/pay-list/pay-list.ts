@@ -1,3 +1,4 @@
+import { HasPermission } from '../../../shared/directives/has-permission';
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { Component, computed, inject, signal } from '@angular/core';
 import { ConfirmationService } from 'primeng/api';
@@ -43,6 +44,7 @@ const STATE_SEVERITIES: Record<PayState, 'warn' | 'success' | 'danger'> = {
   host: { class: 'block' },
   selector: 'app-pay-list',
   imports: [
+    HasPermission,
     ButtonModule,
     CurrencyPipe,
     DatePipe,

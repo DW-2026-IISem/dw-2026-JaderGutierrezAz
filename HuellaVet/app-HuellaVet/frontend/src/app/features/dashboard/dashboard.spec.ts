@@ -3,12 +3,27 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { environment } from '../../../environments/environment';
+import { EffectivePermission } from '../../core/models/auth.model';
+import { User } from '../../core/models/user.model';
+import { SessionStore } from '../../core/services/session-store';
 import { Dashboard } from './dashboard';
 
 const OWNERS = `${environment.apiUrl}/propietarios`;
 const PETS = `${environment.apiUrl}/mascotas`;
 const APPOINTMENTS = `${environment.apiUrl}/citas`;
 const PAYS = `${environment.apiUrl}/pagos`;
+
+const USUARIO = { id: 1, username: 'admin', email: 'a@huellavet.local', avatar: null, status: 'active' } as User;
+const PERMISOS: EffectivePermission[] = ['propietarios', 'mascotas', 'citas', 'pagos'].map(
+  (recurso, i): EffectivePermission => ({
+    resource_id: i + 1,
+    method: 'GET',
+    path: `/api/${recurso}`,
+    description: null,
+    role_id: 1,
+    role_name: 'ADMIN',
+  }),
+);
 
 function cita(id: number, petId: number, startDate: string, state = 'scheduled') {
   return {
@@ -44,9 +59,13 @@ describe('Dashboard', () => {
     }).compileComponents();
 
     http = TestBed.inject(HttpTestingController);
+    TestBed.inject(SessionStore).setAccess({ user: USUARIO, permissions: PERMISOS });
   });
 
-  afterEach(() => http.verify());
+  afterEach(() => {
+    http.verify();
+    localStorage.clear();
+  });
 
   /** Responde las cuatro peticiones en paralelo que hace `load()`. */
   function responder(

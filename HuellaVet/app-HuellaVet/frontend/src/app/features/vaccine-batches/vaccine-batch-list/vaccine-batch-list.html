@@ -3,7 +3,7 @@
   subtitle="Cada lote pertenece a una vacuna. La baja lógica cambia su estado; la baja física elimina la fila."
 >
   <p-tag [value]="rows().length + ' lotes'" severity="info" [rounded]="true" />
-  <button pButton type="button" (click)="openCreate()">
+  <button *appHasPermission="'POST /api/lotes-vacunas'" pButton type="button" (click)="openCreate()">
     <i pButtonIcon class="pi pi-plus"></i>
     <span pButtonLabel>Nuevo lote</span>
   </button>
@@ -69,6 +69,7 @@
         <td>
           <div class="flex justify-end gap-1">
             <button
+              *appHasPermission="'PATCH /api/lotes-vacunas/:id'"
               pButton
               type="button"
               text
@@ -81,6 +82,7 @@
               <i pButtonIcon class="pi pi-pencil"></i>
             </button>
             <button
+              *appHasPermission="'PATCH /api/lotes-vacunas/:id/deactivate'"
               pButton
               type="button"
               text
@@ -94,6 +96,7 @@
               <i pButtonIcon class="pi pi-ban"></i>
             </button>
             <button
+              *appHasPermission="'DELETE /api/lotes-vacunas/:id'"
               pButton
               type="button"
               text

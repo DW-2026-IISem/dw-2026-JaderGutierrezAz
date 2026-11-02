@@ -3,7 +3,7 @@
   subtitle="Dueños de las mascotas. La baja lógica cambia su estado; la baja física elimina la fila."
 >
   <p-tag [value]="rows().length + ' propietarios'" severity="info" [rounded]="true" />
-  <button pButton type="button" (click)="openCreate()">
+  <button *appHasPermission="'POST /api/propietarios'" pButton type="button" (click)="openCreate()">
     <i pButtonIcon class="pi pi-plus"></i>
     <span pButtonLabel>Nuevo propietario</span>
   </button>
@@ -75,6 +75,7 @@
           <div class="flex justify-center gap-1">
             <!-- Botón Editar -->
             <button
+              *appHasPermission="'PATCH /api/propietarios/:id'"
               pButton
               type="button"
               text
@@ -89,6 +90,7 @@
 
             <!-- Botón Baja lógica -->
             <button
+              *appHasPermission="'PATCH /api/propietarios/:id/deactivate'"
               pButton
               type="button"
               text
@@ -104,6 +106,7 @@
 
             <!-- Botón Eliminar -->
             <button
+              *appHasPermission="'DELETE /api/propietarios/:id'"
               pButton
               type="button"
               text

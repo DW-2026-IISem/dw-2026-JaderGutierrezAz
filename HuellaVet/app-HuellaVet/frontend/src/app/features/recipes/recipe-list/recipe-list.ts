@@ -1,3 +1,4 @@
+import { HasPermission } from '../../../shared/directives/has-permission';
 import { Component, computed, inject, signal } from '@angular/core';
 import { ConfirmationService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
@@ -30,6 +31,7 @@ import { RecipeForm } from '../recipe-form/recipe-form';
   host: { class: 'block' },
   selector: 'app-recipe-list',
   imports: [
+    HasPermission,
     ButtonModule,
     DialogModule,
     EmptyState,

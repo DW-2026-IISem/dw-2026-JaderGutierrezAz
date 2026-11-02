@@ -718,7 +718,7 @@ Ya fué creado en el ISS-02
 ## 11.1 Endpoint y contrato
 
 | Operación      | Método y ruta                       | Respuesta             |
-|------------------|----------------------------------|---------------------|
+|------------------|---------------------------------|---------------------|
 | Listar         | `GET /api/recetas`                  | `{ recipes: [...] }`  |
 | Obtener una    | `GET /api/recetas/:id`              | `{ recipe }`          |
 | Crear          | `POST /api/recetas`                 | `{ recipe }`          |
@@ -866,61 +866,61 @@ Ya fué creado en el ISS-02
 
 # 14. Fase II: Auth con RBAC — ISS-14 — Autenticación JWT, perfil y permisos efectivos
 
-## 8.1 El contrato real
+## 14.1 El contrato real
 
 | Endpoint | Modalidad | Respuesta |
-|:---|:---|:---|
+|:-----------------------|:-----------------------|:-----------------------|
 | `POST /api/sesion/login` | OPEN | `{ access_token, token_type, expires_in: 900, refresh_token, refresh_expires_in: 604799 }` |
 | `GET /api/sesion/perfil` | JWT | `{ user: { id, username, email, avatar, status } }` |
 | `GET /api/permisos` | JWT | `{ permissions: [{ resource_id, method, path, description, role_id, role_name }] }` |
 | `POST /api/sesion/refresh` | OPEN (refresh en el cuerpo) | tokens rotados |
 | `POST /api/sesion/logout` | OPEN (refresh en el cuerpo) | `{ message }` |
 
-## 8.2 Activar Fase II
+## 14.2 Activar Fase II
 
 ![](images/clipboard-2675813193.png)
 
 ![](images/clipboard-2173519675.png)
 
-## 8.3 Modelos de sesión
+## 14.3 Modelos de sesión
 
 ![](images/clipboard-1807970694.png)
 
 ![](images/clipboard-1497260602.png)
 
-## 8.3A Generar interceptores funcionales
+## 14.3A Generar interceptores funcionales
 
 ![](images/clipboard-3384679686.png)
 
-## 8.4 HttpClient e interceptores
+## 14.4 HttpClient e interceptores
 
 ![](images/clipboard-3625353559.png)
 
-## 8.5 `SessionStore`
+## 14.5 `SessionStore`
 
 ![](images/clipboard-3650597295.png)
 
-## 8.6 `AuthService`
+## 14.6 `AuthService`
 
 ![](images/clipboard-1663106816.png)
 
-## 8.7 Interceptores
+## 14.7 Interceptores
 
 ![](images/clipboard-1243832448.png)
 
 ![](images/clipboard-3114349706.png)
 
-## 8.8 Login
+## 14.8 Login
 
 ![](images/clipboard-4186062155.png)
 
 ![](images/clipboard-2730714759.png)
 
-## 8.9 Perfil y acceso denegado
+## 14.9 Perfil y acceso denegado
 
 ![](images/clipboard-76207741.png)
 
-## 8.10 Rutas de Fase II
+## 14.10 Rutas de Fase II
 
 ![](images/clipboard-1059199057.png)
 
@@ -943,3 +943,107 @@ Ya fué creado en el ISS-02
 ![](images/clipboard-4024295172.png)
 
 ![](images/clipboard-3072960151.png)
+
+# 15. Fase II: Auth con RBAC — ISS-15 — Guards y RBAC en las pantallas Business
+
+## 15.0 Generar guards y directiva
+
+![](images/clipboard-1496506014.png)
+
+## 15.1 y 15.2 `authGuard` y `guestGuard` 
+
+Ya se habían creado desde antes.
+
+![](images/clipboard-1669000808.png)
+
+## 15.3 `permissionGuard` 
+
+![](images/clipboard-2378775254.png)
+
+![](images/clipboard-346167011.png)
+
+## 15.4 Matriz de rutas de Fase II
+
+| Ruta | Permiso |
+|:---|:---|
+| `/propietarios` | `GET /api/propietarios` |
+| `/mascotas` | `GET /api/mascotas` |
+| `/veterinarios` | `GET /api/veterinarios` |
+| `/citas` | `GET /api/citas` |
+| `/consultas` | `GET /api/consultas` |
+| `/vacunas` | `GET /api/vacunas` |
+| `/lotes-vacunas` | `GET /api/lotes-vacunas` |
+| `/aplicaciones-vacunas` | `GET /api/aplicaciones-vacunas` |
+| `/recetas` | `GET /api/recetas` |
+| `/pagos` | `GET /api/pagos` |
+| `/dashboard` | `OPTIONS /api/sesion/login` ,`OPTIONS /api/sesion/perfil` ,`OPTIONS/api/permisos` ,`GET /api/sesion/perfil` ,`GET /api/permisos` ,`OPTIONS/api/propietarios` ,`OPTIONS/api/mascotas` ,`OPTIONS/api/citas` ,`OPTIONS/api/pagos` ,`GET/api/mascotas` ,`GET /api/pagos` ,`GET/api/citas` ,`GET /api/propietarios` |
+| `/perfil`, `/forbidden` | ninguno (todo usuario autenticado) |
+
+![](images/clipboard-1972437724.png)
+
+## 15.5 Directiva `*appHasPermission`
+
+![](images/clipboard-1809494092.png)
+
+![](images/clipboard-969309113.png)
+
+**Permisos exactos por acción**
+
+**Son los del catálogo de tu backend. Cada lista envolverá sus botones con ellos:**
+
+| Pantalla | Crear | Editar | Baja lógica | Baja física |
+|:---|:---|:---|:---|:---|
+| Propietarios | `POST /api/propietarios` | `PATCH /api/propietarios/:id` | `PATCH /api/propietarios/:id/deactivate` | `DELETE /api/propietarios/:id` |
+| Mascotas | `POST /api/mascotas` | `PATCH /api/mascotas/:id` | `PATCH /api/mascotas/:id/deactivate` | `DELETE /api/mascotas/:id` |
+| Veterinarios | `POST /api/veterinarios` | `PATCH /api/veterinarios/:id` | `PATCH /api/veterinarios/:id/deactivate` | `DELETE /api/veterinarios/:id` |
+| Citas | `POST /api/citas` | `PATCH /api/citas/:id` | `PATCH /api/citas/:id/deactivate` | `DELETE /api/citas/:id` |
+| Consultas | `POST /api/consultas` | `PATCH /api/consultas/:id` | `PATCH /api/consultas/:id/deactivate` | `DELETE /api/consultas/:id` |
+| Vacunas | `POST /api/vacunas` | `PATCH /api/vacunas/:id` | `PATCH /api/vacunas/:id/deactivate` | `DELETE /api/vacunas/:id` |
+| Lotes de vacunas | `POST /api/lotes-vacunas` | `PATCH /api/lotes-vacunas/:id` | `PATCH /api/lotes-vacunas/:id/deactivate` | `DELETE /api/lotes-vacunas/:id` |
+| Aplicaciones | `POST /api/aplicaciones-vacunas` | `PATCH /api/aplicaciones-vacunas/:id` | `PATCH /api/aplicaciones-vacunas/:id/deactivate` | `DELETE /api/aplicaciones-vacunas/:id` |
+| Recetas | `POST /api/recetas` | `PATCH /api/recetas/:id` | `PATCH /api/recetas/:id/deactivate` | `DELETE /api/recetas/:id` |
+| Pagos | `POST /api/pagos` | `PATCH /api/pagos/:id` | `PATCH /api/pagos/:id/deactivate` | `DELETE /api/pagos/:id` |
+
+## Pruebas
+
+![](images/clipboard-3370866889.png)
+
+## 15.6 Menú lateral con `computed`
+
+![](images/clipboard-3344204629.png)
+
+![](images/clipboard-2481668300.png)
+
+![](images/clipboard-3647264885.png)
+
+## 15.7 `/forbidden`: explicar el 403
+
+![](images/clipboard-382343076.png)
+
+## Comprobación
+
+![](images/clipboard-2965984172.png)
+
+![](images/clipboard-3309227741.png)
+
+**Redirección al dashboard con sesión activa**
+
+![](images/clipboard-3697475410.png)
+
+![](images/clipboard-2454813741.png){width="473"}
+
+**Menú según los permisos del usuario**
+
+![](images/clipboard-3662266240.png)
+
+![](images/clipboard-1122686874.png)
+
+**Le doy permiso a Seller mediante un curl y actualizo los permisos en mi frontend**
+
+![](images/clipboard-373188858.png)
+
+![](images/clipboard-4139772729.png)
+
+**El backend manda** Con `seller` en la pestaña y DevTools
+
+![](images/clipboard-3255484933.png)

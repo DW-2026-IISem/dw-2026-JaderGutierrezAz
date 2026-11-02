@@ -3,7 +3,7 @@
   subtitle="Atención clínica de una cita. Cada cita tiene como máximo una consulta."
 >
   <p-tag [value]="rows().length + ' consultas'" severity="info" [rounded]="true" />
-  <button pButton type="button" (click)="openCreate()">
+  <button *appHasPermission="'POST /api/consultas'" pButton type="button" (click)="openCreate()">
     <i pButtonIcon class="pi pi-plus"></i>
     <span pButtonLabel>Nueva consulta</span>
   </button>
@@ -75,6 +75,7 @@
         <td>
           <div class="flex justify-end gap-1">
             <button
+              *appHasPermission="'PATCH /api/consultas/:id'"
               pButton
               type="button"
               text
@@ -87,6 +88,7 @@
               <i pButtonIcon class="pi pi-pencil"></i>
             </button>
             <button
+              *appHasPermission="'PATCH /api/consultas/:id/deactivate'"
               pButton
               type="button"
               text
@@ -100,6 +102,7 @@
               <i pButtonIcon class="pi pi-ban"></i>
             </button>
             <button
+              *appHasPermission="'DELETE /api/consultas/:id'"
               pButton
               type="button"
               text

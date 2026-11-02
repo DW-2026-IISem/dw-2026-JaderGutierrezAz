@@ -3,7 +3,7 @@
   subtitle="Profesionales que atienden las citas. La baja lógica cambia su estado; la baja física elimina la fila."
 >
   <p-tag [value]="rows().length + ' veterinarios'" severity="info" [rounded]="true" />
-  <button pButton type="button" (click)="openCreate()">
+  <button *appHasPermission="'POST /api/veterinarios'" pButton type="button" (click)="openCreate()">
     <i pButtonIcon class="pi pi-plus"></i>
     <span pButtonLabel>Nuevo veterinario</span>
   </button>
@@ -64,6 +64,7 @@
         <td class="text-center">
           <div class="flex justify-center gap-1">
             <button
+              *appHasPermission="'PATCH /api/veterinarios/:id'"
               pButton
               type="button"
               text
@@ -76,6 +77,7 @@
               <i pButtonIcon class="pi pi-pencil"></i>
             </button>
             <button
+              *appHasPermission="'PATCH /api/veterinarios/:id/deactivate'"
               pButton
               type="button"
               text
@@ -89,6 +91,7 @@
               <i pButtonIcon class="pi pi-ban"></i>
             </button>
             <button
+              *appHasPermission="'DELETE /api/veterinarios/:id'"
               pButton
               type="button"
               text

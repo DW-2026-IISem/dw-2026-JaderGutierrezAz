@@ -1,3 +1,4 @@
+import { HasPermission } from '../../../shared/directives/has-permission';
 import { Component, computed, inject, signal } from '@angular/core';
 import { ConfirmationService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
@@ -30,6 +31,7 @@ import { VaccineBatchForm } from '../vaccine-batch-form/vaccine-batch-form';
   host: { class: 'block' },
   selector: 'app-vaccine-batch-list',
   imports: [
+    HasPermission,
     ButtonModule,
     DialogModule,
     EmptyState,

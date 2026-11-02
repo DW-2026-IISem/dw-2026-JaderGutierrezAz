@@ -3,7 +3,7 @@
   subtitle="Cada pago corresponde a una cita. Marcar como pagado cambia su estado; cancelar lo oculta del listado."
 >
   <p-tag [value]="rows().length + ' pagos'" severity="info" [rounded]="true" />
-  <button pButton type="button" (click)="openCreate()">
+  <button *appHasPermission="'POST /api/pagos'" pButton type="button" (click)="openCreate()">
     <i pButtonIcon class="pi pi-plus"></i>
     <span pButtonLabel>Nuevo pago</span>
   </button>
@@ -76,6 +76,7 @@
         <td class="text-center">
           <div class="flex justify-center gap-1">
             <button
+              *appHasPermission="'PATCH /api/pagos/:id'"
               pButton
               type="button"
               text
@@ -89,6 +90,7 @@
               <i pButtonIcon class="pi pi-check-circle"></i>
             </button>
             <button
+              *appHasPermission="'PATCH /api/pagos/:id'"
               pButton
               type="button"
               text
@@ -101,6 +103,7 @@
               <i pButtonIcon class="pi pi-pencil"></i>
             </button>
             <button
+              *appHasPermission="'PATCH /api/pagos/:id/deactivate'"
               pButton
               type="button"
               text
@@ -114,6 +117,7 @@
               <i pButtonIcon class="pi pi-ban"></i>
             </button>
             <button
+              *appHasPermission="'DELETE /api/pagos/:id'"
               pButton
               type="button"
               text

@@ -1,3 +1,4 @@
+import { HasPermission } from '../../../shared/directives/has-permission';
 import { DatePipe } from '@angular/common';
 import { Component, computed, inject, signal } from '@angular/core';
 import { ConfirmationService } from 'primeng/api';
@@ -36,6 +37,7 @@ import { ConsultationForm } from '../consultation-form/consultation-form';
   host: { class: 'block' },
   selector: 'app-consultation-list',
   imports: [
+    HasPermission,
     ButtonModule,
     DatePipe,
     DialogModule,
