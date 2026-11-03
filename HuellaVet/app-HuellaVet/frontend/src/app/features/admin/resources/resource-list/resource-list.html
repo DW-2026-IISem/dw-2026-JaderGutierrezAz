@@ -1,0 +1,175 @@
+<app-page-header
+  title="Recursos"
+  subtitle="Catálogo de operaciones de la API (método + ruta). Se conceden a los roles en «Concesiones»."
+>
+  <p-tag [value]="rows().length + ' recursos'" severity="info" [rounded]="true" />
+  <button *appHasPermission="'POST /api/recursos'" pButton type="button" (click)="openCreate()">
+    <i pButtonIcon class="pi pi-plus"></i>
+    <span pButtonLabel>Nuevo recurso</span>
+  </button>
+</app-page-header>
+
+@if (error()) {
+  <p-message severity="error" styleClass="mb-4 w-full">{{ error() }}</p-message>
+}
+
+<div class="mb-3 flex flex-wrap gap-2">
+  @for (item of countsByMethod(); track item.method) {
+    <p-tag
+      [value]="item.method + ' · ' + item.count"
+      [severity]="methodSeverity(item.method)"
+      [rounded]="true"
+    />
+  }
+</div>
+
+<div class="rounded-xl border border-slate-200 bg-white">
+  <p-table
+    [value]="visibleRows()"
+    [loading]="loading()"
+    [paginator]="visibleRows().length > 15"
+    [rows]="15"
+    dataKey="id"
+    tableStyleClass="min-w-3xl"
+  >
+    <ng-template #caption>
+      <div class="flex flex-wrap items-center gap-2">
+        <div class="flex min-w-64 flex-1 items-center gap-2">
+          <i class="pi pi-search text-slate-400"></i>
+          <input
+            pInputText
+            type="search"
+            aria-label="Buscar recursos"
+            placeholder="Buscar por ruta, método o descripción…"
+            [value]="filter()"
+            (input)="filter.set($any($event.target).value)"
+            class="w-full"
+          />
+        </div>
+        <p-select
+          inputId="resource-method-filter"
+          ariaLabel="Filtrar por método"
+          [options]="methodOptions"
+          optionLabel="label"
+          optionValue="value"
+          appendTo="body"
+          [ngModel]="methodFilter()"
+          (ngModelChange)="methodFilter.set($event ?? '')"
+        />
+      </div>
+      @if (filter() || methodFilter()) {
+        <p class="mt-2 text-xs text-slate-500">
+          {{ visibleRows().length }} de {{ rows().length }} recursos coinciden con el filtro.
+        </p>
+      }
+    </ng-template>
+
+    <ng-template #header>
+      <tr>
+        <th pSortableColumn="method" class="w-28">
+          <div class="flex items-center gap-1">Método <p-sort-icon field="method" /></div>
+        </th>
+        <th pSortableColumn="path">
+          <div class="flex items-center gap-1">Ruta <p-sort-icon field="path" /></div>
+        </th>
+        <th>Descripción</th>
+        <th>Estado</th>
+        <th class="w-32 text-right">Acciones</th>
+      </tr>
+    </ng-template>
+
+    <ng-template #body let-resource>
+      <tr>
+        <td>
+          <p-tag [value]="resource.method" [severity]="methodSeverity(resource.method)" [rounded]="true" />
+        </td>
+        <td>
+          <code class="text-xs">{{ resource.path }}</code>
+          <p class="text-xs text-slate-400">#{{ resource.id }}</p>
+        </td>
+        <td class="text-sm text-slate-600">{{ resource.description || '—' }}</td>
+        <td><app-status-tag [active]="resource.status === 'active'" /></td>
+        <td>
+          <div class="flex justify-end gap-1">
+            <button
+              *appHasPermission="'PATCH /api/recursos/:id'"
+              pButton
+              type="button"
+              text
+              rounded
+              severity="secondary"
+              icon="pi pi-pencil"
+              aria-label="Editar recurso"
+              pTooltip="Editar"
+              (click)="openEdit(resource)"
+            ></button>
+            <button
+              *appHasPermission="'PATCH /api/recursos/:id/deactivate'"
+              pButton
+              type="button"
+              text
+              rounded
+              severity="warn"
+              icon="pi pi-ban"
+              aria-label="Dar de baja el recurso"
+              pTooltip="Baja lógica"
+              [disabled]="resource.status !== 'active'"
+              (click)="deactivate(resource)"
+            ></button>
+            <button
+              *appHasPermission="'DELETE /api/recursos/:id'"
+              pButton
+              type="button"
+              text
+              rounded
+              severity="danger"
+              icon="pi pi-trash"
+              aria-label="Eliminar recurso"
+              pTooltip="Eliminar"
+              (click)="remove(resource)"
+            ></button>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+
+    <ng-template #emptymessage>
+      <tr>
+        <td colspan="5">
+          @if (filter() || methodFilter()) {
+            <app-empty-state
+              icon="pi pi-search"
+              title="Sin coincidencias"
+              message="Ningún recurso coincide con el filtro. Quítalo para ver todos."
+            />
+          } @else {
+            <app-empty-state
+              icon="pi pi-server"
+              title="Sin recursos"
+              message="Crea el primero con el botón «Nuevo recurso»."
+            />
+          }
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-dialog
+  [visible]="dialogVisible()"
+  (visibleChange)="dialogVisible.set($event)"
+  [header]="title()"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [dismissableMask]="true"
+  styleClass="w-full max-w-xl mx-4"
+>
+  <app-resource-form
+    [resource]="editing()"
+    [saving]="saving()"
+    [resetKey]="resetKey()"
+    (saved)="save($event)"
+    (cancelled)="dialogVisible.set(false)"
+  />
+</p-dialog>

@@ -1038,12 +1038,86 @@ Ya se habían creado desde antes.
 
 ![](images/clipboard-1122686874.png)
 
-**Le doy permiso a Seller mediante un curl y actualizo los permisos en mi frontend**
-
-![](images/clipboard-373188858.png)
-
-![](images/clipboard-4139772729.png)
-
 **El backend manda** Con `seller` en la pestaña y DevTools
 
 ![](images/clipboard-3255484933.png)
+
+# 16. Fase II: Auth con RBAC — ISS-16 — Formularios de las entidades Auth
+
+## 16.1 Contrato
+
+| Pantalla | Ruta de la app | Endpoint | Lista | Detalle |
+|:---|:---|:---|:---|:---|
+| Usuarios | `/admin/usuarios` | `/api/usuarios` | `{ users }` | `{ user }` |
+| Roles | `/admin/roles` | `/api/roles` | `{ roles }` | `{ role }` |
+| Recursos | `/admin/recursos` | `/api/recursos` | `{ resources }` | `{ resource }` |
+| Asignaciones | `/admin/asignaciones` | `/api/asignaciones-rol` | `{ assignments }` | `{ assignment }` |
+| Concesiones | `/admin/permisos` | `/api/concesiones-rol` | `{ grants }` | `{ grant }` |
+
+## 16.2 Generar con CLI
+
+![](images/clipboard-3469396871.png)
+
+## 10.3 Usuarios
+
+![](images/clipboard-2389096328.png)
+
+![](images/clipboard-3726204486.png)
+
+## 10.4 Roles
+
+![](images/clipboard-3213574590.png)
+
+## 10.5 Recursos HTTP
+
+![](images/clipboard-3035658436.png)
+
+## 10.6 Asignaciones usuario ↔ rol
+
+![](images/clipboard-1137371706.png)
+
+## 10.7 Concesiones rol ↔ recurso
+
+![](images/clipboard-4022362899.png)
+
+## 10.8 Rutas
+
+![](images/clipboard-1663071883.png)
+
+## Pruebas
+
+![](images/clipboard-1037828749.png)
+
+## Comprobación
+
+![](images/clipboard-3928418481.png)
+
+![](images/clipboard-2449283716.png)
+
+**Le doy permiso a Seller mediante un curl y actualizo los permisos en mi frontend**
+
+![](images/clipboard-236959143.png)
+
+Ahora sale pagos en Seller
+
+![](images/clipboard-3969157264.png)
+
+Se le revoco el permiso y vuelve a desaparecer pagos
+
+![](images/clipboard-1060829900.png)
+
+## 10.9 Flujo de trabajo 
+
+Backend y `ng serve` en marcha. Empieza con `admin`:
+
+1.   El menú tiene el grupo **Seguridad** con cinco entradas.
+
+2.   **Usuarios:** crea `prueba_ui` con una contraseña de 8 o más caracteres. El botón de baja y el de eliminar de **admin** aparecen deshabilitados. Pulsa «Ver permisos» en `seller`: deben salir sus 10 permisos y el rol `RECEPCIONISTA`.
+
+3.   **Roles:** crea `LAB_UI`. Verás que se guarda `LAB_UI` en mayúsculas.
+
+4.   **Asignaciones:** asigna `LAB_UI` a `prueba_ui`. Repite la asignación: toast con «Role is already assigned to this user».
+
+5.   **Concesiones:** concede `GET /api/propietarios` a `LAB_UI`. Abre «Ver permisos» de `prueba_ui` y debe verlo.
+
+6.   **Recursos:** intenta crear la ruta `sin-barra`: el formulario debe bloquearla.

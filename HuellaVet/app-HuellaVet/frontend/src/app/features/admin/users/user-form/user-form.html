@@ -1,0 +1,97 @@
+<form [formGroup]="form" (ngSubmit)="submit()" class="space-y-4">
+  <div class="grid gap-4 sm:grid-cols-2">
+    <div>
+      <label for="user-username" class="mb-1 block text-sm font-medium text-slate-700">
+        Usuario <span class="text-red-500">*</span>
+      </label>
+      <input
+        id="user-username"
+        pInputText
+        formControlName="username"
+        autocomplete="off"
+        class="w-full"
+      />
+      @if (form.controls.username.touched && form.controls.username.invalid) {
+        <p-message severity="error" size="small" variant="simple" styleClass="mt-1">
+          El usuario es obligatorio (mínimo 3 caracteres).
+        </p-message>
+      }
+    </div>
+
+    <div>
+      <label for="user-email" class="mb-1 block text-sm font-medium text-slate-700">
+        Correo <span class="text-red-500">*</span>
+      </label>
+      <input
+        id="user-email"
+        type="email"
+        pInputText
+        formControlName="email"
+        autocomplete="off"
+        class="w-full"
+      />
+      @if (form.controls.email.touched && form.controls.email.invalid) {
+        <p-message severity="error" size="small" variant="simple" styleClass="mt-1">
+          Escribe un correo válido.
+        </p-message>
+      }
+    </div>
+  </div>
+
+  <div>
+    <label for="user-avatar" class="mb-1 block text-sm font-medium text-slate-700">
+      Avatar (texto o enlace)
+    </label>
+    <input id="user-avatar" pInputText formControlName="avatar" class="w-full" />
+  </div>
+
+  @if (!user()) {
+    <div class="grid gap-4 sm:grid-cols-2">
+      <div>
+        <label for="user-password" class="mb-1 block text-sm font-medium text-slate-700">
+          Contraseña <span class="text-red-500">*</span>
+        </label>
+        <p-password
+          inputId="user-password"
+          formControlName="password"
+          [feedback]="false"
+          [toggleMask]="true"
+          [fluid]="true"
+        />
+        @if (form.controls.password.touched && form.controls.password.invalid) {
+          <p-message severity="error" size="small" variant="simple" styleClass="mt-1">
+            La contraseña es obligatoria (mínimo 8 caracteres).
+          </p-message>
+        }
+      </div>
+
+      <div>
+        <label for="user-status" class="mb-1 block text-sm font-medium text-slate-700">Estado</label>
+        <p-select
+          inputId="user-status"
+          formControlName="status"
+          [options]="statusOptions"
+          optionLabel="label"
+          optionValue="value"
+          appendTo="body"
+          [fluid]="true"
+        />
+      </div>
+    </div>
+  } @else {
+    <p class="text-xs text-slate-500">
+      La contraseña y el estado no se editan aquí: el estado cambia con la baja lógica y la
+      contraseña la cambia cada persona con la suya.
+    </p>
+  }
+
+  <div class="flex justify-end gap-2 border-t border-slate-100 pt-4">
+    <button pButton type="button" severity="secondary" outlined (click)="cancelled.emit()">
+      <span pButtonLabel>Cancelar</span>
+    </button>
+    <button pButton type="submit" [loading]="saving()">
+      <i pButtonIcon class="pi pi-check"></i>
+      <span pButtonLabel>Guardar</span>
+    </button>
+  </div>
+</form>

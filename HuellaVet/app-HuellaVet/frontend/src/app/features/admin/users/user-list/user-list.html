@@ -1,0 +1,215 @@
+<app-page-header
+  title="Usuarios"
+  subtitle="Cuentas que pueden iniciar sesión. Sus permisos salen de los roles que tengan asignados."
+>
+  <p-tag [value]="rows().length + ' usuarios'" severity="info" [rounded]="true" />
+  <button *appHasPermission="'POST /api/usuarios'" pButton type="button" (click)="openCreate()">
+    <i pButtonIcon class="pi pi-plus"></i>
+    <span pButtonLabel>Nuevo usuario</span>
+  </button>
+</app-page-header>
+
+@if (error()) {
+  <p-message severity="error" styleClass="mb-4 w-full">{{ error() }}</p-message>
+}
+
+<div class="rounded-xl border border-slate-200 bg-white">
+  <p-table
+    [value]="visibleRows()"
+    [loading]="loading()"
+    [paginator]="visibleRows().length > 10"
+    [rows]="10"
+    dataKey="id"
+    tableStyleClass="min-w-3xl"
+  >
+    <ng-template #caption>
+      <div class="flex items-center gap-2">
+        <i class="pi pi-search text-slate-400"></i>
+        <input
+          pInputText
+          type="search"
+          aria-label="Buscar usuarios"
+          placeholder="Buscar por usuario o correo…"
+          [value]="filter()"
+          (input)="filter.set($any($event.target).value)"
+          class="w-full"
+        />
+      </div>
+      @if (filter()) {
+        <p class="mt-2 text-xs text-slate-500">
+          {{ visibleRows().length }} de {{ rows().length }} coinciden con «{{ filter() }}».
+        </p>
+      }
+    </ng-template>
+
+    <ng-template #header>
+      <tr>
+        <th pSortableColumn="username">
+          <div class="flex items-center gap-1">Usuario <p-sort-icon field="username" /></div>
+        </th>
+        <th pSortableColumn="email">
+          <div class="flex items-center gap-1">Correo <p-sort-icon field="email" /></div>
+        </th>
+        <th>Estado</th>
+        <th class="w-52 text-right">Acciones</th>
+      </tr>
+    </ng-template>
+
+    <ng-template #body let-user>
+      <tr>
+        <td>
+          <p class="font-medium text-slate-800">{{ user.username }}</p>
+          <p class="text-xs text-slate-400">#{{ user.id }}</p>
+        </td>
+        <td class="text-sm text-slate-600">{{ user.email }}</td>
+        <td><app-status-tag [active]="user.status === 'active'" /></td>
+        <td>
+          <div class="flex justify-end gap-1">
+            <button
+              *appHasPermission="'GET /api/usuarios/:id/permisos'"
+              pButton
+              type="button"
+              text
+              rounded
+              severity="info"
+              icon="pi pi-eye"
+              aria-label="Ver permisos"
+              pTooltip="Ver permisos"
+              (click)="showPermissions(user)"
+            ></button>
+            <button
+              *appHasPermission="'PATCH /api/usuarios/:id'"
+              pButton
+              type="button"
+              text
+              rounded
+              severity="secondary"
+              icon="pi pi-pencil"
+              aria-label="Editar usuario"
+              pTooltip="Editar"
+              (click)="openEdit(user)"
+            ></button>
+            <button
+              *appHasPermission="'PATCH /api/usuarios/:id/deactivate'"
+              pButton
+              type="button"
+              text
+              rounded
+              severity="warn"
+              icon="pi pi-ban"
+              aria-label="Dar de baja al usuario"
+              [pTooltip]="isSelf(user) ? 'No puedes darte de baja a ti mismo' : 'Baja lógica'"
+              [disabled]="isSelf(user) || user.status !== 'active'"
+              (click)="deactivate(user)"
+            ></button>
+            <button
+              *appHasPermission="'DELETE /api/usuarios/:id'"
+              pButton
+              type="button"
+              text
+              rounded
+              severity="danger"
+              icon="pi pi-trash"
+              aria-label="Eliminar usuario"
+              [pTooltip]="isSelf(user) ? 'No puedes eliminar tu propio usuario' : 'Eliminar'"
+              [disabled]="isSelf(user)"
+              (click)="remove(user)"
+            ></button>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+
+    <ng-template #emptymessage>
+      <tr>
+        <td colspan="4">
+          @if (filter()) {
+            <app-empty-state
+              icon="pi pi-search"
+              title="Sin coincidencias"
+              message="Ningún usuario coincide con la búsqueda. Borra el filtro para ver todos."
+            />
+          } @else {
+            <app-empty-state
+              icon="pi pi-user"
+              title="Sin usuarios"
+              message="Crea el primero con el botón «Nuevo usuario»."
+            />
+          }
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-dialog
+  [visible]="dialogVisible()"
+  (visibleChange)="dialogVisible.set($event)"
+  [header]="title()"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [dismissableMask]="true"
+  styleClass="w-full max-w-2xl mx-4"
+>
+  <app-user-form
+    [user]="editing()"
+    [saving]="saving()"
+    [resetKey]="resetKey()"
+    (saved)="save($event)"
+    (cancelled)="dialogVisible.set(false)"
+  />
+</p-dialog>
+
+<p-dialog
+  [visible]="accessVisible()"
+  (visibleChange)="accessVisible.set($event)"
+  [header]="'Permisos efectivos de ' + (accessUser()?.username ?? '')"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [dismissableMask]="true"
+  styleClass="w-full max-w-3xl mx-4"
+>
+  <div class="mb-3 flex flex-wrap items-center gap-2 text-sm text-slate-600">
+    <span>{{ access().length }} permisos · Roles:</span>
+    @for (role of accessRoles(); track role) {
+      <p-tag [value]="role" severity="info" [rounded]="true" />
+    } @empty {
+      <span class="text-slate-500">ninguno</span>
+    }
+  </div>
+
+  <p-table
+    [value]="access()"
+    [loading]="accessLoading()"
+    [paginator]="access().length > 8"
+    [rows]="8"
+    dataKey="resource_id"
+    tableStyleClass="min-w-xl"
+  >
+    <ng-template #header>
+      <tr>
+        <th>Método</th>
+        <th>Ruta</th>
+        <th>Rol</th>
+      </tr>
+    </ng-template>
+    <ng-template #body let-permission>
+      <tr>
+        <td>
+          <p-tag [value]="permission.method" [severity]="methodSeverity(permission.method)" [rounded]="true" />
+        </td>
+        <td><code class="text-xs">{{ permission.path }}</code></td>
+        <td class="text-sm text-slate-600">{{ permission.role_name }}</td>
+      </tr>
+    </ng-template>
+    <ng-template #emptymessage>
+      <tr>
+        <td colspan="3" class="text-center text-sm text-slate-500">
+          Este usuario no tiene permisos efectivos: sin rol, o con roles sin concesiones activas.
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-dialog>

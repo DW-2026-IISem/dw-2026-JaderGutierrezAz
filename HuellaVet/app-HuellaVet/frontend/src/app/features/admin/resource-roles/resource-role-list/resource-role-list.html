@@ -1,0 +1,202 @@
+<app-page-header
+  title="Concesiones"
+  subtitle="Qué operaciones de la API puede ejecutar cada rol. Cada fila es un permiso."
+>
+  <p-tag [value]="rows().length + ' concesiones'" severity="info" [rounded]="true" />
+  <button *appHasPermission="'POST /api/concesiones-rol'" pButton type="button" (click)="openGrant()">
+    <i pButtonIcon class="pi pi-plus"></i>
+    <span pButtonLabel>Conceder permiso</span>
+  </button>
+</app-page-header>
+
+@if (error()) {
+  <p-message severity="error" styleClass="mb-4 w-full">{{ error() }}</p-message>
+}
+
+<div class="rounded-xl border border-slate-200 bg-white">
+  <p-table
+    [value]="visibleRows()"
+    [loading]="loading()"
+    [paginator]="visibleRows().length > 15"
+    [rows]="15"
+    dataKey="id"
+    tableStyleClass="min-w-3xl"
+  >
+    <ng-template #caption>
+      <div class="flex flex-wrap items-center gap-2">
+        <div class="flex min-w-64 flex-1 items-center gap-2">
+          <i class="pi pi-search text-slate-400"></i>
+          <input
+            pInputText
+            type="search"
+            aria-label="Buscar concesiones"
+            placeholder="Buscar por rol, método, ruta o descripción…"
+            [value]="filter()"
+            (input)="filter.set($any($event.target).value)"
+            class="w-full"
+          />
+        </div>
+        <p-select
+          inputId="grant-role-filter"
+          ariaLabel="Filtrar por rol"
+          [options]="roleOptions()"
+          optionLabel="label"
+          optionValue="id"
+          placeholder="Todos los roles"
+          [showClear]="true"
+          appendTo="body"
+          [ngModel]="roleFilter()"
+          (ngModelChange)="roleFilter.set($event)"
+        />
+      </div>
+      @if (filter() || roleFilter()) {
+        <p class="mt-2 text-xs text-slate-500">
+          {{ visibleRows().length }} de {{ rows().length }} concesiones coinciden con el filtro.
+        </p>
+      }
+    </ng-template>
+
+    <ng-template #header>
+      <tr>
+        <th>Rol</th>
+        <th class="w-28">Método</th>
+        <th>Ruta</th>
+        <th>Estado</th>
+        <th class="w-28 text-right">Acciones</th>
+      </tr>
+    </ng-template>
+
+    <ng-template #body let-row>
+      <tr>
+        <td><p-tag [value]="row.role?.name ?? '#' + row.role_id" severity="info" [rounded]="true" /></td>
+        <td>
+          <p-tag
+            [value]="row.resource?.method ?? '—'"
+            [severity]="methodSeverity(row.resource?.method)"
+            [rounded]="true"
+          />
+        </td>
+        <td>
+          <code class="text-xs">{{ row.resource?.path ?? 'Recurso #' + row.resource_id }}</code>
+          <p class="text-xs text-slate-400">{{ row.resource?.description || '' }}</p>
+        </td>
+        <td><app-status-tag [active]="row.status === 'active'" /></td>
+        <td>
+          <div class="flex justify-end gap-1">
+            @if (row.status === 'active') {
+              <button
+                *appHasPermission="'PATCH /api/concesiones-rol/:id/deactivate'"
+                pButton
+                type="button"
+                text
+                rounded
+                severity="warn"
+                icon="pi pi-ban"
+                aria-label="Revocar permiso"
+                pTooltip="Revocar"
+                (click)="revoke(row)"
+              ></button>
+            } @else {
+              <button
+                *appHasPermission="'PATCH /api/concesiones-rol/:id/reactivate'"
+                pButton
+                type="button"
+                text
+                rounded
+                severity="success"
+                icon="pi pi-replay"
+                aria-label="Reactivar permiso"
+                pTooltip="Reactivar"
+                (click)="restore(row)"
+              ></button>
+            }
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+
+    <ng-template #emptymessage>
+      <tr>
+        <td colspan="5">
+          <app-empty-state
+            icon="pi pi-lock-open"
+            title="Sin concesiones"
+            message="Ninguna concesión coincide con el filtro. Usa «Conceder permiso» para crear una."
+          />
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-dialog
+  [visible]="dialogVisible()"
+  (visibleChange)="dialogVisible.set($event)"
+  header="Conceder permiso"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [dismissableMask]="true"
+  styleClass="w-full max-w-2xl mx-4"
+>
+  <div class="space-y-4">
+    <div>
+      <label for="grant-role" class="mb-1 block text-sm font-medium text-slate-700">
+        Rol <span class="text-red-500">*</span>
+      </label>
+      <p-select
+        inputId="grant-role"
+        [options]="roleOptions()"
+        optionLabel="label"
+        optionValue="id"
+        placeholder="Selecciona un rol activo"
+        appendTo="body"
+        [fluid]="true"
+        [ngModel]="selectedRole()"
+        (ngModelChange)="selectedRole.set($event)"
+      />
+    </div>
+
+    <div>
+      <label for="grant-resource" class="mb-1 block text-sm font-medium text-slate-700">
+        Recurso <span class="text-red-500">*</span>
+      </label>
+      <p-select
+        inputId="grant-resource"
+        [options]="resourceOptions()"
+        optionLabel="path"
+        optionValue="id"
+        placeholder="Selecciona un recurso activo"
+        [filter]="true"
+        filterBy="path,method"
+        appendTo="body"
+        [fluid]="true"
+        [ngModel]="selectedResource()"
+        (ngModelChange)="selectedResource.set($event)"
+      >
+        <ng-template #selectedItem let-resource>
+          <span class="flex items-center gap-2">
+            <p-tag [value]="resource.method" [severity]="methodSeverity(resource.method)" [rounded]="true" />
+            <code class="text-xs">{{ resource.path }}</code>
+          </span>
+        </ng-template>
+        <ng-template #item let-resource>
+          <span class="flex items-center gap-2">
+            <p-tag [value]="resource.method" [severity]="methodSeverity(resource.method)" [rounded]="true" />
+            <code class="text-xs">{{ resource.path }}</code>
+          </span>
+        </ng-template>
+      </p-select>
+    </div>
+
+    <div class="flex justify-end gap-2 border-t border-slate-100 pt-4">
+      <button pButton type="button" severity="secondary" outlined (click)="dialogVisible.set(false)">
+        <span pButtonLabel>Cancelar</span>
+      </button>
+      <button pButton type="button" [loading]="saving()" [disabled]="!canSave()" (click)="grant()">
+        <i pButtonIcon class="pi pi-check"></i>
+        <span pButtonLabel>Conceder</span>
+      </button>
+    </div>
+  </div>
+</p-dialog>

@@ -1,0 +1,78 @@
+<form [formGroup]="form" (ngSubmit)="submit()" class="space-y-4">
+  <div class="grid gap-4 sm:grid-cols-3">
+    <div>
+      <label for="resource-method" class="mb-1 block text-sm font-medium text-slate-700">
+        Método <span class="text-red-500">*</span>
+      </label>
+      <p-select
+        inputId="resource-method"
+        formControlName="method"
+        [options]="methodOptions"
+        optionLabel="label"
+        optionValue="value"
+        appendTo="body"
+        [fluid]="true"
+      />
+    </div>
+
+    <div class="sm:col-span-2">
+      <label for="resource-path" class="mb-1 block text-sm font-medium text-slate-700">
+        Ruta <span class="text-red-500">*</span>
+      </label>
+      <input
+        id="resource-path"
+        pInputText
+        formControlName="path"
+        placeholder="/api/pagos/:id"
+        class="w-full font-mono"
+      />
+      @if (form.controls.path.touched && form.controls.path.invalid) {
+        <p-message severity="error" size="small" variant="simple" styleClass="mt-1">
+          La ruta debe empezar por «/» y no puede llevar espacios.
+        </p-message>
+      }
+    </div>
+  </div>
+
+  <div>
+    <label for="resource-description" class="mb-1 block text-sm font-medium text-slate-700">
+      Descripción
+    </label>
+    <input id="resource-description" pInputText formControlName="description" class="w-full" />
+  </div>
+
+  @if (!resource()) {
+    <div>
+      <label for="resource-status" class="mb-1 block text-sm font-medium text-slate-700">
+        Estado
+      </label>
+      <p-select
+        inputId="resource-status"
+        formControlName="status"
+        [options]="statusOptions"
+        optionLabel="label"
+        optionValue="value"
+        appendTo="body"
+        [fluid]="true"
+      />
+    </div>
+  } @else {
+    <p class="text-xs text-amber-600">
+      Cambiar el método o la ruta cambia lo que autorizan las concesiones que ya usan este recurso.
+    </p>
+  }
+
+  <p class="text-xs text-slate-500">
+    Para rutas con parámetro usa <code>:id</code>. El método se guarda en mayúsculas.
+  </p>
+
+  <div class="flex justify-end gap-2 border-t border-slate-100 pt-4">
+    <button pButton type="button" severity="secondary" outlined (click)="cancelled.emit()">
+      <span pButtonLabel>Cancelar</span>
+    </button>
+    <button pButton type="submit" [loading]="saving()">
+      <i pButtonIcon class="pi pi-check"></i>
+      <span pButtonLabel>Guardar</span>
+    </button>
+  </div>
+</form>
